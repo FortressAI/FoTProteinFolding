@@ -1,0 +1,130 @@
+# FoT Protein Folding - Publication Repository
+# ============================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Temporary analysis results
+*_results/
+*_discoveries/
+demo_calibration_results/
+publication_pipeline_results/
+calibration_results/
+analysis_results/
+variant_sweep_results/
+daemon_discoveries/
+
+# Log files
+*.log
+daemon_*.log
+discovery_*.log
+
+# Generated data files
+*.json
+!requirements.json
+!package.json
+
+# Generated plots and figures
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.svg
+
+# Temporary files
+*.tmp
+*.temp
+*~
+.DS_Store
+._.DS_Store
+**/.DS_Store
+**/._.DS_Store
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Scientific computation temporary files
+*.h5
+*.hdf5
+*.nc
+*.npy
+*.npz
+
+# Configuration files with sensitive info
+config.yaml
+secrets.yml
+.env.local
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Documentation builds
+docs/_build/
+site/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Keep essential configuration
+!.gitignore
+!README.md
+!requirements.txt
+!setup.py
+!PUBLICATION_SUMMARY.md

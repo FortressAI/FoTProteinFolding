@@ -1,0 +1,780 @@
+@prefix fot: <http://fieldoftruth.org/protein/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+
+# FoT Protein Folding Ontology - Complete Domain Model
+# This ontology captures the complete Field of Truth methodology for protein folding
+
+<http://fieldoftruth.org/protein/> rdf:type owl:Ontology ;
+    dcterms:title "Field of Truth Protein Folding Ontology" ;
+    dcterms:description "Comprehensive ontology for quantum-inspired protein folding with virtue-weighted sampling" ;
+    dcterms:creator "FoT Research Team" ;
+    dcterms:created "2024-01-01"^^xsd:date ;
+    owl:versionInfo "1.0" .
+
+#################################################################
+# CORE FoT CONCEPTS
+#################################################################
+
+# vQbit - Quantum-inspired bit representation
+fot:vQbit rdf:type owl:Class ;
+    rdfs:label "Virtual Quantum Bit" ;
+    rdfs:comment "Quantum-inspired discrete state representation for protein conformational space" .
+
+# Field of Truth - The fundamental organizing principle
+fot:FieldOfTruth rdf:type owl:Class ;
+    rdfs:label "Field of Truth" ;
+    rdfs:comment "Coherent field representation where multiple folding pathways coexist" .
+
+# Virtue - Core ethical/physical constraint principles
+fot:Virtue rdf:type owl:Class ;
+    rdfs:label "Virtue" ;
+    rdfs:comment "Fundamental principle guiding conformational sampling" .
+
+fot:Justice rdf:type owl:Class ;
+    rdfs:subClassOf fot:Virtue ;
+    rdfs:label "Justice" ;
+    rdfs:comment "Physical law enforcement - no violations of physics" .
+
+fot:Honesty rdf:type owl:Class ;
+    rdfs:subClassOf fot:Virtue ;
+    rdfs:label "Honesty" ;
+    rdfs:comment "Experimental data consistency - truth to observations" .
+
+fot:Temperance rdf:type owl:Class ;
+    rdfs:subClassOf fot:Virtue ;
+    rdfs:label "Temperance" ;
+    rdfs:comment "Computational stability and convergence" .
+
+fot:Prudence rdf:type owl:Class ;
+    rdfs:subClassOf fot:Virtue ;
+    rdfs:label "Prudence" ;
+    rdfs:comment "Computational efficiency and resource optimization" .
+
+#################################################################
+# PROTEIN STRUCTURE HIERARCHY
+#################################################################
+
+# Protein - Top level biological entity
+fot:Protein rdf:type owl:Class ;
+    rdfs:label "Protein" ;
+    rdfs:comment "Complete protein entity with sequence and structural properties" .
+
+# Peptide Chain
+fot:PeptideChain rdf:type owl:Class ;
+    rdfs:label "Peptide Chain" ;
+    rdfs:comment "Linear sequence of amino acid residues" .
+
+# Amino Acid Residue
+fot:Residue rdf:type owl:Class ;
+    rdfs:label "Amino Acid Residue" ;
+    rdfs:comment "Individual amino acid within protein sequence" .
+
+# Specific amino acids
+fot:Alanine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Arginine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Asparagine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:AsparticAcid rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Cysteine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:GlutamicAcid rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Glutamine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Glycine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Histidine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Isoleucine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Leucine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Lysine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Methionine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Phenylalanine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Proline rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Serine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Threonine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Tryptophan rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Tyrosine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+fot:Valine rdf:type owl:Class ; rdfs:subClassOf fot:Residue .
+
+# Atoms
+fot:Atom rdf:type owl:Class ;
+    rdfs:label "Atom" ;
+    rdfs:comment "Individual atom within residue" .
+
+#################################################################
+# CONFORMATIONAL SPACE
+#################################################################
+
+# Conformation - Complete 3D structure
+fot:Conformation rdf:type owl:Class ;
+    rdfs:label "Conformation" ;
+    rdfs:comment "Complete 3D structural state of protein" .
+
+# Torsion Angles
+fot:TorsionAngle rdf:type owl:Class ;
+    rdfs:label "Torsion Angle" ;
+    rdfs:comment "Dihedral angle defining backbone or side-chain geometry" .
+
+fot:PhiAngle rdf:type owl:Class ;
+    rdfs:subClassOf fot:TorsionAngle ;
+    rdfs:label "Phi Angle" ;
+    rdfs:comment "Backbone dihedral angle N-CA-C-N" .
+
+fot:PsiAngle rdf:type owl:Class ;
+    rdfs:subClassOf fot:TorsionAngle ;
+    rdfs:label "Psi Angle" ;
+    rdfs:comment "Backbone dihedral angle CA-C-N-CA" .
+
+fot:ChiAngle rdf:type owl:Class ;
+    rdfs:subClassOf fot:TorsionAngle ;
+    rdfs:label "Chi Angle" ;
+    rdfs:comment "Side-chain dihedral angle" .
+
+# Secondary Structure
+fot:SecondaryStructure rdf:type owl:Class ;
+    rdfs:label "Secondary Structure" ;
+    rdfs:comment "Local structural motif" .
+
+fot:AlphaHelix rdf:type owl:Class ; rdfs:subClassOf fot:SecondaryStructure .
+fot:BetaSheet rdf:type owl:Class ; rdfs:subClassOf fot:SecondaryStructure .
+fot:BetaStrand rdf:type owl:Class ; rdfs:subClassOf fot:SecondaryStructure .
+fot:RandomCoil rdf:type owl:Class ; rdfs:subClassOf fot:SecondaryStructure .
+fot:Turn rdf:type owl:Class ; rdfs:subClassOf fot:SecondaryStructure .
+fot:Loop rdf:type owl:Class ; rdfs:subClassOf fot:SecondaryStructure .
+
+#################################################################
+# CHEMICAL BONDS AND INTERACTIONS
+#################################################################
+
+# Bond - Chemical connection between atoms
+fot:Bond rdf:type owl:Class ;
+    rdfs:label "Chemical Bond" ;
+    rdfs:comment "Chemical bond between atoms" .
+
+fot:CovalentBond rdf:type owl:Class ; rdfs:subClassOf fot:Bond .
+fot:PeptideBond rdf:type owl:Class ; rdfs:subClassOf fot:CovalentBond .
+fot:DisulfideBond rdf:type owl:Class ; rdfs:subClassOf fot:CovalentBond .
+
+# Non-covalent interactions
+fot:NonCovalentInteraction rdf:type owl:Class ;
+    rdfs:label "Non-Covalent Interaction" ;
+    rdfs:comment "Weak interaction between atoms/residues" .
+
+fot:HydrogenBond rdf:type owl:Class ; rdfs:subClassOf fot:NonCovalentInteraction .
+fot:VanDerWaalsInteraction rdf:type owl:Class ; rdfs:subClassOf fot:NonCovalentInteraction .
+fot:HydrophobicInteraction rdf:type owl:Class ; rdfs:subClassOf fot:NonCovalentInteraction .
+fot:ElectrostaticInteraction rdf:type owl:Class ; rdfs:subClassOf fot:NonCovalentInteraction .
+fot:AromaticStacking rdf:type owl:Class ; rdfs:subClassOf fot:NonCovalentInteraction .
+
+#################################################################
+# EXPERIMENTAL DATA AND CONSTRAINTS
+#################################################################
+
+# Experimental Constraint
+fot:ExperimentalConstraint rdf:type owl:Class ;
+    rdfs:label "Experimental Constraint" ;
+    rdfs:comment "Constraint derived from experimental measurement" .
+
+# NMR Constraints
+fot:NMRConstraint rdf:type owl:Class ;
+    rdfs:subClassOf fot:ExperimentalConstraint ;
+    rdfs:label "NMR Constraint" ;
+    rdfs:comment "Constraint from Nuclear Magnetic Resonance experiments" .
+
+fot:NOEConstraint rdf:type owl:Class ;
+    rdfs:subClassOf fot:NMRConstraint ;
+    rdfs:label "NOE Distance Constraint" ;
+    rdfs:comment "Nuclear Overhauser Effect distance constraint" .
+
+fot:ChemicalShift rdf:type owl:Class ;
+    rdfs:subClassOf fot:NMRConstraint ;
+    rdfs:label "Chemical Shift" ;
+    rdfs:comment "NMR chemical shift measurement" .
+
+# X-ray Crystallography
+fot:CrystalStructure rdf:type owl:Class ;
+    rdfs:subClassOf fot:ExperimentalConstraint ;
+    rdfs:label "Crystal Structure" ;
+    rdfs:comment "Constraint from X-ray crystallography" .
+
+#################################################################
+# ENERGY AND THERMODYNAMICS
+#################################################################
+
+# Energy - Thermodynamic property
+fot:Energy rdf:type owl:Class ;
+    rdfs:label "Energy" ;
+    rdfs:comment "Thermodynamic energy of system" .
+
+fot:PotentialEnergy rdf:type owl:Class ; rdfs:subClassOf fot:Energy .
+fot:KineticEnergy rdf:type owl:Class ; rdfs:subClassOf fot:Energy .
+fot:FreeEnergy rdf:type owl:Class ; rdfs:subClassOf fot:Energy .
+fot:BindingEnergy rdf:type owl:Class ; rdfs:subClassOf fot:Energy .
+
+# Energy Components
+fot:EnergyComponent rdf:type owl:Class ;
+    rdfs:label "Energy Component" ;
+    rdfs:comment "Individual component of total system energy" .
+
+fot:BondedEnergy rdf:type owl:Class ; rdfs:subClassOf fot:EnergyComponent .
+fot:NonBondedEnergy rdf:type owl:Class ; rdfs:subClassOf fot:EnergyComponent .
+fot:SolvationEnergy rdf:type owl:Class ; rdfs:subClassOf fot:EnergyComponent .
+fot:ElectrostaticEnergy rdf:type owl:Class ; rdfs:subClassOf fot:EnergyComponent .
+
+#################################################################
+# SAMPLING AND SIMULATION
+#################################################################
+
+# Sampling Algorithm
+fot:SamplingAlgorithm rdf:type owl:Class ;
+    rdfs:label "Sampling Algorithm" ;
+    rdfs:comment "Algorithm for exploring conformational space" .
+
+fot:QuantumInspiredSampling rdf:type owl:Class ;
+    rdfs:subClassOf fot:SamplingAlgorithm ;
+    rdfs:label "Quantum-Inspired Sampling" ;
+    rdfs:comment "Quantum-inspired conformational sampling" .
+
+fot:GroverAmplification rdf:type owl:Class ;
+    rdfs:subClassOf fot:QuantumInspiredSampling ;
+    rdfs:label "Grover Amplitude Amplification" ;
+    rdfs:comment "Grover-like amplitude amplification for conformational search" .
+
+fot:CounterdiabaticEvolution rdf:type owl:Class ;
+    rdfs:subClassOf fot:QuantumInspiredSampling ;
+    rdfs:label "Counterdiabatic Evolution" ;
+    rdfs:comment "Counterdiabatic quantum evolution for sampling" .
+
+# Sampling Trajectory
+fot:SamplingTrajectory rdf:type owl:Class ;
+    rdfs:label "Sampling Trajectory" ;
+    rdfs:comment "Sequence of conformational states during sampling" .
+
+fot:SamplingStep rdf:type owl:Class ;
+    rdfs:label "Sampling Step" ;
+    rdfs:comment "Individual step in sampling trajectory" .
+
+# Ensemble
+fot:ConformationalEnsemble rdf:type owl:Class ;
+    rdfs:label "Conformational Ensemble" ;
+    rdfs:comment "Collection of conformational states" .
+
+#################################################################
+# DISEASE AND PATHOLOGY
+#################################################################
+
+# Disease-related concepts
+fot:ProteinMisfolding rdf:type owl:Class ;
+    rdfs:label "Protein Misfolding" ;
+    rdfs:comment "Aberrant protein folding leading to disease" .
+
+fot:Aggregation rdf:type owl:Class ;
+    rdfs:label "Protein Aggregation" ;
+    rdfs:comment "Formation of protein aggregates" .
+
+fot:Amyloid rdf:type owl:Class ;
+    rdfs:subClassOf fot:Aggregation ;
+    rdfs:label "Amyloid" ;
+    rdfs:comment "Cross-beta sheet protein aggregates" .
+
+fot:ToxicOligomer rdf:type owl:Class ;
+    rdfs:subClassOf fot:Aggregation ;
+    rdfs:label "Toxic Oligomer" ;
+    rdfs:comment "Small toxic protein aggregates" .
+
+fot:AmyloidFibril rdf:type owl:Class ;
+    rdfs:subClassOf fot:Amyloid ;
+    rdfs:label "Amyloid Fibril" ;
+    rdfs:comment "Large amyloid fiber structures" .
+
+# Specific diseases
+fot:AlzheimersDisease rdf:type owl:Class ;
+    rdfs:label "Alzheimer's Disease" ;
+    rdfs:comment "Neurodegenerative disease involving amyloid beta" .
+
+fot:CysticFibrosis rdf:type owl:Class ;
+    rdfs:label "Cystic Fibrosis" ;
+    rdfs:comment "Disease caused by CFTR protein misfolding" .
+
+#################################################################
+# COMPUTATIONAL INFRASTRUCTURE
+#################################################################
+
+# Hardware and Computing
+fot:ComputationalResource rdf:type owl:Class ;
+    rdfs:label "Computational Resource" ;
+    rdfs:comment "Hardware or software resource for computation" .
+
+fot:GPUCore rdf:type owl:Class ;
+    rdfs:subClassOf fot:ComputationalResource ;
+    rdfs:label "GPU Core" ;
+    rdfs:comment "Graphics processing unit core" .
+
+fot:CPUCore rdf:type owl:Class ;
+    rdfs:subClassOf fot:ComputationalResource ;
+    rdfs:label "CPU Core" ;
+    rdfs:comment "Central processing unit core" .
+
+fot:UnifiedMemory rdf:type owl:Class ;
+    rdfs:subClassOf fot:ComputationalResource ;
+    rdfs:label "Unified Memory" ;
+    rdfs:comment "Shared memory accessible by CPU and GPU" .
+
+# Deterministic Computing
+fot:DeterministicComputation rdf:type owl:Class ;
+    rdfs:label "Deterministic Computation" ;
+    rdfs:comment "Computation with reproducible results" .
+
+fot:RandomSeed rdf:type owl:Class ;
+    rdfs:label "Random Seed" ;
+    rdfs:comment "Seed for pseudorandom number generation" .
+
+fot:ComputationalHash rdf:type owl:Class ;
+    rdfs:label "Computational Hash" ;
+    rdfs:comment "Cryptographic hash of computational state" .
+
+#################################################################
+# VIRTUE AGENTS
+#################################################################
+
+# Virtue Agent - Autonomous agent embodying a virtue
+fot:VirtueAgent rdf:type owl:Class ;
+    rdfs:label "Virtue Agent" ;
+    rdfs:comment "Autonomous agent that evaluates conformations according to virtue principles" .
+
+fot:JusticeAgent rdf:type owl:Class ;
+    rdfs:subClassOf fot:VirtueAgent ;
+    rdfs:label "Justice Agent" ;
+    rdfs:comment "Agent enforcing physical laws and constraints" .
+
+fot:HonestyAgent rdf:type owl:Class ;
+    rdfs:subClassOf fot:VirtueAgent ;
+    rdfs:label "Honesty Agent" ;
+    rdfs:comment "Agent validating experimental consistency" .
+
+fot:TemperanceAgent rdf:type owl:Class ;
+    rdfs:subClassOf fot:VirtueAgent ;
+    rdfs:label "Temperance Agent" ;
+    rdfs:comment "Agent monitoring computational stability" .
+
+fot:PrudenceAgent rdf:type owl:Class ;
+    rdfs:subClassOf fot:VirtueAgent ;
+    rdfs:label "Prudence Agent" ;
+    rdfs:comment "Agent optimizing computational efficiency" .
+
+#################################################################
+# AGENTIC KNOWLEDGE GRAPH
+#################################################################
+
+# Knowledge Graph Node
+fot:KnowledgeNode rdf:type owl:Class ;
+    rdfs:label "Knowledge Node" ;
+    rdfs:comment "Node in the Agentic Knowledge Graph" .
+
+fot:ResidueNode rdf:type owl:Class ;
+    rdfs:subClassOf fot:KnowledgeNode ;
+    rdfs:label "Residue Node" ;
+    rdfs:comment "Knowledge graph node representing a residue" .
+
+fot:ConstraintNode rdf:type owl:Class ;
+    rdfs:subClassOf fot:KnowledgeNode ;
+    rdfs:label "Constraint Node" ;
+    rdfs:comment "Knowledge graph node representing a constraint" .
+
+fot:PathologyNode rdf:type owl:Class ;
+    rdfs:subClassOf fot:KnowledgeNode ;
+    rdfs:label "Pathology Node" ;
+    rdfs:comment "Knowledge graph node representing disease state" .
+
+fot:TherapeuticNode rdf:type owl:Class ;
+    rdfs:subClassOf fot:KnowledgeNode ;
+    rdfs:label "Therapeutic Node" ;
+    rdfs:comment "Knowledge graph node representing therapeutic intervention" .
+
+#################################################################
+# PROVENANCE AND REPRODUCIBILITY
+#################################################################
+
+# Provenance entities (using PROV ontology patterns)
+fot:ProvenanceEntity rdf:type owl:Class ;
+    rdfs:subClassOf prov:Entity ;
+    rdfs:label "Provenance Entity" ;
+    rdfs:comment "Entity with tracked provenance" .
+
+fot:ComputationActivity rdf:type owl:Class ;
+    rdfs:subClassOf prov:Activity ;
+    rdfs:label "Computation Activity" ;
+    rdfs:comment "Computational activity with tracked provenance" .
+
+fot:SoftwareAgent rdf:type owl:Class ;
+    rdfs:subClassOf prov:SoftwareAgent ;
+    rdfs:label "Software Agent" ;
+    rdfs:comment "Software component with tracked provenance" .
+
+#################################################################
+# OBJECT PROPERTIES (RELATIONSHIPS)
+#################################################################
+
+# Structural relationships
+fot:hasResidue rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Protein ;
+    rdfs:range fot:Residue ;
+    rdfs:label "has residue" .
+
+fot:hasAtom rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:Atom ;
+    rdfs:label "has atom" .
+
+fot:hasConformation rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Protein ;
+    rdfs:range fot:Conformation ;
+    rdfs:label "has conformation" .
+
+fot:hasSecondaryStructure rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:SecondaryStructure ;
+    rdfs:label "has secondary structure" .
+
+fot:hasTorsionAngle rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:TorsionAngle ;
+    rdfs:label "has torsion angle" .
+
+# Sequential relationships
+fot:nextResidue rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:Residue ;
+    rdfs:label "next residue" ;
+    rdf:type owl:FunctionalProperty .
+
+fot:previousResidue rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:Residue ;
+    rdfs:label "previous residue" ;
+    rdf:type owl:FunctionalProperty ;
+    owl:inverseOf fot:nextResidue .
+
+# Bond relationships
+fot:bondedTo rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Atom ;
+    rdfs:range fot:Atom ;
+    rdfs:label "bonded to" ;
+    rdf:type owl:SymmetricProperty .
+
+fot:covalentBondTo rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf fot:bondedTo ;
+    rdfs:label "covalent bond to" .
+
+fot:disulfideBondTo rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf fot:covalentBondTo ;
+    rdfs:domain fot:Cysteine ;
+    rdfs:range fot:Cysteine ;
+    rdfs:label "disulfide bond to" .
+
+# Interaction relationships
+fot:interactsWith rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:Residue ;
+    rdfs:label "interacts with" ;
+    rdf:type owl:SymmetricProperty .
+
+fot:hydrogenBondTo rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf fot:interactsWith ;
+    rdfs:label "hydrogen bond to" .
+
+fot:hydrophobicInteractionWith rdf:type owl:ObjectProperty ;
+    rdfs:subPropertyOf fot:interactsWith ;
+    rdfs:label "hydrophobic interaction with" .
+
+# Constraint relationships
+fot:constrainedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:ExperimentalConstraint ;
+    rdfs:label "constrained by" .
+
+fot:satisfies rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:ExperimentalConstraint ;
+    rdfs:label "satisfies" .
+
+fot:violates rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:ExperimentalConstraint ;
+    rdfs:label "violates" .
+
+# Virtue evaluation relationships
+fot:evaluatedBy rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:VirtueAgent ;
+    rdfs:label "evaluated by" .
+
+fot:embodiesVirtue rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:VirtueAgent ;
+    rdfs:range fot:Virtue ;
+    rdfs:label "embodies virtue" .
+
+# Sampling relationships
+fot:evolvesTo rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:Conformation ;
+    rdfs:label "evolves to" .
+
+fot:belongsToEnsemble rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:ConformationalEnsemble ;
+    rdfs:label "belongs to ensemble" .
+
+fot:generatedByStep rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range fot:SamplingStep ;
+    rdfs:label "generated by step" .
+
+# vQbit relationships
+fot:hasVQbit rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range fot:vQbit ;
+    rdfs:label "has vQbit" .
+
+fot:entangledWith rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:vQbit ;
+    rdfs:range fot:vQbit ;
+    rdfs:label "entangled with" ;
+    rdf:type owl:SymmetricProperty .
+
+# Knowledge graph relationships
+fot:hasKnowledgeNode rdf:type owl:ObjectProperty ;
+    rdfs:range fot:KnowledgeNode ;
+    rdfs:label "has knowledge node" .
+
+fot:connectsTo rdf:type owl:ObjectProperty ;
+    rdfs:domain fot:KnowledgeNode ;
+    rdfs:range fot:KnowledgeNode ;
+    rdfs:label "connects to" .
+
+#################################################################
+# DATA PROPERTIES (ATTRIBUTES)
+#################################################################
+
+# Identifiers
+fot:hasSequencePosition rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:label "has sequence position" .
+
+fot:hasUniProtID rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Protein ;
+    rdfs:range xsd:string ;
+    rdfs:label "has UniProt ID" .
+
+fot:hasPDBID rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:CrystalStructure ;
+    rdfs:range xsd:string ;
+    rdfs:label "has PDB ID" .
+
+# Sequence properties
+fot:hasSequence rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Protein ;
+    rdfs:range xsd:string ;
+    rdfs:label "has sequence" .
+
+fot:hasLength rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Protein ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:label "has length" .
+
+fot:hasAminoAcidCode rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range xsd:string ;
+    rdfs:label "has amino acid code" .
+
+# Geometric properties
+fot:hasDistance rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:double ;
+    rdfs:label "has distance" .
+
+fot:hasAngle rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:TorsionAngle ;
+    rdfs:range xsd:double ;
+    rdfs:label "has angle" .
+
+fot:hasPhiAngle rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range xsd:double ;
+    rdfs:label "has phi angle" .
+
+fot:hasPsiAngle rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Residue ;
+    rdfs:range xsd:double ;
+    rdfs:label "has psi angle" .
+
+fot:hasCoordinates rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Atom ;
+    rdfs:range xsd:string ;
+    rdfs:label "has coordinates" .
+
+# Energy properties
+fot:hasEnergy rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range xsd:double ;
+    rdfs:label "has energy" .
+
+fot:hasPotentialEnergy rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:double ;
+    rdfs:label "has potential energy" .
+
+fot:hasFreeEnergy rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:double ;
+    rdfs:label "has free energy" .
+
+# Virtue scores
+fot:hasVirtueScore rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:double ;
+    rdfs:label "has virtue score" .
+
+fot:hasJusticeScore rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf fot:hasVirtueScore ;
+    rdfs:label "has justice score" .
+
+fot:hasHonestyScore rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf fot:hasVirtueScore ;
+    rdfs:label "has honesty score" .
+
+fot:hasTemperanceScore rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf fot:hasVirtueScore ;
+    rdfs:label "has temperance score" .
+
+fot:hasPrudenceScore rdf:type owl:DatatypeProperty ;
+    rdfs:subPropertyOf fot:hasVirtueScore ;
+    rdfs:label "has prudence score" .
+
+# Constraint properties
+fot:hasLowerBound rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:NOEConstraint ;
+    rdfs:range xsd:double ;
+    rdfs:label "has lower bound" .
+
+fot:hasUpperBound rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:NOEConstraint ;
+    rdfs:range xsd:double ;
+    rdfs:label "has upper bound" .
+
+fot:hasChemicalShiftValue rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:ChemicalShift ;
+    rdfs:range xsd:double ;
+    rdfs:label "has chemical shift value" .
+
+# Sampling properties
+fot:hasStepNumber rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:SamplingStep ;
+    rdfs:range xsd:nonNegativeInteger ;
+    rdfs:label "has step number" .
+
+fot:hasAmplitude rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range xsd:double ;
+    rdfs:label "has amplitude" .
+
+fot:hasProbability rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:Conformation ;
+    rdfs:range xsd:double ;
+    rdfs:label "has probability" .
+
+# Computational properties
+fot:hasRandomSeed rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:DeterministicComputation ;
+    rdfs:range xsd:long ;
+    rdfs:label "has random seed" .
+
+fot:hasComputationalHash rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:DeterministicComputation ;
+    rdfs:range xsd:string ;
+    rdfs:label "has computational hash" .
+
+fot:hasTimestamp rdf:type owl:DatatypeProperty ;
+    rdfs:range xsd:dateTime ;
+    rdfs:label "has timestamp" .
+
+# Hardware properties
+fot:hasMemorySize rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:UnifiedMemory ;
+    rdfs:range xsd:long ;
+    rdfs:label "has memory size" .
+
+fot:hasCoreCount rdf:type owl:DatatypeProperty ;
+    rdfs:domain fot:GPUCore ;
+    rdfs:range xsd:positiveInteger ;
+    rdfs:label "has core count" .
+
+#################################################################
+# CONSTRAINTS AND AXIOMS
+#################################################################
+
+# Domain constraints
+[] rdf:type owl:Restriction ;
+   owl:onProperty fot:hasSequencePosition ;
+   owl:allValuesFrom xsd:positiveInteger ;
+   rdfs:subClassOf fot:Residue .
+
+[] rdf:type owl:Restriction ;
+   owl:onProperty fot:hasVirtueScore ;
+   owl:allValuesFrom [ rdf:type rdfs:Datatype ;
+                       owl:onDatatype xsd:double ;
+                       owl:withRestrictions ( [ xsd:minInclusive 0.0 ]
+                                            [ xsd:maxInclusive 1.0 ] ) ] ;
+   rdfs:subClassOf fot:Conformation .
+
+# Cardinality constraints
+[] rdf:type owl:Restriction ;
+   owl:onProperty fot:nextResidue ;
+   owl:maxCardinality 1 ;
+   rdfs:subClassOf fot:Residue .
+
+[] rdf:type owl:Restriction ;
+   owl:onProperty fot:previousResidue ;
+   owl:maxCardinality 1 ;
+   rdfs:subClassOf fot:Residue .
+
+# Disjoint classes
+fot:AlphaHelix owl:disjointWith fot:BetaSheet, fot:RandomCoil .
+fot:BetaSheet owl:disjointWith fot:RandomCoil .
+
+# Equivalent classes for amino acids with standard codes
+fot:Alanine owl:equivalentClass [ rdf:type owl:Restriction ;
+                                 owl:onProperty fot:hasAminoAcidCode ;
+                                 owl:hasValue "A" ] .
+
+fot:Cysteine owl:equivalentClass [ rdf:type owl:Restriction ;
+                                  owl:onProperty fot:hasAminoAcidCode ;
+                                  owl:hasValue "C" ] .
+
+# Add similar equivalencies for all amino acids...
+
+#################################################################
+# SPECIFIC PROTEIN INSTANCES
+#################################################################
+
+# Amyloid Beta 42
+fot:AmyloidBeta42 rdf:type fot:Protein ;
+    fot:hasUniProtID "P05067" ;
+    fot:hasSequence "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA" ;
+    fot:hasLength 42 ;
+    rdfs:label "Amyloid Beta 42" ;
+    rdfs:comment "42-residue amyloid beta peptide implicated in Alzheimer's disease" .
+
+# Insulin chains
+fot:InsulinChainA rdf:type fot:Protein ;
+    fot:hasSequence "GIVEQCCTSICSLYQLENYCN" ;
+    fot:hasLength 21 ;
+    rdfs:label "Insulin Chain A" .
+
+fot:InsulinChainB rdf:type fot:Protein ;
+    fot:hasSequence "FVNQHLCGSHLVEALYLVCGERGFFYTPKT" ;
+    fot:hasLength 30 ;
+    rdfs:label "Insulin Chain B" .
+
+# CFTR NBD1 domain
+fot:CFTR_NBD1 rdf:type fot:Protein ;
+    fot:hasUniProtID "P13569" ;
+    rdfs:label "CFTR Nucleotide Binding Domain 1" ;
+    rdfs:comment "First nucleotide binding domain of CFTR protein" .
