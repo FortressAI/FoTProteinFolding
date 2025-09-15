@@ -1,0 +1,3224 @@
+{
+  "analysis_timestamp": "2024-09-15T12:50:00",
+  "summary_statistics": {
+    "total_discoveries": 66,
+    "novel_discoveries": 43,
+    "medium_value": 45,
+    "publication_ready": 34,
+    "low_value": 16,
+    "high_value": 5
+  },
+  "top_candidates": [
+    {
+      "file": "therapeutic_discovery_20250915_123847.json",
+      "sequence": "FFGHRMYLLEWKGLVFFAQGGHDCEAFR",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:38:47.491201",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.9155582967697934,
+        "metrics": {
+          "therapeutic_potential": 0.9622807773865649,
+          "physics_validation": 1.0,
+          "druggability": 0.6428571428571429,
+          "confidence": 0.9886842332159694,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124805.json",
+      "sequence": "TFFMVGGVVHSLLFPESDSRWKLVFFARCGFFLDSLDVIGQWIV",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:48:05.237991",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.9180227272727273,
+        "metrics": {
+          "therapeutic_potential": 0.9863636363636364,
+          "physics_validation": 1.0,
+          "druggability": 0.6136363636363636,
+          "confidence": 0.9959090909090909,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124535.json",
+      "sequence": "CASFFVLVFFACYRKCLDCFAEDVFQPAANNHFARYIIV",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:35.781795",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.8932051282051282,
+        "metrics": {
+          "therapeutic_potential": 0.9059829059829061,
+          "physics_validation": 1.0,
+          "druggability": 0.6282051282051282,
+          "confidence": 0.9717948717948718,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124545.json",
+      "sequence": "FFMRFAEDVQEKLVFFIIECIKLLCGKLVFFQALVFFAVVR",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:45:45.883025",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.9144268292682927,
+        "metrics": {
+          "therapeutic_potential": 0.9682926829268292,
+          "physics_validation": 1.0,
+          "druggability": 0.6268292682926829,
+          "confidence": 0.9904878048780488,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124529.json",
+      "sequence": "GGFAEDVNHEKDQVPFDIYLVVMISR",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:29.914449",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.8857548535573215,
+        "metrics": {
+          "therapeutic_potential": 0.8851311251382789,
+          "physics_validation": 1.0,
+          "druggability": 0.6269230769230769,
+          "confidence": 0.9655393375414836,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124822.json",
+      "sequence": "GYPKLVFFLVVHSMSEHQVVTAQKGGIRR",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:48:22.364473",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8648617504434578,
+        "metrics": {
+          "therapeutic_potential": 0.926136008281887,
+          "physics_validation": 1.0,
+          "druggability": 0.4517241379310345,
+          "confidence": 0.9778408024845661,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124526.json",
+      "sequence": "WKHIISQNAQNHFFYHKFFLWYPWNMVGGVVLLE",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:26.902370",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8646470588235294,
+        "metrics": {
+          "therapeutic_potential": 0.8941176470588236,
+          "physics_validation": 1.0,
+          "druggability": 0.5058823529411764,
+          "confidence": 0.9682352941176471,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125024.json",
+      "sequence": "PCFFLFGAIIGLAALLCGGFFAEDVCYIISY",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:50:24.414763",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.9038709677419355,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5193548387096774,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124603.json",
+      "sequence": "CLVFFAGAIIGLRLALLVVPLYAAEAVVFKPKF",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:46:03.649368",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8963636363636365,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.4818181818181818,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124814.json",
+      "sequence": "CYVFECKLVFFGGFFMCNYFIKFFGGAIIGLMFFG",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:48:14.453371",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8727142857142857,
+        "metrics": {
+          "therapeutic_potential": 0.9142857142857143,
+          "physics_validation": 1.0,
+          "druggability": 0.5114285714285715,
+          "confidence": 0.9742857142857142,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    }
+  ],
+  "all_analyses": [
+    {
+      "file": "therapeutic_discovery_20250915_123847.json",
+      "sequence": "FFGHRMYLLEWKGLVFFAQGGHDCEAFR",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:38:47.491201",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.9155582967697934,
+        "metrics": {
+          "therapeutic_potential": 0.9622807773865649,
+          "physics_validation": 1.0,
+          "druggability": 0.6428571428571429,
+          "confidence": 0.9886842332159694,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124805.json",
+      "sequence": "TFFMVGGVVHSLLFPESDSRWKLVFFARCGFFLDSLDVIGQWIV",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:48:05.237991",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.9180227272727273,
+        "metrics": {
+          "therapeutic_potential": 0.9863636363636364,
+          "physics_validation": 1.0,
+          "druggability": 0.6136363636363636,
+          "confidence": 0.9959090909090909,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124535.json",
+      "sequence": "CASFFVLVFFACYRKCLDCFAEDVFQPAANNHFARYIIV",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:35.781795",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.8932051282051282,
+        "metrics": {
+          "therapeutic_potential": 0.9059829059829061,
+          "physics_validation": 1.0,
+          "druggability": 0.6282051282051282,
+          "confidence": 0.9717948717948718,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124545.json",
+      "sequence": "FFMRFAEDVQEKLVFFIIECIKLLCGKLVFFQALVFFAVVR",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:45:45.883025",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.9144268292682927,
+        "metrics": {
+          "therapeutic_potential": 0.9682926829268292,
+          "physics_validation": 1.0,
+          "druggability": 0.6268292682926829,
+          "confidence": 0.9904878048780488,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124529.json",
+      "sequence": "GGFAEDVNHEKDQVPFDIYLVVMISR",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:29.914449",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "high_value",
+        "research_score": 0.8857548535573215,
+        "metrics": {
+          "therapeutic_potential": 0.8851311251382789,
+          "physics_validation": 1.0,
+          "druggability": 0.6269230769230769,
+          "confidence": 0.9655393375414836,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.8,
+          "physics_validation": 0.9,
+          "druggability": 0.6,
+          "confidence": 0.8,
+          "description": "Exceptional candidates for immediate research"
+        },
+        "recommendations": [
+          "\ud83d\udd2c Immediate experimental validation recommended",
+          "\ud83e\uddea Synthesize peptide for in vitro aggregation assays",
+          "\ud83d\udcca Conduct toxicity studies in cell culture",
+          "\ud83d\udd2c NMR/CD spectroscopy for structural validation",
+          "\ud83d\udc8a Screen for small molecule modulators",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 10
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124822.json",
+      "sequence": "GYPKLVFFLVVHSMSEHQVVTAQKGGIRR",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:48:22.364473",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8648617504434578,
+        "metrics": {
+          "therapeutic_potential": 0.926136008281887,
+          "physics_validation": 1.0,
+          "druggability": 0.4517241379310345,
+          "confidence": 0.9778408024845661,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124526.json",
+      "sequence": "WKHIISQNAQNHFFYHKFFLWYPWNMVGGVVLLE",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:26.902370",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8646470588235294,
+        "metrics": {
+          "therapeutic_potential": 0.8941176470588236,
+          "physics_validation": 1.0,
+          "druggability": 0.5058823529411764,
+          "confidence": 0.9682352941176471,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125024.json",
+      "sequence": "PCFFLFGAIIGLAALLCGGFFAEDVCYIISY",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:50:24.414763",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.9038709677419355,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5193548387096774,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124603.json",
+      "sequence": "CLVFFAGAIIGLRLALLVVPLYAAEAVVFKPKF",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:46:03.649368",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8963636363636365,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.4818181818181818,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124814.json",
+      "sequence": "CYVFECKLVFFGGFFMCNYFIKFFGGAIIGLMFFG",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:48:14.453371",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8727142857142857,
+        "metrics": {
+          "therapeutic_potential": 0.9142857142857143,
+          "physics_validation": 1.0,
+          "druggability": 0.5114285714285715,
+          "confidence": 0.9742857142857142,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124550.json",
+      "sequence": "RAAYPIILFAEDVGGAAKCGGYKDQTAGAIIGLKFKFPT",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:45:50.408588",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.7642564102564102,
+        "metrics": {
+          "therapeutic_potential": 0.6615384615384616,
+          "physics_validation": 1.0,
+          "druggability": 0.5205128205128204,
+          "confidence": 0.8984615384615384,
+          "aggregation_propensity": 0.7692307692307693
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123903.json",
+      "sequence": "VVFKLLVHGGKVGTMFAEDVLLAYR",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:39:03.848294",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8667005415980917,
+        "metrics": {
+          "therapeutic_potential": 0.9081175118785267,
+          "physics_validation": 1.0,
+          "druggability": 0.49200000000000005,
+          "confidence": 0.972435253563558,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125033.json",
+      "sequence": "TPPHDLILLLVFFACGYLLMVVAY",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:50:33.529581",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8883333333333334,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.4416666666666667,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123816.json",
+      "sequence": "EIIFGAIIGLKLVFFLVRLVFFAASFMFFFPIDATFFPSDIIVVF",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:38:16.885434",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.9071111111111112,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5355555555555556,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123904.json",
+      "sequence": "IIMFAEDVKYSGGELSFSDWGGGIIGGLVFFAYTFVVVVGI",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:39:04.827639",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8796829268292683,
+        "metrics": {
+          "therapeutic_potential": 0.9170731707317074,
+          "physics_validation": 1.0,
+          "druggability": 0.5414634146341464,
+          "confidence": 0.9751219512195122,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124537.json",
+      "sequence": "IPIIILTLVFFAFAEDVGPMGIFAAPY",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:45:37.259755",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.902962962962963,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5148148148148148,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123821.json",
+      "sequence": "KLVFFMRFFRTNGGSGAIIGLSVQVSGAIIGLAAEKNM",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:38:21.578730",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.842921052631579,
+        "metrics": {
+          "therapeutic_potential": 0.8894736842105264,
+          "physics_validation": 1.0,
+          "druggability": 0.4052631578947369,
+          "confidence": 0.966842105263158,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125039.json",
+      "sequence": "IIISTYAYISGGSFFKFAEDVMVGGVVPGGWSEYLVFFAFFHKVDKA",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:50:39.411198",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8693404255319149,
+        "metrics": {
+          "therapeutic_potential": 0.8765957446808511,
+          "physics_validation": 1.0,
+          "druggability": 0.5595744680851064,
+          "confidence": 0.9629787234042553,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124810.json",
+      "sequence": "PWFFSFFLKLVFFFFQRFFCWVVWIIKTVGHHAKLVFFR",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:48:10.143584",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8675128205128204,
+        "metrics": {
+          "therapeutic_potential": 0.882051282051282,
+          "physics_validation": 1.0,
+          "druggability": 0.541025641025641,
+          "confidence": 0.9646153846153845,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123843.json",
+      "sequence": "MVGGVVLQNYFNVFFIIKSNFFDQWGDDIQ",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:38:43.317028",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.9186666666666667,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5933333333333334,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124607.json",
+      "sequence": "HQDWCVCLVFFAVVLLTINFLIIEPVVRYLLE",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:46:07.725376",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8726555175478669,
+        "metrics": {
+          "therapeutic_potential": 0.9515377320228025,
+          "physics_validation": 1.0,
+          "druggability": 0.446875,
+          "confidence": 0.9854613196068407,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123859.json",
+      "sequence": "AAACWKGGYEAWYPTFAEDVVVRFASHPWTIWDSSIIYPY",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:38:59.670809",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.799875,
+        "metrics": {
+          "therapeutic_potential": 0.675,
+          "physics_validation": 1.0,
+          "druggability": 0.56,
+          "confidence": 0.9025,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124559.json",
+      "sequence": "EHLVFFAYNGSGGPHYGAAHERALVFFAIKLVFFAAIKN",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:45:59.764596",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8500512820512821,
+        "metrics": {
+          "therapeutic_potential": 0.8017094017094017,
+          "physics_validation": 1.0,
+          "druggability": 0.5923076923076923,
+          "confidence": 0.9405128205128205,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125020.json",
+      "sequence": "WNASQKFAEDVPEFMWYVVCCLEHVANESEDMVGGVVIILLFAEDVGG",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:50:20.480291",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8129166666666666,
+        "metrics": {
+          "therapeutic_potential": 0.75,
+          "physics_validation": 1.0,
+          "druggability": 0.49583333333333335,
+          "confidence": 0.9249999999999999,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124610.json",
+      "sequence": "VRTYLMEMYTLSVVYLLFAEDVVVGM",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:46:10.935890",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8734274174052433,
+        "metrics": {
+          "therapeutic_potential": 0.9185187126573386,
+          "physics_validation": 1.0,
+          "druggability": 0.5076923076923077,
+          "confidence": 0.9755556137972015,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124539.json",
+      "sequence": "AAIIGAIIGLGGQRNYLVFFAIPWAYLAAVWVA",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:45:39.812084",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8411166803193483,
+        "metrics": {
+          "therapeutic_potential": 0.8802679359278432,
+          "physics_validation": 1.0,
+          "druggability": 0.4121212121212121,
+          "confidence": 0.9640803807783529,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123854.json",
+      "sequence": "YKHLLEHHSIFFIVGAIIGLALVFFASEIIWGRAVLLKGPL",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:38:54.593147",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8891829268292682,
+        "metrics": {
+          "therapeutic_potential": 0.9926829268292683,
+          "physics_validation": 1.0,
+          "druggability": 0.4585365853658536,
+          "confidence": 0.9978048780487805,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124554.json",
+      "sequence": "EFYYQINHGAIIGLLVFFAQIEKLVFFDKSDGGFHWVMVA",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:45:54.867585",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8927499999999998,
+        "metrics": {
+          "therapeutic_potential": 0.95,
+          "physics_validation": 1.0,
+          "druggability": 0.55,
+          "confidence": 0.9849999999999999,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123832.json",
+      "sequence": "YNNAAGNTLRIYKGGFFPCVKMHMF",
+      "name": "Novel_Target_5",
+      "timestamp": "2025-09-15T12:38:32.040972",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.899986099209932,
+        "metrics": {
+          "therapeutic_potential": 0.9443075339418322,
+          "physics_validation": 1.0,
+          "druggability": 0.596,
+          "confidence": 0.9832922601825496,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123845.json",
+      "sequence": "ALVPPDAIIESKLVFFNFFYKAGGTYKLVFFVT",
+      "name": "Novel_Target_1",
+      "timestamp": "2025-09-15T12:38:45.856566",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.837311089001748,
+        "metrics": {
+          "therapeutic_potential": 0.7831590634218428,
+          "physics_validation": 1.0,
+          "druggability": 0.5606060606060606,
+          "confidence": 0.9349477190265528,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123900.json",
+      "sequence": "QGAIIGLYLLGTSSYLSNKERMVGGVVKLVFFFIIWVDI",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:39:00.732851",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8902564102564103,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.4512820512820513,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123825.json",
+      "sequence": "YFFVWDVIIEHWRGAIIGLWMFAGGGAIIGLT",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:38:25.697840",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8769368193195657,
+        "metrics": {
+          "therapeutic_potential": 0.9077878820856979,
+          "physics_validation": 1.0,
+          "druggability": 0.54375,
+          "confidence": 0.9723363646257093,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124533.json",
+      "sequence": "CMYEFGSRFAEDVLLGGIYNEAADAWDVVPA",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:45:33.764588",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8449052569048685,
+        "metrics": {
+          "therapeutic_potential": 0.7935542743385622,
+          "physics_validation": 1.0,
+          "druggability": 0.5967741935483871,
+          "confidence": 0.9380662823015686,
+          "aggregation_propensity": 0.9677419354838709
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124548.json",
+      "sequence": "QLAACWAALVFFAQNFFFFFGGAMIILLTDG",
+      "name": "Novel_Target_6",
+      "timestamp": "2025-09-15T12:45:48.903431",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8974193548387097,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.48709677419354835,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": true,
+      "experimental_priority": 9
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124818.json",
+      "sequence": "LLIISFAEDVVMGAIIGLTDAAGGLDSAAERAWIQ",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:48:18.742037",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8591428571428572,
+        "metrics": {
+          "therapeutic_potential": 0.942857142857143,
+          "physics_validation": 1.0,
+          "druggability": 0.39428571428571435,
+          "confidence": 0.9828571428571429,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123851.json",
+      "sequence": "RVLLMVGGVVAGGITIIHFEHEVMALFAEDVGIMIAAVIIHWYNC",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:38:51.672360",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.7897222222222221,
+        "metrics": {
+          "therapeutic_potential": 0.7666666666666667,
+          "physics_validation": 1.0,
+          "druggability": 0.3511111111111111,
+          "confidence": 0.9299999999999999,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123846.json",
+      "sequence": "LQGAIIGLKAHAASDMAACLEYIIH",
+      "name": "Novel_Target_2",
+      "timestamp": "2025-09-15T12:38:46.131631",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8273784210521721,
+        "metrics": {
+          "therapeutic_potential": 0.9297925247889045,
+          "physics_validation": 1.0,
+          "druggability": 0.308,
+          "confidence": 0.9789377574366713,
+          "aggregation_propensity": 0.8999999999999999
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124540.json",
+      "sequence": "AALVFFATPLYLAYKVQMVGGVVSINK",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:45:40.732022",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8578335179598312,
+        "metrics": {
+          "therapeutic_potential": 0.935749327419801,
+          "physics_validation": 1.0,
+          "druggability": 0.39999999999999997,
+          "confidence": 0.9807247982259402,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123855.json",
+      "sequence": "GAIIGLIIMCMACMVGGVVGGMKQLLALFFLL",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:38:55.786594",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8346374319849191,
+        "metrics": {
+          "therapeutic_potential": 0.9699635709707797,
+          "physics_validation": 1.0,
+          "druggability": 0.225,
+          "confidence": 0.9909890712912339,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125030.json",
+      "sequence": "EHFAEDVDLNTAVIIIIHMVGGVVEGYYMVGGVVFAAMRGAIIGLGRN",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:50:30.436092",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8144791666666668,
+        "metrics": {
+          "therapeutic_potential": 0.8125,
+          "physics_validation": 1.0,
+          "druggability": 0.39583333333333337,
+          "confidence": 0.94375,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123849.json",
+      "sequence": "GGYSAAAHHVMGPPQKLVFFVRNAM",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:38:49.320067",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8249710968727586,
+        "metrics": {
+          "therapeutic_potential": 0.8857133242688655,
+          "physics_validation": 1.0,
+          "druggability": 0.37200000000000005,
+          "confidence": 0.9657139972806597,
+          "aggregation_propensity": 0.8999999999999999
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124549.json",
+      "sequence": "CRMQGIAAKIIFAEDVFRGGAVVGMGGPLLMA",
+      "name": "Novel_Target_3",
+      "timestamp": "2025-09-15T12:45:49.784629",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8364647711910201,
+        "metrics": {
+          "therapeutic_potential": 0.8810573078000584,
+          "physics_validation": 1.0,
+          "druggability": 0.3875,
+          "confidence": 0.9643171923400174,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123828.json",
+      "sequence": "LLLLASGTGGMVYMQIAYRGGFSHC",
+      "name": "Novel_Target_4",
+      "timestamp": "2025-09-15T12:38:28.781880",
+      "novelty_assessment": {
+        "is_novel": true,
+        "similarity_matches": [],
+        "exact_match": null,
+        "novelty_score": 1.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8359820450838779,
+        "metrics": {
+          "therapeutic_potential": 0.8932812900981969,
+          "physics_validation": 1.0,
+          "druggability": 0.36399999999999993,
+          "confidence": 0.967984387029459,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 8
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123830.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:38:30.855127",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8848,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.42399999999999993,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124531.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:45:31.356783",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8880000000000001,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.44000000000000006,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123827.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:38:27.617439",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8813095238095238,
+        "metrics": {
+          "therapeutic_potential": 0.9761904761904762,
+          "physics_validation": 1.0,
+          "druggability": 0.4714285714285714,
+          "confidence": 0.9928571428571428,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123836.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:38:36.744236",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8952380952380953,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5,
+          "confidence": 1.0,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124518.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:45:18.509259",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8848,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.42399999999999993,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123834.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:38:34.404618",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8933333333333334,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.4904761904761905,
+          "confidence": 1.0,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124523.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:45:23.697700",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8711904761904762,
+        "metrics": {
+          "therapeutic_potential": 0.9523809523809523,
+          "physics_validation": 1.0,
+          "druggability": 0.46190476190476193,
+          "confidence": 0.9857142857142857,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124519.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:45:19.541550",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8971428571428572,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5095238095238095,
+          "confidence": 1.0,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123839.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:38:39.911960",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8880000000000001,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.44000000000000006,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124515.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:45:15.266637",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8813095238095238,
+        "metrics": {
+          "therapeutic_potential": 0.9761904761904762,
+          "physics_validation": 1.0,
+          "druggability": 0.4714285714285714,
+          "confidence": 0.9928571428571428,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124542.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:45:42.942275",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.9009523809523811,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5285714285714286,
+          "confidence": 1.0,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123804.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:38:04.380215",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8509523809523808,
+        "metrics": {
+          "therapeutic_potential": 0.9047619047619048,
+          "physics_validation": 1.0,
+          "druggability": 0.44285714285714284,
+          "confidence": 0.9714285714285713,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124752.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:47:52.742860",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8952380952380953,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.5,
+          "confidence": 1.0,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124528.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:45:28.245200",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8610714285714285,
+        "metrics": {
+          "therapeutic_potential": 0.9285714285714285,
+          "physics_validation": 1.0,
+          "druggability": 0.45238095238095233,
+          "confidence": 0.9785714285714284,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125007.json",
+      "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "name": "Amyloid_Beta_42",
+      "timestamp": "2025-09-15T12:50:07.406501",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta 42",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "1234567",
+            "2345678"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8914285714285715,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.4809523809523809,
+          "confidence": 1.0,
+          "aggregation_propensity": 0.9523809523809523
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123833.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:38:33.871920",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "medium_value",
+        "research_score": 0.8880000000000001,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.44000000000000006,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.6,
+          "physics_validation": 0.8,
+          "druggability": 0.4,
+          "confidence": 0.7,
+          "description": "Promising candidates for further investigation"
+        },
+        "recommendations": [
+          "\ud83e\uddec Computational validation with enhanced sampling",
+          "\ud83d\udcc8 Compare with existing therapeutic databases",
+          "\ud83d\udd0d Literature review for similar sequences",
+          "\u2697\ufe0f Consider as lead compound for optimization",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 5
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123807.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:38:07.426597",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8784000000000001,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.392,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 4
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124546.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:45:46.214484",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.872,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.36,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 4
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124522.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:45:22.638700",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.872,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.36,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 4
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124755.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:47:55.798952",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.872,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.36,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 4
+    },
+    {
+      "file": "therapeutic_discovery_20250915_125010.json",
+      "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "name": "Amyloid_Beta_Core",
+      "timestamp": "2025-09-15T12:50:10.461494",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Amyloid-beta core",
+          "disease": "Alzheimer's",
+          "status": "well_studied",
+          "pmid": [
+            "3456789"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.8752000000000001,
+        "metrics": {
+          "therapeutic_potential": 1.0,
+          "physics_validation": 1.0,
+          "druggability": 0.376,
+          "confidence": 1.0,
+          "aggregation_propensity": 1.0
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u26a0\ufe0f High aggregation risk - validate experimentally",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 4
+    },
+    {
+      "file": "therapeutic_discovery_20250915_124530.json",
+      "sequence": "GVVHGVATVAEKTKEQVTNVGGAVVTGVTAVA",
+      "name": "Alpha_Synuclein_NAC",
+      "timestamp": "2025-09-15T12:45:30.706871",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Alpha-synuclein NAC",
+          "disease": "Parkinson's",
+          "status": "well_studied",
+          "pmid": [
+            "4567890"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.7266910583157358,
+        "metrics": {
+          "therapeutic_potential": 0.6842494443934369,
+          "physics_validation": 1.0,
+          "druggability": 0.2875,
+          "confidence": 0.905274833318031,
+          "aggregation_propensity": 0.78125
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 3
+    },
+    {
+      "file": "therapeutic_discovery_20250915_123837.json",
+      "sequence": "GVVHGVATVAEKTKEQVTNVGGAVVTGVTAVA",
+      "name": "Alpha_Synuclein_NAC",
+      "timestamp": "2025-09-15T12:38:37.873975",
+      "novelty_assessment": {
+        "is_novel": false,
+        "similarity_matches": [],
+        "exact_match": {
+          "name": "Alpha-synuclein NAC",
+          "disease": "Parkinson's",
+          "status": "well_studied",
+          "pmid": [
+            "4567890"
+          ]
+        },
+        "novelty_score": 0.0
+      },
+      "research_assessment": {
+        "research_value_category": "low_value",
+        "research_score": 0.701898428276769,
+        "metrics": {
+          "therapeutic_potential": 0.6268795022515044,
+          "physics_validation": 1.0,
+          "druggability": 0.2625,
+          "confidence": 0.8880638506754512,
+          "aggregation_propensity": 0.78125
+        },
+        "criteria_met": {
+          "therapeutic_potential": 0.4,
+          "physics_validation": 0.7,
+          "druggability": 0.2,
+          "confidence": 0.5,
+          "description": "Marginal candidates requiring validation"
+        },
+        "recommendations": [
+          "\ud83d\udccb Requires further computational validation",
+          "\ud83d\udd04 Re-evaluate with stricter physics criteria",
+          "\ud83d\udcda Archive for future reference",
+          "\u2705 Excellent physics validation - high confidence in structure"
+        ]
+      },
+      "publication_ready": false,
+      "experimental_priority": 3
+    }
+  ],
+  "recommendations": [
+    "\ud83d\udcca Portfolio Overview: 66 total discoveries, 43 novel (65.2%)",
+    "\ud83c\udfaf 5 high-value targets identified - prioritize for experimental validation",
+    "\ud83d\udcc4 34 discoveries are publication-ready",
+    "\ud83c\udfc6 Top priority: Novel_Target_1 (Priority: 10/10)"
+  ]
+}
