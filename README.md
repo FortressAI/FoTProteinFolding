@@ -60,21 +60,33 @@ This framework prioritizes **scientific integrity** over false claims:
 pip install -r requirements.txt
 ```
 
-### 🧪 **Test Scientific Sequence Generation**
+### 🧪 **Test System Validation**
 ```bash
 # Test that sequence generator produces valid sequences
 python3 test_new_sequences.py
 ```
 
-### 🔬 **Run Validated Discovery System**
+### 🔬 **Single Discovery Run**
 ```bash
-# Run discovery with built-in validation
+# Run one-time discovery with built-in validation
 python3 validated_discovery_system.py
 ```
 
-### 📊 **Validate Existing Sequences**
+### ⚡ **Continuous Discovery (PRODUCTION)**
 ```bash
-# Check quality of any sequences
+# Launch continuous discovery - SCALABLE SYSTEM
+python3 launch_continuous_discovery.py
+
+# Monitor real-time status
+python3 monitor_discovery_status.py
+```
+
+### 📊 **Advanced Operations**
+```bash
+# Custom continuous discovery
+python3 continuous_discovery_engine.py --batch-size 20 --interval 600
+
+# Validate existing sequences
 python3 validate_discovery_quality.py
 ```
 
@@ -95,7 +107,10 @@ FoTProtein/
 ├── protein_folding_analysis.py        # Physics-accurate analysis
 ├── scientific_sequence_generator.py   # Validated sequence generation
 ├── validate_discovery_quality.py      # Quality validation system
-├── validated_discovery_system.py      # Main discovery pipeline
+├── validated_discovery_system.py      # Single-run discovery pipeline
+├── continuous_discovery_engine.py     # 🔥 PRODUCTION continuous system
+├── launch_continuous_discovery.py     # 🚀 Easy launcher interface
+├── monitor_discovery_status.py        # 📊 Real-time monitoring
 └── test_new_sequences.py             # Validation tests
 ```
 
@@ -153,13 +168,16 @@ All results must pass these criteria:
 - **Scientific sequence generation** - Biologically realistic candidates
 - **Physics-accurate folding** - Real molecular mechanics simulations  
 - **Quality validation** - Multi-criteria assessment framework
+- **Continuous discovery** - 🔥 **PRODUCTION-READY scaling system**
+- **Real-time monitoring** - Live status and performance tracking
 - **Honest reporting** - Transparent limitations and uncertainties
 
 ### 🔬 **Research Applications**
-- Therapeutic target discovery (with experimental validation required)
+- **Continuous therapeutic discovery** - Scalable 24/7 operation
 - Protein folding pathway analysis  
 - Pathological conformation identification
 - Drug target assessment (computational proxy only)
+- **High-throughput screening** - Batch processing capabilities
 
 ---
 
