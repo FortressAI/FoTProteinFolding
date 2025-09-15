@@ -50,8 +50,8 @@ class ContinuousConfig:
     max_attempts_per_batch: int = 100
     min_validation_score: float = 0.8
     min_therapeutic_potential: float = 0.6
-    max_memory_usage_gb: float = 8.0
-    max_cpu_usage_percent: float = 80.0
+    max_memory_usage_gb: float = None  # Auto-detect system memory
+    max_cpu_usage_percent: float = 90.0  # Use 90% of available CPU
     output_dir: Path = Path("continuous_discoveries")
     archive_after_hours: int = 24
     cleanup_interval_batches: int = 10
@@ -94,6 +94,12 @@ class ContinuousDiscoveryEngine:
         signal.signal(signal.SIGINT, self._signal_handler)
         signal.signal(signal.SIGTERM, self._signal_handler)
         
+        # Auto-detect system capabilities
+        total_memory_gb = psutil.virtual_memory().total / (1024**3)
+        if config.max_memory_usage_gb is None:
+            # Use 85% of total system memory
+            config.max_memory_usage_gb = total_memory_gb * 0.85
+        
         # Performance monitoring
         self.resource_monitor = ResourceMonitor(
             max_memory_gb=config.max_memory_usage_gb,
@@ -101,6 +107,7 @@ class ContinuousDiscoveryEngine:
         )
         
         logger.info("🚀 ContinuousDiscoveryEngine initialized")
+        logger.info(f"💾 System Memory: {total_memory_gb:.1f} GB total, using up to {config.max_memory_usage_gb:.1f} GB")
         logger.info(f"📊 Config: {config.batch_size} discoveries per batch, {config.batch_interval_seconds}s intervals")
     
     def start_continuous_discovery(self):
@@ -387,8 +394,7 @@ def main():
     parser.add_argument("--max-attempts", type=int, default=100, help="Max attempts per batch")
     parser.add_argument("--validation-score", type=float, default=0.8, help="Min validation score")
     parser.add_argument("--therapeutic-potential", type=float, default=0.6, help="Min therapeutic potential")
-    parser.add_argument("--max-memory", type=float, default=8.0, help="Max memory usage (GB)")
-    parser.add_argument("--max-cpu", type=float, default=80.0, help="Max CPU usage (%)")
+    parser.add_argument("--max-cpu", type=float, default=90.0, help="Max CPU usage (%)")
     parser.add_argument("--output-dir", type=str, default="continuous_discoveries", help="Output directory")
     
     args = parser.parse_args()
@@ -400,21 +406,26 @@ def main():
         max_attempts_per_batch=args.max_attempts,
         min_validation_score=args.validation_score,
         min_therapeutic_potential=args.therapeutic_potential,
-        max_memory_usage_gb=args.max_memory,
+        max_memory_usage_gb=None,  # Auto-detect
         max_cpu_usage_percent=args.max_cpu,
         output_dir=Path(args.output_dir)
     )
     
+    # Get system info for display
+    import psutil
+    total_memory_gb = psutil.virtual_memory().total / (1024**3)
+    
     print("🚀 CONTINUOUS DISCOVERY ENGINE")
     print("🎯 PRODUCTION-READY SCALING SYSTEM")
     print("=" * 60)
+    print(f"💾 System: {total_memory_gb:.1f} GB RAM (auto-scaling enabled)")
     print(f"📊 Configuration:")
     print(f"   Batch size: {config.batch_size} discoveries")
     print(f"   Interval: {config.batch_interval_seconds} seconds")
     print(f"   Max attempts per batch: {config.max_attempts_per_batch}")
     print(f"   Validation threshold: {config.min_validation_score:.2f}")
     print(f"   Therapeutic threshold: {config.min_therapeutic_potential:.2f}")
-    print(f"   Resource limits: {config.max_memory_usage_gb} GB RAM, {config.max_cpu_usage_percent}% CPU")
+    print(f"   CPU limit: {config.max_cpu_usage_percent}% CPU")
     print(f"   Output: {config.output_dir}")
     print("\n🔄 Starting continuous operation...")
     print("   Press Ctrl+C to stop gracefully")

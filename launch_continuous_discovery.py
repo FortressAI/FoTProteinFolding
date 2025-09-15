@@ -11,19 +11,26 @@ from pathlib import Path
 def main():
     """Launch continuous discovery with predefined configurations"""
     
+    import psutil
+    total_memory_gb = psutil.virtual_memory().total / (1024**3)
+    cpu_count = psutil.cpu_count()
+    
     print("🚀 CONTINUOUS DISCOVERY LAUNCHER")
     print("=" * 50)
+    print(f"💾 System: {total_memory_gb:.1f} GB RAM, {cpu_count} CPU cores")
+    print("🎯 Auto-scaling enabled - using 85% of available memory")
     print()
     print("Select operation mode:")
     print("1. 🔬 Research Mode (5 discoveries/batch, 5min intervals)")
-    print("2. ⚡ Production Mode (10 discoveries/batch, 10min intervals)")  
-    print("3. 🏭 Industrial Mode (20 discoveries/batch, 15min intervals)")
-    print("4. 🎯 Custom Configuration")
-    print("5. 📊 View Current Status")
-    print("6. 🛑 Stop Running Processes")
+    print("2. ⚡ Production Mode (15 discoveries/batch, 10min intervals)")  
+    print("3. 🏭 Industrial Mode (50 discoveries/batch, 15min intervals)")
+    print("4. 🚀 Maximum Performance (100 discoveries/batch, 30min intervals)")
+    print("5. 🎯 Custom Configuration")
+    print("6. 📊 View Current Status")
+    print("7. 🛑 Stop Running Processes")
     print()
     
-    choice = input("Enter choice (1-6): ").strip()
+    choice = input("Enter choice (1-7): ").strip()
     
     if choice == "1":
         # Research mode
@@ -34,22 +41,20 @@ def main():
             "--max-attempts", "50",
             "--validation-score", "0.8",
             "--therapeutic-potential", "0.6",
-            "--max-memory", "4.0",
             "--max-cpu", "70.0"
         ]
         print("🔬 Starting Research Mode...")
         
     elif choice == "2":
-        # Production mode
+        # Production mode  
         cmd = [
             "python3", "continuous_discovery_engine.py",
-            "--batch-size", "10", 
+            "--batch-size", "15", 
             "--interval", "600",
-            "--max-attempts", "100",
+            "--max-attempts", "150",
             "--validation-score", "0.8",
             "--therapeutic-potential", "0.6",
-            "--max-memory", "8.0",
-            "--max-cpu", "80.0"
+            "--max-cpu", "90.0"
         ]
         print("⚡ Starting Production Mode...")
         
@@ -57,17 +62,29 @@ def main():
         # Industrial mode
         cmd = [
             "python3", "continuous_discovery_engine.py",
-            "--batch-size", "20",
+            "--batch-size", "50",
             "--interval", "900", 
-            "--max-attempts", "200",
+            "--max-attempts", "500",
             "--validation-score", "0.75",
             "--therapeutic-potential", "0.55",
-            "--max-memory", "12.0",
-            "--max-cpu", "85.0"
+            "--max-cpu", "95.0"
         ]
         print("🏭 Starting Industrial Mode...")
         
     elif choice == "4":
+        # Maximum performance mode
+        cmd = [
+            "python3", "continuous_discovery_engine.py",
+            "--batch-size", "100",
+            "--interval", "1800",
+            "--max-attempts", "1000", 
+            "--validation-score", "0.75",
+            "--therapeutic-potential", "0.5",
+            "--max-cpu", "95.0"
+        ]
+        print("🚀 Starting Maximum Performance Mode...")
+        
+    elif choice == "5":
         # Custom configuration
         print("\n🎯 Custom Configuration:")
         batch_size = input("Batch size (discoveries per batch) [10]: ").strip() or "10"
@@ -75,8 +92,7 @@ def main():
         max_attempts = input("Max attempts per batch [100]: ").strip() or "100"
         validation_score = input("Min validation score [0.8]: ").strip() or "0.8"
         therapeutic_potential = input("Min therapeutic potential [0.6]: ").strip() or "0.6"
-        max_memory = input("Max memory usage (GB) [8.0]: ").strip() or "8.0"
-        max_cpu = input("Max CPU usage (%) [80.0]: ").strip() or "80.0"
+        max_cpu = input("Max CPU usage (%) [90.0]: ").strip() or "90.0"
         
         cmd = [
             "python3", "continuous_discovery_engine.py",
@@ -85,12 +101,11 @@ def main():
             "--max-attempts", max_attempts,
             "--validation-score", validation_score,
             "--therapeutic-potential", therapeutic_potential,
-            "--max-memory", max_memory,
             "--max-cpu", max_cpu
         ]
         print("🎯 Starting Custom Configuration...")
         
-    elif choice == "5":
+    elif choice == "6":
         # View status
         status_file = Path("continuous_discoveries/continuous_summary.json")
         if status_file.exists():
@@ -110,7 +125,7 @@ def main():
             print("📊 No active continuous discovery found")
         return
         
-    elif choice == "6":
+    elif choice == "7":
         # Stop processes
         print("🛑 Stopping continuous discovery processes...")
         try:
