@@ -1,0 +1,694 @@
+{
+  "clusters": [
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "08ea9039ebd6",
+      "rep_sequence": "FFGHRMYLLEWKGLVFFAQGGHDCEAFR",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "08ea9039ebd6",
+          "sequence": "FFGHRMYLLEWKGLVFFAQGGHDCEAFR",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "d6ad3286ec0f",
+      "rep_sequence": "TFFMVGGVVHSLLFPESDSRWKLVFFARCGFFLDSLDVIGQWIV",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "d6ad3286ec0f",
+          "sequence": "TFFMVGGVVHSLLFPESDSRWKLVFFARCGFFLDSLDVIGQWIV",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "67262e9edbda",
+      "rep_sequence": "CASFFVLVFFACYRKCLDCFAEDVFQPAANNHFARYIIV",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "67262e9edbda",
+          "sequence": "CASFFVLVFFACYRKCLDCFAEDVFQPAANNHFARYIIV",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "fb13d77ed9de",
+      "rep_sequence": "FFMRFAEDVQEKLVFFIIECIKLLCGKLVFFQALVFFAVVR",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "fb13d77ed9de",
+          "sequence": "FFMRFAEDVQEKLVFFIIECIKLLCGKLVFFQALVFFAVVR",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "645a84663ba3",
+      "rep_sequence": "GGFAEDVNHEKDQVPFDIYLVVMISR",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "645a84663ba3",
+          "sequence": "GGFAEDVNHEKDQVPFDIYLVVMISR",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "7b0699cd4b08",
+      "rep_sequence": "GYPKLVFFLVVHSMSEHQVVTAQKGGIRR",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "7b0699cd4b08",
+          "sequence": "GYPKLVFFLVVHSMSEHQVVTAQKGGIRR",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "8e75d8c41fad",
+      "rep_sequence": "WKHIISQNAQNHFFYHKFFLWYPWNMVGGVVLLE",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "8e75d8c41fad",
+          "sequence": "WKHIISQNAQNHFFYHKFFLWYPWNMVGGVVLLE",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "bc3c61e1f643",
+      "rep_sequence": "PCFFLFGAIIGLAALLCGGFFAEDVCYIISY",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "bc3c61e1f643",
+          "sequence": "PCFFLFGAIIGLAALLCGGFFAEDVCYIISY",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "1b08f2090323",
+      "rep_sequence": "CLVFFAGAIIGLRLALLVVPLYAAEAVVFKPKF",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "1b08f2090323",
+          "sequence": "CLVFFAGAIIGLRLALLVVPLYAAEAVVFKPKF",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "316dd57223e7",
+      "rep_sequence": "CYVFECKLVFFGGFFMCNYFIKFFGGAIIGLMFFG",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "316dd57223e7",
+          "sequence": "CYVFECKLVFFGGFFMCNYFIKFFGGAIIGLMFFG",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "c7ec85856c77",
+      "rep_sequence": "RAAYPIILFAEDVGGAAKCGGYKDQTAGAIIGLKFKFPT",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "c7ec85856c77",
+          "sequence": "RAAYPIILFAEDVGGAAKCGGYKDQTAGAIIGLKFKFPT",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "0daa90dd5ce8",
+      "rep_sequence": "VVFKLLVHGGKVGTMFAEDVLLAYR",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "0daa90dd5ce8",
+          "sequence": "VVFKLLVHGGKVGTMFAEDVLLAYR",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "9a1f98b47258",
+      "rep_sequence": "TPPHDLILLLVFFACGYLLMVVAY",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "9a1f98b47258",
+          "sequence": "TPPHDLILLLVFFACGYLLMVVAY",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "3361363eb484",
+      "rep_sequence": "EIIFGAIIGLKLVFFLVRLVFFAASFMFFFPIDATFFPSDIIVVF",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "3361363eb484",
+          "sequence": "EIIFGAIIGLKLVFFLVRLVFFAASFMFFFPIDATFFPSDIIVVF",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "4ea987217583",
+      "rep_sequence": "IIMFAEDVKYSGGELSFSDWGGGIIGGLVFFAYTFVVVVGI",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "4ea987217583",
+          "sequence": "IIMFAEDVKYSGGELSFSDWGGGIIGGLVFFAYTFVVVVGI",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "d74f58fadce5",
+      "rep_sequence": "IPIIILTLVFFAFAEDVGPMGIFAAPY",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "d74f58fadce5",
+          "sequence": "IPIIILTLVFFAFAEDVGPMGIFAAPY",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "54b41b2a780d",
+      "rep_sequence": "KLVFFMRFFRTNGGSGAIIGLSVQVSGAIIGLAAEKNM",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "54b41b2a780d",
+          "sequence": "KLVFFMRFFRTNGGSGAIIGLSVQVSGAIIGLAAEKNM",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "8d04bf07cf55",
+      "rep_sequence": "IIISTYAYISGGSFFKFAEDVMVGGVVPGGWSEYLVFFAFFHKVDKA",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "8d04bf07cf55",
+          "sequence": "IIISTYAYISGGSFFKFAEDVMVGGVVPGGWSEYLVFFAFFHKVDKA",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "4401f391d2c0",
+      "rep_sequence": "PWFFSFFLKLVFFFFQRFFCWVVWIIKTVGHHAKLVFFR",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "4401f391d2c0",
+          "sequence": "PWFFSFFLKLVFFFFQRFFCWVVWIIKTVGHHAKLVFFR",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "428dd3af68bc",
+      "rep_sequence": "MVGGVVLQNYFNVFFIIKSNFFDQWGDDIQ",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "428dd3af68bc",
+          "sequence": "MVGGVVLQNYFNVFFIIKSNFFDQWGDDIQ",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "cf4d184e0179",
+      "rep_sequence": "HQDWCVCLVFFAVVLLTINFLIIEPVVRYLLE",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "cf4d184e0179",
+          "sequence": "HQDWCVCLVFFAVVLLTINFLIIEPVVRYLLE",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "26f84dae32d3",
+      "rep_sequence": "AAACWKGGYEAWYPTFAEDVVVRFASHPWTIWDSSIIYPY",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "26f84dae32d3",
+          "sequence": "AAACWKGGYEAWYPTFAEDVVVRFASHPWTIWDSSIIYPY",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "8a759c23b901",
+      "rep_sequence": "EHLVFFAYNGSGGPHYGAAHERALVFFAIKLVFFAAIKN",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "8a759c23b901",
+          "sequence": "EHLVFFAYNGSGGPHYGAAHERALVFFAIKLVFFAAIKN",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "33f3b9c9f134",
+      "rep_sequence": "WNASQKFAEDVPEFMWYVVCCLEHVANESEDMVGGVVIILLFAEDVGG",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "33f3b9c9f134",
+          "sequence": "WNASQKFAEDVPEFMWYVVCCLEHVANESEDMVGGVVIILLFAEDVGG",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "e07030f5448b",
+      "rep_sequence": "VRTYLMEMYTLSVVYLLFAEDVVVGM",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "e07030f5448b",
+          "sequence": "VRTYLMEMYTLSVVYLLFAEDVVVGM",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "1d14c308e560",
+      "rep_sequence": "AAIIGAIIGLGGQRNYLVFFAIPWAYLAAVWVA",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "1d14c308e560",
+          "sequence": "AAIIGAIIGLGGQRNYLVFFAIPWAYLAAVWVA",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "c13a3e1ed0cf",
+      "rep_sequence": "YKHLLEHHSIFFIVGAIIGLALVFFASEIIWGRAVLLKGPL",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "c13a3e1ed0cf",
+          "sequence": "YKHLLEHHSIFFIVGAIIGLALVFFASEIIWGRAVLLKGPL",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "400c1819ace5",
+      "rep_sequence": "EFYYQINHGAIIGLLVFFAQIEKLVFFDKSDGGFHWVMVA",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "400c1819ace5",
+          "sequence": "EFYYQINHGAIIGLLVFFAQIEKLVFFDKSDGGFHWVMVA",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_5",
+      "rep_hash12": "c83ee9e21942",
+      "rep_sequence": "YNNAAGNTLRIYKGGFFPCVKMHMF",
+      "members": [
+        {
+          "id": "Novel_Target_5",
+          "hash12": "c83ee9e21942",
+          "sequence": "YNNAAGNTLRIYKGGFFPCVKMHMF",
+          "labels": [
+            "Novel_Target_5"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_1",
+      "rep_hash12": "137a3c462a93",
+      "rep_sequence": "ALVPPDAIIESKLVFFNFFYKAGGTYKLVFFVT",
+      "members": [
+        {
+          "id": "Novel_Target_1",
+          "hash12": "137a3c462a93",
+          "sequence": "ALVPPDAIIESKLVFFNFFYKAGGTYKLVFFVT",
+          "labels": [
+            "Novel_Target_1"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "224b201c989c",
+      "rep_sequence": "QGAIIGLYLLGTSSYLSNKERMVGGVVKLVFFFIIWVDI",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "224b201c989c",
+          "sequence": "QGAIIGLYLLGTSSYLSNKERMVGGVVKLVFFFIIWVDI",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "2336eb9d19ff",
+      "rep_sequence": "YFFVWDVIIEHWRGAIIGLWMFAGGGAIIGLT",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "2336eb9d19ff",
+          "sequence": "YFFVWDVIIEHWRGAIIGLWMFAGGGAIIGLT",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "88193d4d5c67",
+      "rep_sequence": "CMYEFGSRFAEDVLLGGIYNEAADAWDVVPA",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "88193d4d5c67",
+          "sequence": "CMYEFGSRFAEDVLLGGIYNEAADAWDVVPA",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_6",
+      "rep_hash12": "1d820f37bcd0",
+      "rep_sequence": "QLAACWAALVFFAQNFFFFFGGAMIILLTDG",
+      "members": [
+        {
+          "id": "Novel_Target_6",
+          "hash12": "1d820f37bcd0",
+          "sequence": "QLAACWAALVFFAQNFFFFFGGAMIILLTDG",
+          "labels": [
+            "Novel_Target_6"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "678f127480ac",
+      "rep_sequence": "LLIISFAEDVVMGAIIGLTDAAGGLDSAAERAWIQ",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "678f127480ac",
+          "sequence": "LLIISFAEDVVMGAIIGLTDAAGGLDSAAERAWIQ",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "e54de3c43af2",
+      "rep_sequence": "RVLLMVGGVVAGGITIIHFEHEVMALFAEDVGIMIAAVIIHWYNC",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "e54de3c43af2",
+          "sequence": "RVLLMVGGVVAGGITIIHFEHEVMALFAEDVGIMIAAVIIHWYNC",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_2",
+      "rep_hash12": "ca9f1534116c",
+      "rep_sequence": "LQGAIIGLKAHAASDMAACLEYIIH",
+      "members": [
+        {
+          "id": "Novel_Target_2",
+          "hash12": "ca9f1534116c",
+          "sequence": "LQGAIIGLKAHAASDMAACLEYIIH",
+          "labels": [
+            "Novel_Target_2"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "053129664faa",
+      "rep_sequence": "AALVFFATPLYLAYKVQMVGGVVSINK",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "053129664faa",
+          "sequence": "AALVFFATPLYLAYKVQMVGGVVSINK",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "07bcb8c16748",
+      "rep_sequence": "GAIIGLIIMCMACMVGGVVGGMKQLLALFFLL",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "07bcb8c16748",
+          "sequence": "GAIIGLIIMCMACMVGGVVGGMKQLLALFFLL",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "c5510d5c0d07",
+      "rep_sequence": "EHFAEDVDLNTAVIIIIHMVGGVVEGYYMVGGVVFAAMRGAIIGLGRN",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "c5510d5c0d07",
+          "sequence": "EHFAEDVDLNTAVIIIIHMVGGVVEGYYMVGGVVFAAMRGAIIGLGRN",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "2448cadb8963",
+      "rep_sequence": "GGYSAAAHHVMGPPQKLVFFVRNAM",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "2448cadb8963",
+          "sequence": "GGYSAAAHHVMGPPQKLVFFVRNAM",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_3",
+      "rep_hash12": "92363c95cead",
+      "rep_sequence": "CRMQGIAAKIIFAEDVFRGGAVVGMGGPLLMA",
+      "members": [
+        {
+          "id": "Novel_Target_3",
+          "hash12": "92363c95cead",
+          "sequence": "CRMQGIAAKIIFAEDVFRGGAVVGMGGPLLMA",
+          "labels": [
+            "Novel_Target_3"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Novel_Target_4",
+      "rep_hash12": "faba97cee2eb",
+      "rep_sequence": "LLLLASGTGGMVYMQIAYRGGFSHC",
+      "members": [
+        {
+          "id": "Novel_Target_4",
+          "hash12": "faba97cee2eb",
+          "sequence": "LLLLASGTGGMVYMQIAYRGGFSHC",
+          "labels": [
+            "Novel_Target_4"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Amyloid_Beta_Core",
+      "rep_hash12": "abb59a6e3f41",
+      "rep_sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+      "members": [
+        {
+          "id": "Amyloid_Beta_Core",
+          "hash12": "abb59a6e3f41",
+          "sequence": "KLVFFAEDVGSNKGAIIGLMVGGVV",
+          "labels": [
+            "Amyloid_Beta_Core"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Amyloid_Beta_42",
+      "rep_hash12": "df68e944e2c6",
+      "rep_sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+      "members": [
+        {
+          "id": "Amyloid_Beta_42",
+          "hash12": "df68e944e2c6",
+          "sequence": "DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA",
+          "labels": [
+            "Amyloid_Beta_42"
+          ]
+        }
+      ]
+    },
+    {
+      "rep_id": "Alpha_Synuclein_NAC",
+      "rep_hash12": "51303489a328",
+      "rep_sequence": "GVVHGVATVAEKTKEQVTNVGGAVVTGVTAVA",
+      "members": [
+        {
+          "id": "Alpha_Synuclein_NAC",
+          "hash12": "51303489a328",
+          "sequence": "GVVHGVATVAEKTKEQVTNVGGAVVTGVTAVA",
+          "labels": [
+            "Alpha_Synuclein_NAC"
+          ]
+        }
+      ]
+    }
+  ]
+}
