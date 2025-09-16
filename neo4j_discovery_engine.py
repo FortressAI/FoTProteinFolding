@@ -257,8 +257,10 @@ class Neo4jDiscoveryEngine:
         """Store vQbit quantum states as quantum relationships in the graph"""
         
         prev_quantum_state_id = None
+        prev_vqbit_id = None
         for i, vqbit_state in enumerate(vqbit_states):
             quantum_state_id = f"qstate_{str(uuid.uuid4())[:8]}_{i}"
+            vqbit_id = f"vqbit_{str(uuid.uuid4())[:8]}_{i}"
             
             # Extract quantum state data
             residue_index = vqbit_state.get('residue_index', i)
@@ -283,7 +285,22 @@ class Neo4jDiscoveryEngine:
                 // Create amino acid node (referencing standard amino acids)
                 MATCH (aa:AminoAcid {code: $amino_acid})
                 
-                // Create quantum state node (minimal properties, quantum info in relationships)
+                // Create VQbit node (primary quantum entity)
+                CREATE (v:VQbit {
+                    id: $vqbit_id,
+                    discovery_id: $discovery_id,
+                    residue_index: $residue_index,
+                    amino_acid: $amino_acid,
+                    phi_angle: $phi_angle,
+                    psi_angle: $psi_angle,
+                    entanglement_degree: $entanglement_degree,
+                    superposition_coherence: $coherence,
+                    collapsed_state: $collapsed,
+                    amplitude_real: $amplitude_real,
+                    amplitude_imag: $amplitude_imag
+                })
+                
+                // Create quantum state node (linked to VQbit for detailed quantum info)
                 CREATE (q:QuantumState {
                     id: $quantum_state_id,
                     discovery_id: $discovery_id,
@@ -293,10 +310,15 @@ class Neo4jDiscoveryEngine:
                     collapsed_state: $collapsed
                 })
                 
-                // Create position relationship
+                // Create VQbit relationships
+                CREATE (d)-[:HAS_VQBIT {position: $residue_index}]->(v)
+                CREATE (v)-[:HAS_QUANTUM_STATE]->(q)
+                
+                // Create position relationship for backward compatibility
                 CREATE (d)-[:HAS_QUANTUM_STATE {position: $residue_index}]->(q)
                 
                 // Create amino acid relationship
+                CREATE (v)-[:IS_AMINO_ACID]->(aa)
                 CREATE (q)-[:IS_AMINO_ACID]->(aa)
                 
                 // Create quantum superposition relationship (if not collapsed)
@@ -324,14 +346,15 @@ class Neo4jDiscoveryEngine:
             """, {
                 'discovery_id': discovery_id,
                 'quantum_state_id': quantum_state_id,
+                'vqbit_id': vqbit_id,
                 'residue_index': residue_index,
                 'amino_acid': amino_acid,
+                'entanglement_degree': entanglement_degree,
+                'coherence': coherence,
                 'phi_angle': phi_angle,
                 'psi_angle': psi_angle,
                 'amplitude_real': amplitude_real,
                 'amplitude_imag': amplitude_imag,
-                'entanglement_degree': entanglement_degree,
-                'coherence': coherence,
                 'collapsed': collapsed,
                 'quantum_phase': vqbit_state.get('phase', 0.0),
                 'virtue_projections': [
@@ -341,12 +364,29 @@ class Neo4jDiscoveryEngine:
             })
             
             # Store quantum entanglement relationships between adjacent residues  
-            if i > 0 and prev_quantum_state_id is not None:
+            if i > 0 and prev_quantum_state_id is not None and prev_vqbit_id is not None:
                 entanglement_strength = vqbit_state.get('entanglement_with_prev', 0.0)
                 
                 session.run("""
+                    MATCH (v1:VQbit {id: $prev_vqbit_id})
+                    MATCH (v2:VQbit {id: $curr_vqbit_id})
                     MATCH (q1:QuantumState {id: $prev_quantum_state_id})
                     MATCH (q2:QuantumState {id: $curr_quantum_state_id})
+                    
+                    // Create VQbit-to-VQbit entanglement (primary)
+                    CREATE (v1)-[:QUANTUM_ENTANGLED {
+                        entanglement_strength: $strength,
+                        entanglement_type: 'sequential_backbone',
+                        bell_state: CASE 
+                            WHEN $strength > 0.8 THEN 'phi_plus'
+                            WHEN $strength > 0.6 THEN 'phi_minus'
+                            WHEN $strength > 0.4 THEN 'psi_plus'
+                            ELSE 'psi_minus'
+                        END,
+                        quantum_correlation: $strength * $strength
+                    }]->(v2)
+                    
+                    // Create QuantumState entanglement (for backward compatibility)
                     CREATE (q1)-[:QUANTUM_ENTANGLED {
                         entanglement_strength: $strength,
                         entanglement_type: 'sequential_backbone',
@@ -359,6 +399,8 @@ class Neo4jDiscoveryEngine:
                         quantum_correlation: $strength * $strength
                     }]->(q2)
                 """, {
+                    'prev_vqbit_id': prev_vqbit_id,
+                    'curr_vqbit_id': vqbit_id,
                     'prev_quantum_state_id': prev_quantum_state_id,
                     'curr_quantum_state_id': quantum_state_id,
                     'strength': entanglement_strength
@@ -367,14 +409,27 @@ class Neo4jDiscoveryEngine:
                 # Create coherence maintenance relationship if highly entangled
                 if entanglement_strength > 0.7:
                     session.run("""
+                        MATCH (v1:VQbit {id: $prev_vqbit_id})
+                        MATCH (v2:VQbit {id: $curr_vqbit_id})
                         MATCH (q1:QuantumState {id: $prev_quantum_state_id})
                         MATCH (q2:QuantumState {id: $curr_quantum_state_id})
+                        
+                        // Create VQbit coherence maintenance (primary)
+                        CREATE (v1)-[:MAINTAINS_COHERENCE {
+                            coherence_level: $coherence,
+                            decoherence_time: $decoherence_time,
+                            quantum_fidelity: $fidelity
+                        }]->(v2)
+                        
+                        // Create QuantumState coherence maintenance (backward compatibility)
                         CREATE (q1)-[:MAINTAINS_COHERENCE {
                             coherence_level: $coherence,
                             decoherence_time: $decoherence_time,
                             quantum_fidelity: $fidelity
                         }]->(q2)
                     """, {
+                        'prev_vqbit_id': prev_vqbit_id,
+                        'curr_vqbit_id': vqbit_id,
                         'prev_quantum_state_id': prev_quantum_state_id,
                         'curr_quantum_state_id': quantum_state_id,
                         'coherence': coherence,
@@ -382,8 +437,9 @@ class Neo4jDiscoveryEngine:
                         'fidelity': entanglement_strength * coherence
                     })
             
-            # Update prev_quantum_state_id for next iteration
+            # Update prev IDs for next iteration
             prev_quantum_state_id = quantum_state_id
+            prev_vqbit_id = vqbit_id
     
     def get_discovery_statistics(self) -> Dict[str, Any]:
         """Get real-time discovery statistics from Neo4j"""
