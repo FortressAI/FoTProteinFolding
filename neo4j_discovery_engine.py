@@ -1084,7 +1084,8 @@ class Neo4jDiscoveryEngine:
             {'id': 'diabetes', 'name': 'Diabetes Treatment', 'target_type': 'metabolic', 'associated_disease': 'diabetes'},
             {'id': 'cardiovascular', 'name': 'Cardiovascular Disease', 'target_type': 'cardiovascular', 'associated_disease': 'heart_disease'},
             {'id': 'inflammation', 'name': 'Anti-inflammatory', 'target_type': 'immunology', 'associated_disease': 'inflammatory_disease'},
-            {'id': 'antimicrobial', 'name': 'Antimicrobial', 'target_type': 'infectious_disease', 'associated_disease': 'infection'}
+            {'id': 'antimicrobial', 'name': 'Antimicrobial', 'target_type': 'infectious_disease', 'associated_disease': 'infection'},
+            {'id': 'autoimmune', 'name': 'Autoimmune Disease Therapy', 'target_type': 'immunomodulation', 'associated_disease': 'autoimmune_disorder'}
         ]
         
         for target in therapeutic_targets:
@@ -1102,7 +1103,8 @@ class Neo4jDiscoveryEngine:
             {'id': 'apoptosis', 'name': 'Apoptosis', 'description': 'Programmed cell death', 'priority_score': 0.8},
             {'id': 'inflammation_cascade', 'name': 'Inflammation Cascade', 'description': 'Inflammatory response pathway', 'priority_score': 0.7},
             {'id': 'insulin_signaling', 'name': 'Insulin Signaling', 'description': 'Glucose metabolism pathway', 'priority_score': 0.8},
-            {'id': 'cell_cycle', 'name': 'Cell Cycle', 'description': 'Cell division control', 'priority_score': 0.6}
+            {'id': 'cell_cycle', 'name': 'Cell Cycle', 'description': 'Cell division control', 'priority_score': 0.6},
+            {'id': 'immune_tolerance', 'name': 'Immune Tolerance', 'description': 'Autoimmune regulation pathway', 'priority_score': 0.85}
         ]
         
         for pathway in disease_pathways:
@@ -1162,6 +1164,24 @@ class Neo4jDiscoveryEngine:
                 'predicted_efficacy': 0.6,
                 'development_stage': 'discovery',
                 'solution_type': 'pathway_modulator'
+            },
+            {
+                'id': 'autoimmune_tolerance_inducer',
+                'name': 'Immune Tolerance Inducer',
+                'mechanism': 'Modulates T-cell response to reduce autoimmune attack',
+                'target_pathway': 'immune_tolerance',
+                'predicted_efficacy': 0.7,
+                'development_stage': 'discovery',
+                'solution_type': 'immunomodulatory_protein'
+            },
+            {
+                'id': 'autoimmune_cytokine_modulator',
+                'name': 'Cytokine Balance Modulator',
+                'mechanism': 'Restores Th1/Th2/Th17/Treg balance in autoimmune conditions',
+                'target_pathway': 'immune_tolerance',
+                'predicted_efficacy': 0.65,
+                'development_stage': 'discovery',
+                'solution_type': 'immunomodulatory_protein'
             },
             {
                 'id': 'diabetes_insulin_sensitizer',
@@ -1234,6 +1254,33 @@ class Neo4jDiscoveryEngine:
                 'unmet_need_score': 0.7,
                 'priority_score': 0.6,
                 'market_size_billions': 8.9
+            },
+            {
+                'id': 'multiple_sclerosis',
+                'name': 'Multiple Sclerosis',
+                'icd_code': 'G35',
+                'prevalence': '1M_US',
+                'unmet_need_score': 0.85,
+                'priority_score': 0.8,
+                'market_size_billions': 28.4
+            },
+            {
+                'id': 'crohns_disease',
+                'name': 'Crohn\'s Disease',
+                'icd_code': 'K50.9',
+                'prevalence': '780K_US',
+                'unmet_need_score': 0.75,
+                'priority_score': 0.7,
+                'market_size_billions': 6.8
+            },
+            {
+                'id': 'systemic_lupus',
+                'name': 'Systemic Lupus Erythematosus',
+                'icd_code': 'M32.9',
+                'prevalence': '325K_US',
+                'unmet_need_score': 0.9,
+                'priority_score': 0.75,
+                'market_size_billions': 2.3
             }
         ]
         
@@ -1323,6 +1370,43 @@ class Neo4jDiscoveryEngine:
             # Antimicrobial potential (for shorter sequences)
             if 20 <= len(sequence) <= 40:
                 target_predictions.append(('antimicrobial', 0.5))
+            
+            # AUTOIMMUNE DISEASE TARGETING - NEW FEATURE
+            # Target longer proteins with cysteine bridges for immune modulation
+            cysteine_count = sequence.count('C')
+            length = len(sequence)
+            
+            # Autoimmune therapeutic criteria:
+            # 1. Length >= 25 AA (immunomodulatory proteins need complexity)
+            # 2. Cysteine bridges for structural stability (>=2 cysteines)
+            # 3. Balanced charge distribution
+            # 4. Presence of immunomodulatory motifs
+            if length >= 25 and cysteine_count >= 2:
+                autoimmune_score = 0.3  # Base score
+                
+                # Boost score for optimal length range (25-60 AA)
+                if 25 <= length <= 60:
+                    autoimmune_score += 0.2
+                
+                # Boost for multiple cysteine bridges (up to 4 optimal)
+                if cysteine_count >= 4:
+                    autoimmune_score += 0.3
+                elif cysteine_count >= 3:
+                    autoimmune_score += 0.2
+                
+                # Check for immunomodulatory sequence patterns
+                immunomod_motifs = ['GPGP', 'CXCR', 'TNFR', 'CTLA', 'PD1', 'IL']
+                if any(motif in sequence for motif in immunomod_motifs):
+                    autoimmune_score += 0.2
+                
+                # Prefer sequences with aromatic residues for binding (F, Y, W)
+                aromatic_count = sum(1 for aa in sequence if aa in 'FYW')
+                if aromatic_count >= 3:
+                    autoimmune_score += 0.1
+                
+                # Only add if score is meaningful (>= 0.5)
+                if autoimmune_score >= 0.5:
+                    target_predictions.append(('autoimmune', min(autoimmune_score, 0.95)))
         
         # Store therapeutic target connections
         for target_id, potential_score in target_predictions:
@@ -1492,6 +1576,55 @@ class Neo4jDiscoveryEngine:
             # Diabetes solutions
             if len(sequence) > 50 and any(aa in sequence for aa in ['R', 'K']):
                 solution_mappings.append(('diabetes_insulin_sensitizer', 0.6, 'insulin_pathway_modulation'))
+            
+            # AUTOIMMUNE DISEASE SOLUTIONS - NEW FEATURE
+            # Map to autoimmune therapeutic solutions based on immunomodulatory characteristics
+            cysteine_count = sequence.count('C')
+            length = len(sequence)
+            
+            # Immune tolerance inducer mapping
+            if (length >= 25 and cysteine_count >= 2 and 
+                validation_score > 0.85 and vqbit_score > 0.5):
+                
+                tolerance_score = 0.4  # Base confidence
+                
+                # Boost for optimal autoimmune therapeutic characteristics
+                if 25 <= length <= 60:
+                    tolerance_score += 0.2
+                
+                if cysteine_count >= 4:  # Multiple disulfide bridges
+                    tolerance_score += 0.2
+                
+                # Check for immunomodulatory motifs
+                immunomod_motifs = ['GPGP', 'CXCR', 'TNFR', 'CTLA', 'PD1', 'IL']
+                if any(motif in sequence for motif in immunomod_motifs):
+                    tolerance_score += 0.15
+                
+                if tolerance_score >= 0.6:
+                    solution_mappings.append(('autoimmune_tolerance_inducer', 
+                                           min(tolerance_score, 0.9), 
+                                           'immunomodulatory_structure'))
+            
+            # Cytokine modulator mapping (broader criteria)
+            if (length >= 20 and cysteine_count >= 1 and 
+                validation_score > 0.8):
+                
+                cytokine_score = 0.3
+                
+                # Aromatic residues for cytokine binding
+                aromatic_count = sum(1 for aa in sequence if aa in 'FYW')
+                if aromatic_count >= 3:
+                    cytokine_score += 0.2
+                
+                # Charged residues for protein-protein interactions
+                charged_count = sum(1 for aa in sequence if aa in 'RKDE')
+                if charged_count >= 5:
+                    cytokine_score += 0.15
+                
+                if cytokine_score >= 0.5:
+                    solution_mappings.append(('autoimmune_cytokine_modulator',
+                                           min(cytokine_score, 0.85),
+                                           'cytokine_binding_potential'))
         
         # Store solution mappings
         for solution_id, confidence, evidence in solution_mappings:
@@ -1545,6 +1678,48 @@ class Neo4jDiscoveryEngine:
             # Rheumatoid arthritis mapping
             if validation_score > 0.85:
                 indication_mappings.append(('rheumatoid_arthritis', 0.65, 'anti_inflammatory'))
+            
+            # AUTOIMMUNE DISEASE CLINICAL INDICATION MAPPING - NEW FEATURE
+            cysteine_count = sequence.count('C')
+            length = len(sequence)
+            
+            # Multiple sclerosis mapping (high priority autoimmune target)
+            if (length >= 25 and cysteine_count >= 2 and validation_score > 0.85):
+                ms_potential = 0.6
+                
+                # Boost for neuroinflammation targeting characteristics
+                if any(motif in sequence for motif in ['TNFR', 'IL', 'CXCR']):
+                    ms_potential += 0.15
+                
+                indication_mappings.append(('multiple_sclerosis', 
+                                          min(ms_potential, 0.85), 
+                                          'neuroinflammation_modulation'))
+            
+            # Crohn's disease mapping (IBD targeting)
+            if (length >= 20 and cysteine_count >= 1 and validation_score > 0.8):
+                crohns_potential = 0.55
+                
+                # Boost for gut inflammation targeting
+                aromatic_count = sum(1 for aa in sequence if aa in 'FYW')
+                if aromatic_count >= 2:
+                    crohns_potential += 0.1
+                
+                indication_mappings.append(('crohns_disease',
+                                          min(crohns_potential, 0.8),
+                                          'gut_inflammation_control'))
+            
+            # Systemic lupus erythematosus mapping (complex autoimmune disease)
+            if (length >= 30 and cysteine_count >= 3 and validation_score > 0.9):
+                lupus_potential = 0.5
+                
+                # Boost for systemic immunomodulation potential
+                charged_count = sum(1 for aa in sequence if aa in 'RKDE')
+                if charged_count >= 6:
+                    lupus_potential += 0.2
+                
+                indication_mappings.append(('systemic_lupus',
+                                          min(lupus_potential, 0.8),
+                                          'systemic_immune_regulation'))
         
         # Store clinical indication mappings
         for indication_id, potential, mechanism in indication_mappings:
