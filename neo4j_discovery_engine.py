@@ -84,6 +84,9 @@ class Neo4jDiscoveryEngine:
                 "CREATE CONSTRAINT quantum_state_id IF NOT EXISTS FOR (q:QuantumState) REQUIRE q.id IS UNIQUE",
                 "CREATE CONSTRAINT protein_family_id IF NOT EXISTS FOR (p:ProteinFamily) REQUIRE p.id IS UNIQUE",
                 "CREATE CONSTRAINT structural_motif_id IF NOT EXISTS FOR (s:StructuralMotif) REQUIRE s.id IS UNIQUE",
+                "CREATE CONSTRAINT entanglement_pattern_id IF NOT EXISTS FOR (e:EntanglementPattern) REQUIRE e.id IS UNIQUE",
+                "CREATE CONSTRAINT learning_session_id IF NOT EXISTS FOR (l:LearningSession) REQUIRE l.id IS UNIQUE",
+                "CREATE CONSTRAINT motif_library_id IF NOT EXISTS FOR (m:MotifLibrary) REQUIRE m.id IS UNIQUE",
                 "CREATE CONSTRAINT therapeutic_target_id IF NOT EXISTS FOR (t:TherapeuticTarget) REQUIRE t.id IS UNIQUE",
                 "CREATE CONSTRAINT disease_pathway_id IF NOT EXISTS FOR (d:DiseasePathway) REQUIRE d.id IS UNIQUE",
                 "CREATE CONSTRAINT amino_acid_id IF NOT EXISTS FOR (a:AminoAcid) REQUIRE a.code IS UNIQUE",
@@ -136,6 +139,15 @@ class Neo4jDiscoveryEngine:
                 "CREATE INDEX structural_motif_type IF NOT EXISTS FOR (s:StructuralMotif) ON (s.motif_type)",
                 "CREATE INDEX structural_motif_confidence IF NOT EXISTS FOR (s:StructuralMotif) ON (s.confidence)",
                 
+                # Phase 2 Learning system indexes
+                "CREATE INDEX entanglement_pattern_type IF NOT EXISTS FOR (e:EntanglementPattern) ON (e.pattern_type)",
+                "CREATE INDEX entanglement_pattern_strength IF NOT EXISTS FOR (e:EntanglementPattern) ON (e.average_strength)",
+                "CREATE INDEX entanglement_pattern_residues IF NOT EXISTS FOR (e:EntanglementPattern) ON (e.residue_count)",
+                "CREATE INDEX learning_session_timestamp IF NOT EXISTS FOR (l:LearningSession) ON (l.timestamp)",
+                "CREATE INDEX learning_session_accuracy IF NOT EXISTS FOR (l:LearningSession) ON (l.validation_accuracy)",
+                "CREATE INDEX motif_library_usage_count IF NOT EXISTS FOR (m:MotifLibrary) ON (m.usage_count)",
+                "CREATE INDEX motif_library_success_rate IF NOT EXISTS FOR (m:MotifLibrary) ON (m.success_rate)",
+                
                 # Quantum relationship indexes
                 "CREATE INDEX quantum_amplitude IF NOT EXISTS FOR ()-[r:IN_SUPERPOSITION]-() ON (r.amplitude_real, r.amplitude_imag)",
                 "CREATE INDEX quantum_entanglement_strength IF NOT EXISTS FOR ()-[r:QUANTUM_ENTANGLED]-() ON (r.entanglement_strength)",
@@ -157,6 +169,7 @@ class Neo4jDiscoveryEngine:
             self._initialize_reference_data(session)
             self._initialize_therapeutic_solutions(session)
             self._initialize_clinical_indications(session)
+            self._initialize_learning_system(session)
             
             logger.info("✅ Comprehensive protein discovery knowledge graph schema initialized")
     
@@ -1295,6 +1308,35 @@ class Neo4jDiscoveryEngine:
                     c.market_size_billions = $market_size_billions,
                     c.created_at = datetime()
             """, indication)
+    
+    def _initialize_learning_system(self, session):
+        """Initialize Phase 2 learning system components"""
+        
+        # Create the main learning session node for this system instance
+        session_id = f"learning_session_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+        
+        session.run("""
+            MERGE (ls:LearningSession {id: $session_id})
+            SET ls.timestamp = datetime(),
+                ls.version = "Phase2_AKG",
+                ls.validation_accuracy = 0.0,
+                ls.total_discoveries_learned = 0,
+                ls.motifs_extracted = 0,
+                ls.patterns_identified = 0,
+                ls.active = true
+        """, session_id=session_id)
+        
+        # Create the motif library
+        session.run("""
+            MERGE (ml:MotifLibrary {id: "global_motif_library"})
+            SET ml.created = datetime(),
+                ml.usage_count = 0,
+                ml.success_rate = 0.0,
+                ml.total_motifs = 0,
+                ml.version = "Phase2_AKG"
+        """)
+        
+        logger.info(f"✅ Phase 2 learning system initialized - Session: {session_id}")
     
     def _create_protein_family_connections(self, session, discovery_id: str, sequence: str):
         """Create connections to protein families based on sequence analysis"""

@@ -273,9 +273,227 @@ class ProteinVQbitGraph:
         
         return projector
     
-    def initialize_vqbit_states(self) -> None:
-        """Initialize vQbit states for all residues"""
+    def initialize_from_sequence(self, use_biophysical_priors: bool = True, use_learned_motifs: bool = False, 
+                               neo4j_engine=None) -> None:
+        """
+        Phase 1 & 2 Enhancement: Initialize vQbit states directly from sequence using biophysical priors
+        and optionally learned motifs from the AKG.
         
+        This method implements the de novo vQbit initialization protocol from the 
+        AlphaFold Independence Roadmap, creating physics-based initial states without
+        external structure prediction dependency.
+        
+        Args:
+            use_biophysical_priors: If True, use amino acid properties to bias initial states
+            use_learned_motifs: If True, query AKG for learned structural motifs (Phase 2)
+            neo4j_engine: Neo4j engine for motif queries (required if use_learned_motifs=True)
+        """
+        
+        if use_biophysical_priors:
+            logger.info("Initializing vQbit states with biophysical priors (Phase 1 de novo protocol)")
+        else:
+            logger.info("Initializing vQbit states with random amplitudes (legacy mode)")
+            
+        if use_learned_motifs and neo4j_engine:
+            logger.info("Phase 2: Querying AKG for learned motifs to bias initialization")
+            
+        # Phase 2: Query learned motifs for experience-based seeding
+        learned_motifs = []
+        if use_learned_motifs and neo4j_engine:
+            try:
+                from fot.phase2_learning_system import AKGLearningSystem
+                learning_system = AKGLearningSystem(neo4j_engine)
+                
+                # Query motifs for sequence fragments
+                for i in range(0, len(self.sequence), 6):  # Check 6-residue windows
+                    fragment = self.sequence[i:min(i+6, len(self.sequence))]
+                    if len(fragment) >= 4:  # Minimum fragment size
+                        motifs = learning_system.query_learned_motifs(fragment)
+                        for motif in motifs:
+                            motif['query_start'] = i
+                            learned_motifs.append(motif)
+                            
+                logger.info(f"Found {len(learned_motifs)} learned motifs for experience-based seeding")
+                
+            except Exception as e:
+                logger.warning(f"Could not query learned motifs: {e}")
+        
+        for i in range(self.n_residues):
+            
+            if use_biophysical_priors:
+                # Phase 1: Use biophysical properties to generate initial amplitudes
+                amplitudes = self._generate_biophysical_amplitudes(i)
+                
+                # Phase 2: Apply learned motif bias if available
+                if learned_motifs:
+                    amplitudes = self._apply_motif_bias(amplitudes, i, learned_motifs)
+            else:
+                # Legacy: Random initialization
+                amplitudes = torch.randn(8, dtype=torch.complex64, device=self.device)
+                norm = torch.sqrt(torch.sum(torch.conj(amplitudes) * amplitudes).real)
+                amplitudes = amplitudes / norm
+            
+            # Create basis states for different conformations (unchanged)
+            basis_states = [
+                {'phi': -60, 'psi': -45, 'type': 'alpha_helix'},  # 0
+                {'phi': -70, 'psi': -35, 'type': 'alpha_helix'},  # 1
+                {'phi': -50, 'psi': -55, 'type': 'alpha_helix'},  # 2
+                {'phi': -120, 'psi': 120, 'type': 'beta_sheet'},  # 3
+                {'phi': -130, 'psi': 110, 'type': 'beta_sheet'},  # 4
+                {'phi': -110, 'psi': 130, 'type': 'beta_sheet'},  # 5
+                {'phi': -180, 'psi': 180, 'type': 'extended'},    # 6
+                {'phi': 60, 'psi': 45, 'type': 'left_handed'}     # 7
+            ]
+            
+            # Initialize entanglement map
+            entanglement_map = {}
+            for neighbor in self.akg.neighbors(i):
+                entanglement_map[neighbor] = torch.randn(8, 8, dtype=torch.complex64, device=self.device)
+            
+            # Initialize virtue scores
+            virtue_scores = {
+                'Justice': 0.5,
+                'Honesty': 0.5, 
+                'Temperance': 0.5,
+                'Prudence': 0.5
+            }
+            
+            self.vqbit_states[i] = VQbitState(
+                amplitudes=amplitudes,
+                basis_states=basis_states,
+                residue_id=i,
+                entanglement_map=entanglement_map,
+                virtue_scores=virtue_scores
+            )
+        
+        mode_desc = []
+        if use_biophysical_priors:
+            mode_desc.append("biophysical priors")
+        if use_learned_motifs and learned_motifs:
+            mode_desc.append(f"learned motifs ({len(learned_motifs)} found)")
+        if not mode_desc:
+            mode_desc.append("random amplitudes")
+            
+        logger.info(f"Initialized {len(self.vqbit_states)} vQbit states using {' + '.join(mode_desc)}")
+    
+    def _apply_motif_bias(self, amplitudes: torch.Tensor, residue_idx: int, learned_motifs: List[Dict]) -> torch.Tensor:
+        """
+        Phase 2: Apply learned motif bias to initial amplitudes
+        
+        This method enhances the initial amplitudes based on structural motifs
+        learned from previous validated discoveries.
+        """
+        
+        # Find motifs that apply to this residue position
+        relevant_motifs = []
+        for motif in learned_motifs:
+            motif_start = motif.get('query_start', 0)
+            motif_length = len(motif.get('fragment', ''))
+            
+            if motif_start <= residue_idx < motif_start + motif_length:
+                relevant_motifs.append(motif)
+        
+        if not relevant_motifs:
+            return amplitudes
+        
+        # Apply bias based on motif types
+        bias_factor = 1.0
+        for motif in relevant_motifs:
+            motif_type = motif.get('type', '')
+            confidence = motif.get('confidence', 0.5)
+            
+            # Adjust amplitudes based on learned structural preferences
+            if motif_type == 'alpha_helix':
+                # Boost alpha helix states (indices 0, 1)
+                amplitudes[0] *= (1.0 + confidence * 0.3)
+                amplitudes[1] *= (1.0 + confidence * 0.3)
+            elif motif_type == 'beta_hairpin':
+                # Boost beta sheet states (indices 2, 3)
+                amplitudes[2] *= (1.0 + confidence * 0.3)
+                amplitudes[3] *= (1.0 + confidence * 0.3)
+            elif motif_type == 'binding_site':
+                # Boost extended conformations (indices 6, 7)
+                amplitudes[6] *= (1.0 + confidence * 0.2)
+                amplitudes[7] *= (1.0 + confidence * 0.2)
+            elif motif_type == 'cysteine_bridge':
+                # Boost constrained conformations (indices 4, 5)
+                amplitudes[4] *= (1.0 + confidence * 0.4)
+                amplitudes[5] *= (1.0 + confidence * 0.4)
+        
+        # Renormalize after bias application
+        norm = torch.sqrt(torch.sum(torch.conj(amplitudes) * amplitudes).real)
+        return amplitudes / norm
+    
+    def _generate_biophysical_amplitudes(self, residue_index: int) -> torch.Tensor:
+        """
+        Generate physics-based initial amplitudes for a residue based on amino acid properties.
+        
+        This implements the core de novo initialization from Phase 1 of the roadmap.
+        """
+        
+        amino_acid = self.sequence[residue_index]
+        
+        # Biophysical property lookup (simplified Ramachandran propensities)
+        aa_propensities = {
+            'A': [0.3, 0.3, 0.2, 0.1, 0.1, 0.0, 0.0, 0.0],  # Helix-favoring
+            'R': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Extended/charged
+            'N': [0.1, 0.1, 0.1, 0.3, 0.3, 0.1, 0.0, 0.0],  # Sheet-favoring
+            'D': [0.1, 0.1, 0.1, 0.3, 0.3, 0.1, 0.0, 0.0],  # Sheet-favoring
+            'C': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Flexible
+            'E': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Extended/charged
+            'Q': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Helix/extended
+            'G': [0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.2, 0.2],  # Highly flexible
+            'H': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Variable
+            'I': [0.3, 0.3, 0.2, 0.1, 0.1, 0.0, 0.0, 0.0],  # Helix/sheet
+            'L': [0.3, 0.3, 0.2, 0.1, 0.1, 0.0, 0.0, 0.0],  # Helix-favoring
+            'K': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Extended/charged
+            'M': [0.3, 0.3, 0.2, 0.1, 0.1, 0.0, 0.0, 0.0],  # Helix-favoring
+            'F': [0.2, 0.2, 0.1, 0.3, 0.2, 0.0, 0.0, 0.0],  # Sheet-favoring
+            'P': [0.0, 0.0, 0.0, 0.1, 0.1, 0.1, 0.4, 0.3],  # Turn/break
+            'S': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Flexible
+            'T': [0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.0, 0.0],  # Flexible
+            'W': [0.2, 0.2, 0.1, 0.3, 0.2, 0.0, 0.0, 0.0],  # Sheet-favoring
+            'Y': [0.2, 0.2, 0.1, 0.3, 0.2, 0.0, 0.0, 0.0],  # Sheet-favoring
+            'V': [0.3, 0.3, 0.2, 0.1, 0.1, 0.0, 0.0, 0.0],  # Helix/sheet
+        }
+        
+        # Get propensities for this amino acid (default to flexible if unknown)
+        propensities = aa_propensities.get(amino_acid, [0.125] * 8)
+        
+        # Add neighbor context effects
+        if residue_index > 0:
+            prev_aa = self.sequence[residue_index - 1]
+            # Proline preceding this residue breaks helices
+            if prev_aa == 'P':
+                propensities[0] *= 0.1  # Reduce helix propensity
+                propensities[1] *= 0.1
+                propensities[2] *= 0.1
+        
+        if residue_index < len(self.sequence) - 1:
+            next_aa = self.sequence[residue_index + 1]
+            # Proline following this residue affects angles
+            if next_aa == 'P':
+                propensities[6] *= 2.0  # Increase extended propensity
+                propensities[7] *= 2.0
+        
+        # Convert to complex amplitudes with random phases
+        propensities_tensor = torch.tensor(propensities, dtype=torch.float32, device=self.device)
+        phases = torch.rand(8, device=self.device) * 2 * np.pi
+        
+        amplitudes = torch.sqrt(propensities_tensor) * torch.exp(1j * phases)
+        
+        # Normalize
+        norm = torch.sqrt(torch.sum(torch.conj(amplitudes) * amplitudes).real)
+        if norm > 1e-10:
+            amplitudes = amplitudes / norm
+        
+        return amplitudes.to(torch.complex64)
+
+    def initialize_vqbit_states(self) -> None:
+        """Legacy method - calls initialize_from_sequence for backward compatibility"""
+        self.initialize_from_sequence(use_biophysical_priors=False)
+        
+        # Legacy initialization code preserved for compatibility
         for i in range(self.n_residues):
             
             # Create random initial amplitudes (normalized)
@@ -346,6 +564,97 @@ class ProteinVQbitGraph:
             vqbit.virtue_scores[virtue_name] = virtue_score
         
         logger.info(f"Applied {virtue_name} virtue constraints to all vQbits")
+    
+    def virtue_guided_collapse(self, target_conformations: int = 5, 
+                              collapse_rounds: int = 3) -> List[Dict[str, Any]]:
+        """
+        Phase 1 Enhancement: Virtue-guided collapse algorithm.
+        
+        This implements the core collapse protocol from Phase 1 of the roadmap,
+        which iteratively applies virtue operators to collapse the quantum
+        superposition into a small ensemble of high-potential conformations.
+        
+        Args:
+            target_conformations: Number of final conformations to generate
+            collapse_rounds: Number of virtue application rounds
+            
+        Returns:
+            List of collapsed conformations with their properties
+        """
+        
+        logger.info(f"Starting virtue-guided collapse to {target_conformations} conformations")
+        
+        collapsed_conformations = []
+        
+        for conf_idx in range(target_conformations):
+            # Start with current quantum state
+            initial_fot = self.calculate_fot_equation()
+            
+            # Apply virtue operators iteratively for collapse
+            for round_idx in range(collapse_rounds):
+                # Apply Justice operator (steric clash detection)
+                self.apply_virtue_constraints('Justice')
+                
+                # Apply Temperance operator (energy landscape assessment) 
+                self.apply_virtue_constraints('Temperance')
+                
+                # Optional: Add small quantum evolution for diversity
+                if conf_idx > 0:
+                    self.evolve_entangled_states(time_step=0.05)
+            
+            # Measure current state to get discrete conformation
+            measured_conf = self.measure_conformation()
+            
+            # Calculate final FoT value after collapse
+            final_fot = self.calculate_fot_equation()
+            
+            # Extract conformational coordinates
+            conformation_coords = []
+            total_virtue_score = 0.0
+            
+            for residue_id, measurement in measured_conf.items():
+                conf_data = measurement['conformation']
+                virtue_scores = measurement['virtue_scores']
+                
+                conformation_coords.append({
+                    'residue_index': residue_id,
+                    'amino_acid': measurement['residue_type'],
+                    'phi': conf_data['phi'],
+                    'psi': conf_data['psi'],
+                    'conformation_type': conf_data['type'],
+                    'measurement_probability': measurement['probability'],
+                    'virtue_scores': virtue_scores
+                })
+                
+                total_virtue_score += sum(virtue_scores.values()) / len(virtue_scores)
+            
+            avg_virtue_score = total_virtue_score / len(measured_conf)
+            
+            # Store collapsed conformation
+            collapsed_conformation = {
+                'conformation_id': conf_idx,
+                'coordinates': conformation_coords,
+                'initial_fot_value': initial_fot,
+                'final_fot_value': final_fot,
+                'average_virtue_score': avg_virtue_score,
+                'collapse_rounds_applied': collapse_rounds,
+                'total_residues': len(measured_conf),
+                'collapse_quality': final_fot / max(initial_fot, 1e-10)  # Improvement ratio
+            }
+            
+            collapsed_conformations.append(collapsed_conformation)
+            
+            # Re-initialize for next conformation with slight variation
+            if conf_idx < target_conformations - 1:
+                self.initialize_from_sequence(use_biophysical_priors=True)
+        
+        # Sort by collapse quality (best improvement first)
+        collapsed_conformations.sort(key=lambda x: x['collapse_quality'], reverse=True)
+        
+        logger.info(f"Virtue-guided collapse completed. Generated {len(collapsed_conformations)} conformations")
+        logger.info(f"Best collapse quality: {collapsed_conformations[0]['collapse_quality']:.3f}")
+        
+        return collapsed_conformations
     
     def evolve_entangled_states(self, time_step: float = 0.1) -> None:
         """Evolve vQbit states using graph Laplacian entanglement"""
@@ -575,6 +884,72 @@ class ProteinVQbitGraph:
         
         logger.info(f"FoT optimization completed: FoT = {final_fot:.6f}")
         return results
+
+
+    def analyze_protein_sequence(self, sequence: str, num_iterations: int = 100, 
+                               include_provenance: bool = True, use_de_novo: bool = False,
+                               use_learned_motifs: bool = False, neo4j_engine=None) -> Dict[str, Any]:
+        """
+        Legacy interface for compatibility with existing discovery system.
+        
+        Args:
+            sequence: Amino acid sequence (ignored if system already initialized)
+            num_iterations: Number of FoT optimization iterations
+            include_provenance: Whether to include detailed provenance
+            use_de_novo: Whether to use Phase 1 de novo initialization
+            use_learned_motifs: Whether to use Phase 2 learned motif biasing
+            neo4j_engine: Neo4j engine for Phase 2 motif queries
+            
+        Returns:
+            Analysis results in legacy format
+        """
+        
+        try:
+            # Initialize using appropriate method
+            if use_de_novo:
+                self.initialize_from_sequence(
+                    use_biophysical_priors=True, 
+                    use_learned_motifs=use_learned_motifs,
+                    neo4j_engine=neo4j_engine
+                )
+                mode = "Phase 1 de novo"
+                if use_learned_motifs:
+                    mode += " + Phase 2 learned motifs"
+                logger.info(f"Using {mode} initialization protocol")
+            else:
+                self.initialize_vqbit_states()
+                logger.info("Using legacy random initialization")
+            
+            # Run FoT optimization
+            results = self.run_fot_optimization(max_iterations=num_iterations)
+            
+            # Convert to legacy format expected by ValidatedDiscoverySystem
+            legacy_results = {
+                'success': True,
+                'final_energy': results['final_fot_value'],
+                'converged': results['converged'],
+                'iterations': results['iterations'],
+                'sequence_length': len(self.sequence),
+                'fot_value': results['final_fot_value']
+            }
+            
+            if include_provenance:
+                legacy_results.update({
+                    'graph_properties': results['graph_properties'],
+                    'fot_history': results['fot_history'][-10:],  # Last 10 values
+                    'method': 'de_novo_fot' if use_de_novo else 'legacy_fot'
+                })
+            
+            return legacy_results
+            
+        except Exception as e:
+            logger.error(f"vQbit analysis failed: {e}")
+            return {
+                'success': False,
+                'error': str(e),
+                'final_energy': 0.0,
+                'converged': False
+            }
 
 
 def run_vqbit_protein_folding(sequence: str, device: str = "cpu") -> Dict[str, Any]:

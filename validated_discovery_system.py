@@ -77,13 +77,15 @@ class ValidatedDiscoverySystem:
                  output_dir: Path = Path("validated_discoveries"),
                  random_seed: int = None,
                  min_validation_score: float = 0.8,
-                 min_therapeutic_potential: float = 0.6):
+                 min_therapeutic_potential: float = 0.6,
+                 use_de_novo_fot: bool = False):
         
         self.output_dir = output_dir
         self.output_dir.mkdir(parents=True, exist_ok=True)
         
         self.min_validation_score = min_validation_score
         self.min_therapeutic_potential = min_therapeutic_potential
+        self.use_de_novo_fot = use_de_novo_fot  # Phase 1: FoT AlphaFold Independence
         
         # Initialize validated components
         self.sequence_generator = ScientificSequenceGenerator(random_seed=random_seed)
@@ -100,6 +102,8 @@ class ValidatedDiscoverySystem:
         logger.info("🔬 ValidatedDiscoverySystem initialized")
         logger.info(f"📊 Validation threshold: {min_validation_score:.2f}")
         logger.info(f"🎯 Therapeutic threshold: {min_therapeutic_potential:.2f}")
+        if self.use_de_novo_fot:
+            logger.info("🆕 Phase 1 de novo FoT initialization ENABLED")
     
     def run_validated_discovery(self, max_attempts: int = 100, target_discoveries: int = 5) -> Dict[str, Any]:
         """
@@ -251,11 +255,12 @@ class ValidatedDiscoverySystem:
                 return {'success': False, 'error': 'Classical analysis failed'}
             
             # vQbit analysis
-            vqbit_graph = ProteinVQbitGraph()
+            vqbit_graph = ProteinVQbitGraph(sequence, device="cpu")
             vqbit_results = vqbit_graph.analyze_protein_sequence(
                 sequence,
                 num_iterations=50,
-                include_provenance=True
+                include_provenance=True,
+                use_de_novo=self.use_de_novo_fot  # Phase 1: Use de novo mode if enabled
             )
             
             if not vqbit_results.get('success', False):
