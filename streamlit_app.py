@@ -43,8 +43,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 @st.cache_data
-def load_data():
-    """Load protein discovery data - COMPLETE dataset with NO LIMITS"""
+def load_chunked_data():
+    """Load protein discovery data from CHUNKED files - ALL data preserved"""
     
     # Try to load from streamlit_dashboard/data first
     data_paths = [
@@ -56,25 +56,72 @@ def load_data():
     for data_dir in data_paths:
         data_path = Path(data_dir)
         
-        # 1. Try COMPLETE dataset first (ALL 251,941 discoveries)
+        # 1. Try CHUNKED dataset first (ALL discoveries preserved)
+        chunk_index_path = data_path / "chunk_index.json"
+        if chunk_index_path.exists():
+            try:
+                st.sidebar.info(f"📦 Loading CHUNKED dataset (all discoveries preserved)...")
+                
+                # Load chunk index
+                with open(chunk_index_path, 'r') as f:
+                    chunk_index = json.load(f)
+                
+                summary_stats = chunk_index['summary_stats']
+                chunk_files = chunk_index['chunk_files']
+                
+                st.sidebar.info(f"🔄 Loading {len(chunk_files)} chunks...")
+                
+                # Load all chunks
+                all_proteins = []
+                chunks_loaded = 0
+                
+                for chunk_file in chunk_files:
+                    chunk_path = data_path / chunk_file
+                    if chunk_path.exists():
+                        try:
+                            with gzip.open(chunk_path, 'rt') as f:
+                                chunk_data = json.load(f)
+                            all_proteins.extend(chunk_data)
+                            chunks_loaded += 1
+                            
+                            # Update progress
+                            if chunks_loaded % 5 == 0:
+                                st.sidebar.info(f"📊 Loaded {chunks_loaded}/{len(chunk_files)} chunks ({len(all_proteins):,} proteins)")
+                        except Exception as e:
+                            st.sidebar.warning(f"⚠️ Could not load chunk {chunk_file}: {e}")
+                
+                if all_proteins:
+                    proteins_df = pd.DataFrame(all_proteins)
+                    
+                    st.sidebar.success(f"🎉 Loaded COMPLETE CHUNKED dataset: {len(proteins_df):,} proteins")
+                    st.sidebar.success(f"✅ NO DATA LOSS - All discoveries preserved across {chunks_loaded} chunks!")
+                    st.sidebar.info(f"📈 Quality: {summary_stats.get('excellent_quality', 0):,} Excellent + {summary_stats.get('very_good_quality', 0):,} Very Good + {summary_stats.get('good_quality', 0):,} Good")
+                    
+                    return proteins_df, summary_stats
+                else:
+                    st.sidebar.error("❌ No protein data found in chunks")
+                    
+            except Exception as e:
+                st.sidebar.error(f"Error loading chunked dataset: {e}")
+        
+        # 2. Try single complete dataset (fallback)
         complete_json_path = data_path / "complete_protein_dataset.json.gz"
         if complete_json_path.exists():
             try:
-                st.sidebar.info(f"📦 Loading COMPLETE dataset (all discoveries)...")
+                st.sidebar.info(f"📦 Loading single complete dataset...")
                 with gzip.open(complete_json_path, 'rt') as f:
                     data = json.load(f)
                 
                 proteins_df = pd.DataFrame(data['proteins'])
                 summary_stats = data['summary_stats']
                 
-                st.sidebar.success(f"🎉 Loaded COMPLETE dataset: {len(proteins_df):,} proteins")
-                st.sidebar.success(f"✅ NO ARBITRARY LIMITS - All discoveries included!")
+                st.sidebar.success(f"🎉 Loaded single dataset: {len(proteins_df):,} proteins")
                 return proteins_df, summary_stats
                 
             except Exception as e:
                 st.sidebar.error(f"Error loading complete dataset: {e}")
         
-        # 2. Try complete CSV
+        # 3. Try complete CSV
         complete_csv_path = data_path / "complete_proteins.csv"
         if complete_csv_path.exists():
             try:
@@ -90,19 +137,18 @@ def load_data():
                     "avg_quantum_coherence": proteins_df['quantum_coherence'].mean() if 'quantum_coherence' in proteins_df.columns else 0
                 }
                 
-                st.sidebar.success(f"🎉 Loaded COMPLETE CSV: {len(proteins_df):,} proteins")
-                st.sidebar.success(f"✅ NO ARBITRARY LIMITS - All discoveries included!")
+                st.sidebar.success(f"🎉 Loaded CSV: {len(proteins_df):,} proteins")
                 return proteins_df, summary_stats
                 
             except Exception as e:
                 st.sidebar.error(f"Error loading complete CSV: {e}")
         
-        # 3. Fallback to legacy limited dataset (warn user)
+        # 4. Fallback to legacy limited dataset (warn user)
         json_path = data_path / "protein_discovery_data.json.gz"
         if json_path.exists():
             try:
                 st.sidebar.warning("⚠️ Loading LEGACY limited dataset (only 5K proteins)")
-                st.sidebar.error("🚨 MISSING 246,941 discoveries! Please update data files.")
+                st.sidebar.error("🚨 MISSING 246,941 discoveries! Please update to chunked data.")
                 with gzip.open(json_path, 'rt') as f:
                     data = json.load(f)
                 
@@ -115,7 +161,7 @@ def load_data():
             except Exception as e:
                 st.sidebar.error(f"Error loading legacy data: {e}")
         
-        # 4. Try CSV fallback
+        # 5. Try CSV fallback
         csv_path = data_path / "proteins.csv"
         if csv_path.exists():
             try:
@@ -764,9 +810,9 @@ def main():
     st.title("🧬 Field of Truth Protein Discovery Dashboard")
     st.markdown("**Quantum-Enhanced Protein Discovery Analytics**")
     
-    # Load data
+    # Load data from chunks
     with st.spinner("Loading protein discovery data..."):
-        proteins_df, summary_stats = load_data()
+        proteins_df, summary_stats = load_chunked_data()
     
     if len(proteins_df) == 0:
         st.error("❌ No data available. Please ensure data files are present.")
