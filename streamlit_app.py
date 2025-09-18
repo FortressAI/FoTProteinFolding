@@ -129,6 +129,291 @@ def create_overview_metrics(summary_stats):
         </div>
         """, unsafe_allow_html=True)
 
+def show_detailed_protein_analysis(protein_data):
+    """Show detailed analysis of a single protein with 2D/3D visualizations"""
+    
+    # Get protein properties
+    protein_id = protein_data.get('protein_id', 'Unknown')
+    sequence = protein_data.get('sequence', '')
+    length = len(sequence)
+    druglikeness = protein_data.get('druglikeness_score', 0)
+    priority = protein_data.get('priority', 'UNKNOWN')
+    validation_score = protein_data.get('validation_score', 0)
+    energy = protein_data.get('energy_kcal_mol', 0)
+    quantum_coherence = protein_data.get('quantum_coherence', 0)
+    
+    # Protein header
+    st.markdown(f"## 🧬 {protein_id}")
+    
+    # Basic properties in columns
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("Length", f"{length} aa")
+        st.metric("Druglikeness", f"{druglikeness:.3f}")
+    with col2:
+        st.metric("Priority", priority)
+        st.metric("Validation Score", f"{validation_score:.3f}")
+    with col3:
+        st.metric("Energy", f"{energy:.2f} kcal/mol")
+        st.metric("Quantum Coherence", f"{quantum_coherence:.3f}")
+    with col4:
+        # Calculate additional properties
+        charged_count = sum(1 for aa in sequence if aa in 'RKDE')
+        hydrophobic_count = sum(1 for aa in sequence if aa in 'AILMFPWV')
+        aromatic_count = sum(1 for aa in sequence if aa in 'FYW')
+        cysteine_count = sum(1 for aa in sequence if aa in 'C')
+        
+        st.metric("Charged Residues", charged_count)
+        st.metric("Hydrophobic Fraction", f"{hydrophobic_count/length:.3f}")
+    
+    # Sequence display
+    st.subheader("📋 Full Sequence")
+    st.code(sequence, language=None)
+    
+    # 2D and 3D Visualizations
+    col_2d, col_3d = st.columns(2)
+    
+    with col_2d:
+        st.subheader("🎯 2D Amino Acid Composition")
+        create_2d_composition_chart(sequence)
+        
+        st.subheader("🔄 2D Circular Sequence Map")
+        create_2d_circular_map(sequence)
+    
+    with col_3d:
+        st.subheader("🧬 3D Protein Structure Model")
+        create_3d_protein_model(sequence, protein_id)
+        
+        st.subheader("⚡ 3D Quantum Properties")
+        create_3d_quantum_visualization(sequence, quantum_coherence, energy)
+    
+    # Detailed analysis
+    st.subheader("🔬 Structural Analysis")
+    create_detailed_analysis(sequence, druglikeness, priority)
+
+def create_2d_composition_chart(sequence):
+    """Create 2D amino acid composition chart"""
+    import collections
+    
+    # Count amino acids
+    aa_counts = collections.Counter(sequence)
+    aa_names = list(aa_counts.keys())
+    counts = list(aa_counts.values())
+    
+    # Create pie chart
+    fig = px.pie(
+        values=counts,
+        names=aa_names,
+        title="Amino Acid Composition",
+        color_discrete_sequence=px.colors.qualitative.Set3
+    )
+    fig.update_traces(textposition='inside', textinfo='percent+label')
+    st.plotly_chart(fig, use_container_width=True)
+
+def create_2d_circular_map(sequence):
+    """Create 2D circular sequence map"""
+    import numpy as np
+    
+    length = len(sequence)
+    angles = np.linspace(0, 2*np.pi, length, endpoint=False)
+    
+    # Color code by amino acid properties
+    colors = []
+    for aa in sequence:
+        if aa in 'RKDE':  # Charged
+            colors.append('red')
+        elif aa in 'AILMFPWV':  # Hydrophobic
+            colors.append('blue')
+        elif aa in 'FYW':  # Aromatic
+            colors.append('purple')
+        elif aa in 'C':  # Cysteine
+            colors.append('yellow')
+        else:  # Polar/other
+            colors.append('green')
+    
+    # Create circular plot
+    x = np.cos(angles)
+    y = np.sin(angles)
+    
+    fig = go.Figure()
+    
+    # Add amino acid points
+    fig.add_trace(go.Scatter(
+        x=x, y=y,
+        mode='markers+text',
+        marker=dict(color=colors, size=8),
+        text=list(sequence),
+        textposition="middle center",
+        textfont=dict(size=8),
+        name="Amino Acids"
+    ))
+    
+    fig.update_layout(
+        title="Circular Sequence Map",
+        showlegend=False,
+        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False),
+        height=400
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+
+def create_3d_protein_model(sequence, protein_id):
+    """Create 3D protein structure model"""
+    import numpy as np
+    
+    length = len(sequence)
+    
+    # Generate simplified 3D backbone coordinates
+    np.random.seed(hash(protein_id) % 2**32)  # Consistent seed based on protein ID
+    
+    # Create a protein-like backbone structure
+    t = np.linspace(0, 4*np.pi, length)
+    x = np.cos(t) + 0.1*np.random.randn(length)
+    y = np.sin(t) + 0.1*np.random.randn(length)
+    z = 0.1*t + 0.1*np.random.randn(length)
+    
+    # Color by amino acid properties
+    colors = []
+    for aa in sequence:
+        if aa in 'RKDE':  # Charged - red
+            colors.append(1)
+        elif aa in 'AILMFPWV':  # Hydrophobic - blue
+            colors.append(2)
+        elif aa in 'FYW':  # Aromatic - purple
+            colors.append(3)
+        elif aa in 'C':  # Cysteine - yellow
+            colors.append(4)
+        else:  # Polar/other - green
+            colors.append(5)
+    
+    fig = go.Figure()
+    
+    # Add backbone trace
+    fig.add_trace(go.Scatter3d(
+        x=x, y=y, z=z,
+        mode='lines+markers',
+        line=dict(color='gray', width=4),
+        marker=dict(
+            size=6,
+            color=colors,
+            colorscale='viridis',
+            showscale=True,
+            colorbar=dict(title="AA Type")
+        ),
+        text=[f"{i+1}: {aa}" for i, aa in enumerate(sequence)],
+        name="Backbone"
+    ))
+    
+    fig.update_layout(
+        title="3D Protein Model (Simplified)",
+        scene=dict(
+            xaxis_title="X (Å)",
+            yaxis_title="Y (Å)",
+            zaxis_title="Z (Å)"
+        ),
+        height=500
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+
+def create_3d_quantum_visualization(sequence, quantum_coherence, energy):
+    """Create 3D quantum properties visualization"""
+    import numpy as np
+    
+    length = len(sequence)
+    
+    # Generate quantum field visualization
+    x = np.linspace(-2, 2, 20)
+    y = np.linspace(-2, 2, 20)
+    X, Y = np.meshgrid(x, y)
+    
+    # Create quantum field based on coherence and energy
+    Z = np.sin(np.sqrt(X**2 + Y**2) * (1 + quantum_coherence)) * np.exp(-energy/1000)
+    
+    fig = go.Figure()
+    
+    # Add surface plot
+    fig.add_trace(go.Surface(
+        x=X, y=Y, z=Z,
+        colorscale='plasma',
+        name="Quantum Field",
+        showscale=True,
+        colorbar=dict(title="Field Strength")
+    ))
+    
+    fig.update_layout(
+        title=f"Quantum Properties (Coherence: {quantum_coherence:.3f})",
+        scene=dict(
+            xaxis_title="X",
+            yaxis_title="Y",
+            zaxis_title="Field Strength"
+        ),
+        height=400
+    )
+    
+    st.plotly_chart(fig, use_container_width=True)
+
+def create_detailed_analysis(sequence, druglikeness, priority):
+    """Create detailed structural analysis"""
+    
+    # Calculate properties
+    length = len(sequence)
+    charged_count = sum(1 for aa in sequence if aa in 'RKDE')
+    hydrophobic_count = sum(1 for aa in sequence if aa in 'AILMFPWV')
+    aromatic_count = sum(1 for aa in sequence if aa in 'FYW')
+    cysteine_count = sum(1 for aa in sequence if aa in 'C')
+    proline_count = sum(1 for aa in sequence if aa in 'P')
+    
+    # Analysis columns
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("**🎯 Therapeutic Potential**")
+        if druglikeness > 0.7:
+            st.success(f"⭐ HIGH therapeutic potential (druglikeness: {druglikeness:.3f})")
+        elif druglikeness > 0.5:
+            st.warning(f"⚠️ MEDIUM therapeutic potential (druglikeness: {druglikeness:.3f})")
+        else:
+            st.info(f"ℹ️ LOW therapeutic potential (druglikeness: {druglikeness:.3f})")
+        
+        st.markdown("**🔬 Structural Features**")
+        st.write(f"• Length: {length} amino acids")
+        st.write(f"• Charged residues: {charged_count} ({charged_count/length*100:.1f}%)")
+        st.write(f"• Hydrophobic residues: {hydrophobic_count} ({hydrophobic_count/length*100:.1f}%)")
+        st.write(f"• Aromatic residues: {aromatic_count} ({aromatic_count/length*100:.1f}%)")
+        st.write(f"• Cysteine bridges: {cysteine_count//2}")
+        st.write(f"• Proline content: {proline_count} ({proline_count/length*100:.1f}%)")
+    
+    with col2:
+        st.markdown("**⚡ Folding Predictions**")
+        
+        # Simple secondary structure prediction
+        if proline_count/length > 0.1:
+            st.write("🔄 High flexibility due to proline content")
+        else:
+            st.write("🏗️ Structured folding expected")
+        
+        if cysteine_count >= 2:
+            st.write("🔗 Disulfide bonds likely - stable structure")
+        
+        if hydrophobic_count/length > 0.4:
+            st.write("💧 Hydrophobic core formation expected")
+        
+        if aromatic_count > 0:
+            st.write("🌟 Aromatic stacking interactions possible")
+        
+        st.markdown("**🎭 Predicted Function**")
+        if priority == "HIGH":
+            if length < 50:
+                st.write("🦠 **Antimicrobial peptide** candidate")
+            elif charged_count/length > 0.2:
+                st.write("🧲 **Binding protein** candidate")
+            else:
+                st.write("💊 **Drug target** candidate")
+        else:
+            st.write("🔬 Structural or regulatory protein")
+
 def main():
     """Main dashboard application"""
     
@@ -176,20 +461,25 @@ def main():
             st.plotly_chart(fig, use_container_width=True)
     
     with tab2:
-        st.header("Protein Analysis")
+        st.header("🔬 Detailed Protein Analysis")
         
-        # Show sample proteins
         if len(proteins_df) > 0:
-            st.write(f"**Showing top proteins from {len(proteins_df):,} total discoveries**")
+            # Protein selector
+            st.subheader("Select Protein for Detailed Analysis")
+            protein_options = []
+            for idx, row in proteins_df.head(50).iterrows():  # Top 50 for selection
+                protein_id = row.get('protein_id', f'protein_{idx}')
+                sequence = row.get('sequence', 'N/A')
+                priority = row.get('priority', 'UNKNOWN')
+                protein_options.append(f"{protein_id} - {sequence[:20]}{'...' if len(sequence) > 20 else ''} (Priority: {priority})")
             
-            # Display top proteins
-            display_cols = ['sequence', 'length', 'druglikeness_score', 'priority']
-            available_cols = [col for col in display_cols if col in proteins_df.columns]
+            selected_idx = st.selectbox("Choose a protein:", range(len(protein_options)), format_func=lambda x: protein_options[x])
             
-            if available_cols:
-                st.dataframe(proteins_df[available_cols].head(20))
-            else:
-                st.dataframe(proteins_df.head(20))
+            if selected_idx is not None:
+                selected_protein = proteins_df.iloc[selected_idx]
+                show_detailed_protein_analysis(selected_protein)
+        else:
+            st.error("No protein data available")
     
     with tab3:
         st.header("Data Export")
