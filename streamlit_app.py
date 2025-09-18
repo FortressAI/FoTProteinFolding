@@ -740,25 +740,41 @@ def show_protein_explorer(proteins_df):
     else:
         page_df = filtered_df.head(proteins_per_page)
     
-    # Display proteins
+    # Display proteins with improved formatting
     for idx, protein in page_df.iterrows():
         protein_id = protein.get('protein_id', f'protein_{idx}')
         sequence = protein.get('sequence', '')
         priority = protein.get('priority', 'UNKNOWN')
         druglikeness = protein.get('druglikeness_score', 0)
         
-        with st.expander(f"🧬 {protein_id} - {sequence[:30]}{'...' if len(sequence) > 30 else ''} (Priority: {priority})"):
-            col_info, col_action = st.columns([3, 1])
+        with st.expander(f"🧬 {protein_id} - {priority} Priority"):
+            # Single column layout for better alignment
             
-            with col_info:
-                st.write(f"**Length:** {len(sequence)} amino acids")
-                st.write(f"**Druglikeness:** {druglikeness:.3f}")
-                st.write(f"**Validation Score:** {protein.get('validation_score', 0):.3f}")
-                st.code(sequence, language=None)
+            # Display key metrics in a clean row
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("Length", f"{len(sequence)} aa")
+            with col2:
+                st.metric("Druglikeness", f"{druglikeness:.3f}")
+            with col3:
+                st.metric("Validation", f"{protein.get('validation_score', 0):.3f}")
+            with col4:
+                st.metric("Energy", f"{protein.get('energy_kcal_mol', 0):.1f}")
             
-            with col_action:
-                if st.button(f"🔬 Full Analysis", key=f"full_analysis_{idx}"):
-                    show_detailed_protein_analysis(protein)
+            # Display full sequence with proper formatting
+            st.markdown("**Complete Protein Sequence:**")
+            st.markdown(f'<div class="protein-sequence">{sequence}</div>', unsafe_allow_html=True)
+            
+            # Additional protein details in organized format
+            col_details1, col_details2 = st.columns(2)
+            with col_details1:
+                st.write(f"**Priority Level:** {priority}")
+                st.write(f"**Quantum Coherence:** {protein.get('quantum_coherence', 0):.3f}")
+                st.write(f"**Wonder Score:** {protein.get('wonder_score', 0):.3f}")
+            with col_details2:
+                st.write(f"**Charged Residues:** {protein.get('charged_residues', 0)}")
+                st.write(f"**Hydrophobic Fraction:** {protein.get('hydrophobic_fraction', 0):.3f}")
+                st.write(f"**Druggable:** {'✅ Yes' if protein.get('druggable', False) else '❌ No'}")
 
 def show_analytics_deep_dive(proteins_df):
     """Deep analytics with advanced charts and correlations"""
