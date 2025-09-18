@@ -39,6 +39,50 @@ st.markdown("""
     .priority-high { color: #ff6b6b; font-weight: bold; }
     .priority-medium { color: #ffa726; font-weight: bold; }
     .priority-low { color: #66bb6a; font-weight: bold; }
+    
+    /* Fix data alignment issues - force left alignment */
+    .stDataFrame, .stDataFrame > div, .stDataFrame table {
+        text-align: left !important;
+        width: 100% !important;
+    }
+    
+    /* Protein discovery cards - left align all content */
+    .protein-discovery-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 0.5rem 0;
+        background: #fafafa;
+        text-align: left !important;
+    }
+    
+    /* Fix expandable protein cards */
+    .stExpander > div > div {
+        text-align: left !important;
+    }
+    
+    /* Fix any right-aligned content */
+    .element-container, .stMarkdown, .stText, .stColumns > div {
+        text-align: left !important;
+    }
+    
+    /* Ensure protein info displays properly */
+    .protein-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left !important;
+    }
+    
+    /* Fix protein sequence display */
+    .protein-sequence {
+        font-family: 'Courier New', monospace;
+        background: #f5f5f5;
+        padding: 0.5rem;
+        border-radius: 4px;
+        word-break: break-all;
+        text-align: left !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -573,21 +617,38 @@ def show_dashboard_overview(proteins_df, summary_stats):
             )
             st.plotly_chart(fig, use_container_width=True)
     
-    # Recent discoveries
+    # Recent discoveries with improved formatting
     st.subheader("🆕 Recent High-Priority Discoveries")
     if len(proteins_df) > 0:
         top_proteins = proteins_df.head(10)
         for idx, protein in top_proteins.iterrows():
             with st.expander(f"🧬 {protein.get('protein_id', f'protein_{idx}')} - {protein.get('priority', 'UNKNOWN')} Priority"):
-                col_seq, col_metrics = st.columns([2, 1])
-                with col_seq:
-                    sequence = protein.get('sequence', '')
-                    st.code(sequence[:100] + ('...' if len(sequence) > 100 else ''), language=None)
-                with col_metrics:
+                # Use single column layout for better left alignment
+                sequence = protein.get('sequence', '')
+                
+                # Display sequence with proper formatting
+                st.markdown("**Protein Sequence:**")
+                st.markdown(f'<div class="protein-sequence">{sequence}</div>', unsafe_allow_html=True)
+                
+                # Display metrics in a clean row layout
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
                     st.metric("Druglikeness", f"{protein.get('druglikeness_score', 0):.3f}")
+                with col2:
                     st.metric("Length", f"{len(sequence)} aa")
-                    if st.button(f"Analyze", key=f"analyze_{idx}"):
-                        show_detailed_protein_analysis(protein)
+                with col3:
+                    st.metric("Priority", protein.get('priority', 'N/A'))
+                with col4:
+                    st.metric("Energy", f"{protein.get('energy_kcal_mol', 0):.1f}")
+                
+                # Additional protein details in a clean format
+                col_details1, col_details2 = st.columns(2)
+                with col_details1:
+                    st.write(f"**Validation Score:** {protein.get('validation_score', 0):.3f}")
+                    st.write(f"**Quantum Coherence:** {protein.get('quantum_coherence', 0):.3f}")
+                with col_details2:
+                    st.write(f"**Charged Residues:** {protein.get('charged_residues', 0)}")
+                    st.write(f"**Hydrophobic Fraction:** {protein.get('hydrophobic_fraction', 0):.3f}")
 
 def show_protein_explorer(proteins_df):
     """Enhanced protein explorer with search, filtering, and pagination"""
