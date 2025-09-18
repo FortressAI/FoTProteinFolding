@@ -649,6 +649,17 @@ def show_dashboard_overview(proteins_df, summary_stats):
                 with col_details2:
                     st.write(f"**Charged Residues:** {protein.get('charged_residues', 0)}")
                     st.write(f"**Hydrophobic Fraction:** {protein.get('hydrophobic_fraction', 0):.3f}")
+                
+                # Advanced Analytics Section - Collapsible
+                with st.expander("🔬 Advanced 2D/3D Analytics & Visualizations"):
+                    st.markdown("### 📊 Detailed Protein Analysis")
+                    
+                    # Quick analytics toggle
+                    protein_id = protein.get('protein_id', f'protein_{idx}')
+                    show_analytics = st.checkbox(f"Show detailed 2D/3D analysis for {protein_id}", key=f"recent_analytics_{idx}")
+                    
+                    if show_analytics:
+                        show_detailed_protein_analysis(protein)
 
 def show_protein_explorer(proteins_df):
     """Enhanced protein explorer with search, filtering, and pagination"""
@@ -775,6 +786,16 @@ def show_protein_explorer(proteins_df):
                 st.write(f"**Charged Residues:** {protein.get('charged_residues', 0)}")
                 st.write(f"**Hydrophobic Fraction:** {protein.get('hydrophobic_fraction', 0):.3f}")
                 st.write(f"**Druggable:** {'✅ Yes' if protein.get('druggable', False) else '❌ No'}")
+            
+            # Advanced Analytics Section - Collapsible
+            with st.expander("🔬 Advanced 2D/3D Analytics & Visualizations"):
+                st.markdown("### 📊 Detailed Protein Analysis")
+                
+                # Quick analytics toggle
+                show_analytics = st.checkbox(f"Show detailed 2D/3D analysis for {protein_id}", key=f"analytics_{idx}")
+                
+                if show_analytics:
+                    show_detailed_protein_analysis(protein)
 
 def show_analytics_deep_dive(proteins_df):
     """Deep analytics with advanced charts and correlations"""
