@@ -1,6 +1,3 @@
-[global]
-dataFrameSerialization = "legacy"
-
 [theme]
 primaryColor = "#667eea"
 backgroundColor = "#ffffff"
@@ -9,8 +6,9 @@ textColor = "#262730"
 font = "sans serif"
 
 [server]
-headless = true
-enableCORS = false
+headless = false
+enableCORS = true
+enableXsrfProtection = false
 port = 8501
 
 [browser]
