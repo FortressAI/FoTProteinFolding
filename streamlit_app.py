@@ -44,7 +44,7 @@ st.markdown("""
 
 @st.cache_data
 def load_data():
-    """Load protein discovery data from static files"""
+    """Load protein discovery data - COMPLETE dataset with NO LIMITS"""
     
     # Try to load from streamlit_dashboard/data first
     data_paths = [
@@ -54,24 +54,69 @@ def load_data():
     ]
     
     for data_dir in data_paths:
-        # Try compressed JSON first
-        json_path = Path(data_dir) / "protein_discovery_data.json.gz"
+        data_path = Path(data_dir)
+        
+        # 1. Try COMPLETE dataset first (ALL 251,941 discoveries)
+        complete_json_path = data_path / "complete_protein_dataset.json.gz"
+        if complete_json_path.exists():
+            try:
+                st.sidebar.info(f"📦 Loading COMPLETE dataset (all discoveries)...")
+                with gzip.open(complete_json_path, 'rt') as f:
+                    data = json.load(f)
+                
+                proteins_df = pd.DataFrame(data['proteins'])
+                summary_stats = data['summary_stats']
+                
+                st.sidebar.success(f"🎉 Loaded COMPLETE dataset: {len(proteins_df):,} proteins")
+                st.sidebar.success(f"✅ NO ARBITRARY LIMITS - All discoveries included!")
+                return proteins_df, summary_stats
+                
+            except Exception as e:
+                st.sidebar.error(f"Error loading complete dataset: {e}")
+        
+        # 2. Try complete CSV
+        complete_csv_path = data_path / "complete_proteins.csv"
+        if complete_csv_path.exists():
+            try:
+                st.sidebar.info(f"📄 Loading complete CSV dataset...")
+                proteins_df = pd.read_csv(complete_csv_path)
+                
+                # Calculate summary stats
+                summary_stats = {
+                    "total_proteins": len(proteins_df),
+                    "druggable_proteins": proteins_df['druggable'].sum() if 'druggable' in proteins_df.columns else 0,
+                    "high_priority": proteins_df[proteins_df['priority'] == 'HIGH'].shape[0] if 'priority' in proteins_df.columns else 0,
+                    "avg_druglikeness": proteins_df['druglikeness_score'].mean() if 'druglikeness_score' in proteins_df.columns else 0,
+                    "avg_quantum_coherence": proteins_df['quantum_coherence'].mean() if 'quantum_coherence' in proteins_df.columns else 0
+                }
+                
+                st.sidebar.success(f"🎉 Loaded COMPLETE CSV: {len(proteins_df):,} proteins")
+                st.sidebar.success(f"✅ NO ARBITRARY LIMITS - All discoveries included!")
+                return proteins_df, summary_stats
+                
+            except Exception as e:
+                st.sidebar.error(f"Error loading complete CSV: {e}")
+        
+        # 3. Fallback to legacy limited dataset (warn user)
+        json_path = data_path / "protein_discovery_data.json.gz"
         if json_path.exists():
             try:
+                st.sidebar.warning("⚠️ Loading LEGACY limited dataset (only 5K proteins)")
+                st.sidebar.error("🚨 MISSING 246,941 discoveries! Please update data files.")
                 with gzip.open(json_path, 'rt') as f:
                     data = json.load(f)
                 
                 proteins_df = pd.DataFrame(data['proteins'])
                 summary_stats = data['summary_stats']
                 
-                st.sidebar.success(f"🔗 Loaded {len(proteins_df):,} proteins from compressed data")
+                st.sidebar.warning(f"📉 Limited dataset: {len(proteins_df):,} proteins (INCOMPLETE)")
                 return proteins_df, summary_stats
                 
             except Exception as e:
-                st.sidebar.error(f"Error loading compressed data: {e}")
+                st.sidebar.error(f"Error loading legacy data: {e}")
         
-        # Try CSV fallback
-        csv_path = Path(data_dir) / "proteins.csv"
+        # 4. Try CSV fallback
+        csv_path = data_path / "proteins.csv"
         if csv_path.exists():
             try:
                 proteins_df = pd.read_csv(csv_path)
@@ -418,11 +463,51 @@ def show_dashboard_overview(proteins_df, summary_stats):
     """Dashboard overview with key metrics and charts"""
     st.header("🏠 Discovery Overview")
     
-    # Priority distribution
+    # Quality distribution overview
+    if 'validation_score' in proteins_df.columns:
+        st.subheader("🎯 Quality Distribution - Field of Truth Validation")
+        
+        excellent_count = len(proteins_df[proteins_df['validation_score'] >= 0.9])
+        very_good_count = len(proteins_df[(proteins_df['validation_score'] >= 0.8) & (proteins_df['validation_score'] < 0.9)])
+        good_count = len(proteins_df[(proteins_df['validation_score'] >= 0.7) & (proteins_df['validation_score'] < 0.8)])
+        
+        qual_col1, qual_col2, qual_col3, qual_col4 = st.columns(4)
+        with qual_col1:
+            st.metric("🌟 Excellent", f"{excellent_count:,}", f"{excellent_count/len(proteins_df)*100:.1f}%")
+            st.caption("Validation Score ≥ 0.9")
+        with qual_col2:
+            st.metric("⭐ Very Good", f"{very_good_count:,}", f"{very_good_count/len(proteins_df)*100:.1f}%")
+            st.caption("Validation Score 0.8-0.9")
+        with qual_col3:
+            st.metric("✅ Good", f"{good_count:,}", f"{good_count/len(proteins_df)*100:.1f}%")
+            st.caption("Validation Score 0.7-0.8")
+        with qual_col4:
+            total_high_quality = excellent_count + very_good_count + good_count
+            st.metric("🎯 Total High Quality", f"{total_high_quality:,}", f"{total_high_quality/len(proteins_df)*100:.1f}%")
+            st.caption("All validation scores ≥ 0.7")
+        
+        st.markdown("---")
+    
+    # Charts
     col1, col2 = st.columns(2)
     
     with col1:
-        if 'priority' in proteins_df.columns:
+        # Quality distribution pie chart
+        if 'validation_score' in proteins_df.columns:
+            quality_data = {
+                '🌟 Excellent (≥0.9)': excellent_count,
+                '⭐ Very Good (0.8-0.9)': very_good_count,
+                '✅ Good (0.7-0.8)': good_count
+            }
+            
+            fig = px.pie(
+                values=list(quality_data.values()),
+                names=list(quality_data.keys()),
+                title="Quality Distribution by Validation Score",
+                color_discrete_sequence=['#ff9999', '#ffcc99', '#99ff99']
+            )
+            st.plotly_chart(fig, use_container_width=True)
+        elif 'priority' in proteins_df.columns:
             priority_counts = proteins_df['priority'].value_counts()
             fig = px.pie(
                 values=priority_counts.values,
@@ -462,8 +547,27 @@ def show_protein_explorer(proteins_df):
     """Enhanced protein explorer with search, filtering, and pagination"""
     st.header("🔍 Protein Explorer")
     
+    # Quality tier overview
+    if 'validation_score' in proteins_df.columns:
+        excellent_count = len(proteins_df[proteins_df['validation_score'] >= 0.9])
+        very_good_count = len(proteins_df[(proteins_df['validation_score'] >= 0.8) & (proteins_df['validation_score'] < 0.9)])
+        good_count = len(proteins_df[(proteins_df['validation_score'] >= 0.7) & (proteins_df['validation_score'] < 0.8)])
+        
+        col_qual1, col_qual2, col_qual3, col_qual4 = st.columns(4)
+        with col_qual1:
+            st.metric("🌟 Excellent (≥0.9)", f"{excellent_count:,}", f"{excellent_count/len(proteins_df)*100:.1f}%")
+        with col_qual2:
+            st.metric("⭐ Very Good (0.8-0.9)", f"{very_good_count:,}", f"{very_good_count/len(proteins_df)*100:.1f}%")
+        with col_qual3:
+            st.metric("✅ Good (0.7-0.8)", f"{good_count:,}", f"{good_count/len(proteins_df)*100:.1f}%")
+        with col_qual4:
+            total_high_quality = excellent_count + very_good_count + good_count
+            st.metric("🎯 Total High Quality", f"{total_high_quality:,}", f"{total_high_quality/len(proteins_df)*100:.1f}%")
+    
+    st.markdown("---")
+    
     # Search and filters
-    col_search, col_filter1, col_filter2 = st.columns([2, 1, 1])
+    col_search, col_filter1, col_filter2, col_filter3 = st.columns([2, 1, 1, 1])
     
     with col_search:
         search_term = st.text_input("🔍 Search by sequence or ID:", placeholder="Enter amino acid sequence or protein ID...")
@@ -472,6 +576,16 @@ def show_protein_explorer(proteins_df):
         priority_filter = st.selectbox("Priority Filter:", ["All", "HIGH", "MEDIUM", "LOW"])
     
     with col_filter2:
+        # Quality filter based on validation scores
+        quality_filter = st.selectbox("Quality Filter:", [
+            "All", 
+            "🌟 Excellent (≥0.9)", 
+            "⭐ Very Good (0.8-0.9)", 
+            "✅ Good (0.7-0.8)",
+            "🎯 High Quality (≥0.7)"
+        ])
+    
+    with col_filter3:
         length_range = st.slider("Length Range:", 1, 500, (10, 100))
     
     # Apply filters
@@ -486,6 +600,17 @@ def show_protein_explorer(proteins_df):
     
     if priority_filter != "All":
         filtered_df = filtered_df[filtered_df.get('priority', '') == priority_filter]
+    
+    # Apply quality filter
+    if quality_filter != "All" and 'validation_score' in filtered_df.columns:
+        if quality_filter == "🌟 Excellent (≥0.9)":
+            filtered_df = filtered_df[filtered_df['validation_score'] >= 0.9]
+        elif quality_filter == "⭐ Very Good (0.8-0.9)":
+            filtered_df = filtered_df[(filtered_df['validation_score'] >= 0.8) & (filtered_df['validation_score'] < 0.9)]
+        elif quality_filter == "✅ Good (0.7-0.8)":
+            filtered_df = filtered_df[(filtered_df['validation_score'] >= 0.7) & (filtered_df['validation_score'] < 0.8)]
+        elif quality_filter == "🎯 High Quality (≥0.7)":
+            filtered_df = filtered_df[filtered_df['validation_score'] >= 0.7]
     
     filtered_df = filtered_df[
         (filtered_df.get('length', 0) >= length_range[0]) & 
