@@ -414,6 +414,224 @@ def create_detailed_analysis(sequence, druglikeness, priority):
         else:
             st.write("🔬 Structural or regulatory protein")
 
+def show_dashboard_overview(proteins_df, summary_stats):
+    """Dashboard overview with key metrics and charts"""
+    st.header("🏠 Discovery Overview")
+    
+    # Priority distribution
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if 'priority' in proteins_df.columns:
+            priority_counts = proteins_df['priority'].value_counts()
+            fig = px.pie(
+                values=priority_counts.values,
+                names=priority_counts.index,
+                title="Priority Distribution",
+                color_discrete_map={'HIGH': '#ff6b6b', 'MEDIUM': '#ffa726', 'LOW': '#66bb6a'}
+            )
+            st.plotly_chart(fig, use_container_width=True)
+    
+    with col2:
+        if 'druglikeness_score' in proteins_df.columns:
+            fig = px.histogram(
+                proteins_df,
+                x='druglikeness_score',
+                nbins=30,
+                title="Druglikeness Score Distribution"
+            )
+            st.plotly_chart(fig, use_container_width=True)
+    
+    # Recent discoveries
+    st.subheader("🆕 Recent High-Priority Discoveries")
+    if len(proteins_df) > 0:
+        top_proteins = proteins_df.head(10)
+        for idx, protein in top_proteins.iterrows():
+            with st.expander(f"🧬 {protein.get('protein_id', f'protein_{idx}')} - {protein.get('priority', 'UNKNOWN')} Priority"):
+                col_seq, col_metrics = st.columns([2, 1])
+                with col_seq:
+                    sequence = protein.get('sequence', '')
+                    st.code(sequence[:100] + ('...' if len(sequence) > 100 else ''), language=None)
+                with col_metrics:
+                    st.metric("Druglikeness", f"{protein.get('druglikeness_score', 0):.3f}")
+                    st.metric("Length", f"{len(sequence)} aa")
+                    if st.button(f"Analyze", key=f"analyze_{idx}"):
+                        show_detailed_protein_analysis(protein)
+
+def show_protein_explorer(proteins_df):
+    """Enhanced protein explorer with search, filtering, and pagination"""
+    st.header("🔍 Protein Explorer")
+    
+    # Search and filters
+    col_search, col_filter1, col_filter2 = st.columns([2, 1, 1])
+    
+    with col_search:
+        search_term = st.text_input("🔍 Search by sequence or ID:", placeholder="Enter amino acid sequence or protein ID...")
+    
+    with col_filter1:
+        priority_filter = st.selectbox("Priority Filter:", ["All", "HIGH", "MEDIUM", "LOW"])
+    
+    with col_filter2:
+        length_range = st.slider("Length Range:", 1, 500, (10, 100))
+    
+    # Apply filters
+    filtered_df = proteins_df.copy()
+    
+    if search_term:
+        mask = (
+            filtered_df.get('sequence', '').astype(str).str.contains(search_term, case=False, na=False) |
+            filtered_df.get('protein_id', '').astype(str).str.contains(search_term, case=False, na=False)
+        )
+        filtered_df = filtered_df[mask]
+    
+    if priority_filter != "All":
+        filtered_df = filtered_df[filtered_df.get('priority', '') == priority_filter]
+    
+    filtered_df = filtered_df[
+        (filtered_df.get('length', 0) >= length_range[0]) & 
+        (filtered_df.get('length', 0) <= length_range[1])
+    ]
+    
+    st.info(f"Found {len(filtered_df):,} proteins matching your criteria")
+    
+    # Pagination
+    proteins_per_page = 20
+    total_pages = max(1, (len(filtered_df) + proteins_per_page - 1) // proteins_per_page)
+    
+    if total_pages > 1:
+        page_num = st.number_input("Page:", min_value=1, max_value=total_pages, value=1) - 1
+        start_idx = page_num * proteins_per_page
+        end_idx = start_idx + proteins_per_page
+        page_df = filtered_df.iloc[start_idx:end_idx]
+        
+        st.caption(f"Showing proteins {start_idx + 1}-{min(end_idx, len(filtered_df))} of {len(filtered_df):,}")
+    else:
+        page_df = filtered_df.head(proteins_per_page)
+    
+    # Display proteins
+    for idx, protein in page_df.iterrows():
+        protein_id = protein.get('protein_id', f'protein_{idx}')
+        sequence = protein.get('sequence', '')
+        priority = protein.get('priority', 'UNKNOWN')
+        druglikeness = protein.get('druglikeness_score', 0)
+        
+        with st.expander(f"🧬 {protein_id} - {sequence[:30]}{'...' if len(sequence) > 30 else ''} (Priority: {priority})"):
+            col_info, col_action = st.columns([3, 1])
+            
+            with col_info:
+                st.write(f"**Length:** {len(sequence)} amino acids")
+                st.write(f"**Druglikeness:** {druglikeness:.3f}")
+                st.write(f"**Validation Score:** {protein.get('validation_score', 0):.3f}")
+                st.code(sequence, language=None)
+            
+            with col_action:
+                if st.button(f"🔬 Full Analysis", key=f"full_analysis_{idx}"):
+                    show_detailed_protein_analysis(protein)
+
+def show_analytics_deep_dive(proteins_df):
+    """Deep analytics with advanced charts and correlations"""
+    st.header("📊 Analytics Deep Dive")
+    
+    # Correlation analysis
+    st.subheader("🔗 Property Correlations")
+    
+    numeric_cols = ['length', 'druglikeness_score', 'validation_score', 'energy_kcal_mol', 'quantum_coherence']
+    available_cols = [col for col in numeric_cols if col in proteins_df.columns]
+    
+    if len(available_cols) >= 2:
+        col_x, col_y = st.columns(2)
+        with col_x:
+            x_axis = st.selectbox("X-axis:", available_cols, index=0)
+        with col_y:
+            y_axis = st.selectbox("Y-axis:", available_cols, index=1 if len(available_cols) > 1 else 0)
+        
+        if x_axis != y_axis:
+            fig = px.scatter(
+                proteins_df,
+                x=x_axis,
+                y=y_axis,
+                color='priority' if 'priority' in proteins_df.columns else None,
+                title=f"{y_axis.title()} vs {x_axis.title()}",
+                hover_data=['protein_id'] if 'protein_id' in proteins_df.columns else None
+            )
+            st.plotly_chart(fig, use_container_width=True)
+    
+    # Length distribution by priority
+    st.subheader("📏 Length Distribution Analysis")
+    if 'priority' in proteins_df.columns and 'length' in proteins_df.columns:
+        fig = px.box(
+            proteins_df,
+            x='priority',
+            y='length',
+            title="Protein Length Distribution by Priority"
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    
+    # Top performers
+    st.subheader("⭐ Top Performing Discoveries")
+    if 'druglikeness_score' in proteins_df.columns:
+        top_drugs = proteins_df.nlargest(10, 'druglikeness_score')
+        display_cols = ['protein_id', 'sequence', 'druglikeness_score', 'priority']
+        available_display_cols = [col for col in display_cols if col in top_drugs.columns]
+        
+        if available_display_cols:
+            st.dataframe(
+                top_drugs[available_display_cols],
+                use_container_width=True
+            )
+
+def show_data_export(proteins_df):
+    """Data export options"""
+    st.header("📥 Data Export")
+    
+    if len(proteins_df) > 0:
+        # Export options
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.download_button(
+                label="📄 Download CSV",
+                data=proteins_df.to_csv(index=False),
+                file_name="fot_protein_discoveries.csv",
+                mime="text/csv",
+                help="Download all protein data as CSV"
+            )
+        
+        with col2:
+            st.download_button(
+                label="📋 Download JSON",
+                data=proteins_df.to_json(orient='records', indent=2),
+                file_name="fot_protein_discoveries.json",
+                mime="application/json",
+                help="Download all protein data as JSON"
+            )
+        
+        with col3:
+            # High priority only
+            if 'priority' in proteins_df.columns:
+                high_priority = proteins_df[proteins_df['priority'] == 'HIGH']
+                if len(high_priority) > 0:
+                    st.download_button(
+                        label="⭐ High Priority Only",
+                        data=high_priority.to_csv(index=False),
+                        file_name="fot_high_priority_proteins.csv",
+                        mime="text/csv",
+                        help="Download only high priority proteins"
+                    )
+        
+        # Export stats
+        st.subheader("📊 Export Statistics")
+        col_stat1, col_stat2, col_stat3 = st.columns(3)
+        
+        with col_stat1:
+            st.metric("Total Proteins", f"{len(proteins_df):,}")
+        with col_stat2:
+            high_count = len(proteins_df[proteins_df.get('priority', '') == 'HIGH']) if 'priority' in proteins_df.columns else 0
+            st.metric("High Priority", f"{high_count:,}")
+        with col_stat3:
+            druggable_count = len(proteins_df[proteins_df.get('druggable', False) == True]) if 'druggable' in proteins_df.columns else 0
+            st.metric("Druggable", f"{druggable_count:,}")
+
 def main():
     """Main dashboard application"""
     
@@ -433,85 +651,29 @@ def main():
     # Overview metrics
     create_overview_metrics(summary_stats)
     
-    # Main tabs
-    tab1, tab2, tab3 = st.tabs(["📊 Overview", "🔬 Protein Analysis", "📥 Export"])
+    # Sidebar navigation
+    st.sidebar.title("🧬 Navigation")
     
-    with tab1:
-        st.header("Discovery Overview")
-        
-        # Priority distribution
-        if 'priority' in proteins_df.columns:
-            priority_counts = proteins_df['priority'].value_counts()
-            fig = px.pie(
-                values=priority_counts.values,
-                names=priority_counts.index,
-                title="Priority Distribution",
-                color_discrete_map={'HIGH': '#ff6b6b', 'MEDIUM': '#ffa726', 'LOW': '#66bb6a'}
-            )
-            st.plotly_chart(fig, use_container_width=True)
-        
-        # Druglikeness distribution
-        if 'druglikeness_score' in proteins_df.columns:
-            fig = px.histogram(
-                proteins_df,
-                x='druglikeness_score',
-                nbins=50,
-                title="Druglikeness Score Distribution"
-            )
-            st.plotly_chart(fig, use_container_width=True)
+    # Data source info
+    if len(proteins_df) > 0:
+        st.sidebar.success(f"📊 {len(proteins_df):,} Real Discoveries Loaded")
+        st.sidebar.info(f"🎯 {summary_stats.get('druggable_proteins', 0):,} Druggable Proteins")
     
-    with tab2:
-        st.header("🔬 Detailed Protein Analysis")
-        
-        if len(proteins_df) > 0:
-            # Protein selector
-            st.subheader("Select Protein for Detailed Analysis")
-            protein_options = []
-            for idx, row in proteins_df.head(50).iterrows():  # Top 50 for selection
-                protein_id = row.get('protein_id', f'protein_{idx}')
-                sequence = row.get('sequence', 'N/A')
-                priority = row.get('priority', 'UNKNOWN')
-                protein_options.append(f"{protein_id} - {sequence[:20]}{'...' if len(sequence) > 20 else ''} (Priority: {priority})")
-            
-            selected_idx = st.selectbox("Choose a protein:", range(len(protein_options)), format_func=lambda x: protein_options[x])
-            
-            if selected_idx is not None:
-                selected_protein = proteins_df.iloc[selected_idx]
-                show_detailed_protein_analysis(selected_protein)
-        else:
-            st.error("No protein data available")
+    # Navigation options
+    page = st.sidebar.selectbox(
+        "Choose Analysis View:",
+        ["🏠 Dashboard Overview", "🔍 Protein Explorer", "📊 Analytics Deep Dive", "📥 Data Export"]
+    )
     
-    with tab3:
-        st.header("Data Export")
-        
-        if len(proteins_df) > 0:
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                # Export high priority
-                if 'priority' in proteins_df.columns:
-                    high_priority = proteins_df[proteins_df['priority'] == 'HIGH']
-                    if len(high_priority) > 0:
-                        csv_data = high_priority.to_csv(index=False)
-                        st.download_button(
-                            label=f"Download High Priority ({len(high_priority):,} proteins)",
-                            data=csv_data,
-                            file_name=f"high_priority_proteins_{datetime.now().strftime('%Y%m%d')}.csv",
-                            mime="text/csv"
-                        )
-            
-            with col2:
-                # Export druggable
-                if 'druggable' in proteins_df.columns:
-                    druggable = proteins_df[proteins_df['druggable'] == True]
-                    if len(druggable) > 0:
-                        csv_data = druggable.to_csv(index=False)
-                        st.download_button(
-                            label=f"Download Druggable ({len(druggable):,} proteins)",
-                            data=csv_data,
-                            file_name=f"druggable_proteins_{datetime.now().strftime('%Y%m%d')}.csv",
-                            mime="text/csv"
-                        )
+    # Page routing
+    if page == "🏠 Dashboard Overview":
+        show_dashboard_overview(proteins_df, summary_stats)
+    elif page == "🔍 Protein Explorer":
+        show_protein_explorer(proteins_df)
+    elif page == "📊 Analytics Deep Dive":
+        show_analytics_deep_dive(proteins_df)
+    elif page == "📥 Data Export":
+        show_data_export(proteins_df)
     
     # Footer
     st.markdown("---")
