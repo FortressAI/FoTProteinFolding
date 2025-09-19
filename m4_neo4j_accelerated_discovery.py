@@ -40,10 +40,10 @@ class M4Neo4jConfig:
     safety_memory_margin: float = 0.1  # Aggressive memory usage
     
     # M4 Mac Pro Scaling Parameters
-    max_batch_size: int = 2048  # Maximum batch size
-    sequences_per_cycle: int = 256  # 8x more sequences per cycle
-    parallel_workers: int = 8  # Multiple parallel processing streams
-    aggressive_scaling: bool = True  # Use 90% of available memory
+    max_batch_size: int = 64  # FIXED: Smaller batch for reliable generation
+    sequences_per_cycle: int = 32  # FIXED: Reduced for stability  
+    parallel_workers: int = 4  # FIXED: Fewer workers for debugging
+    aggressive_scaling: bool = False  # FIXED: Conservative scaling
     
     # Neo4j configuration
     neo4j_uri: str = "bolt://localhost:7687"
@@ -406,13 +406,14 @@ class M4Neo4jDiscoveryEngine:
                     charged_fraction = charged_count / len(sequence)
                     polar_fraction = polar_count / len(sequence)
                     
-                    score = 0.5
-                    if 0.1 <= hydrophobic_fraction <= 0.8:
+                    # FIXED: More lenient scoring for discovery generation
+                    score = 0.3  # Lower starting threshold
+                    if 0.05 <= hydrophobic_fraction <= 0.9:  # Broader range
+                        score += 0.25
+                    if 0.02 <= charged_fraction <= 0.6:  # More inclusive
+                        score += 0.25
+                    if 0.02 <= polar_fraction <= 0.6:  # More inclusive
                         score += 0.2
-                    if 0.05 <= charged_fraction <= 0.5:
-                        score += 0.2
-                    if 0.05 <= polar_fraction <= 0.5:
-                        score += 0.1
                     
                     # Get vQbit quantum results
                     individual_results = metal_results.get('individual_results', [])
@@ -451,18 +452,26 @@ class M4Neo4jDiscoveryEngine:
                         }
                     }
                     
-                    # Store in Neo4j or file
-                    if self.use_neo4j:
-                        discovery_id = self.neo4j_engine.store_discovery(discovery)
-                        discovery['neo4j_id'] = discovery_id
-                        
-                        # Log high-quantum discoveries
-                        if quantum_analysis.get('superposition_fidelity', 0) > 0.8:
-                            logger.info(f"🌀 High quantum fidelity: {discovery_id[:8]} "
-                                      f"(fidelity: {quantum_analysis['superposition_fidelity']:.3f}, "
-                                      f"coherence: {quantum_analysis['coherence']:.3f})")
-                    else:
-                        # Fallback to file storage
+                    # Store in Neo4j or file with enhanced error handling
+                    try:
+                        if self.use_neo4j:
+                            discovery_id = self.neo4j_engine.store_discovery(discovery)
+                            discovery['neo4j_id'] = discovery_id
+                            print(f"✅ Stored discovery: {discovery_id[:12]} (score: {score:.3f})")
+                            
+                            # Log high-quantum discoveries
+                            if quantum_analysis.get('superposition_fidelity', 0) > 0.8:
+                                logger.info(f"🌀 High quantum fidelity: {discovery_id[:8]} "
+                                          f"(fidelity: {quantum_analysis['superposition_fidelity']:.3f}, "
+                                          f"coherence: {quantum_analysis['coherence']:.3f})")
+                        else:
+                            # Fallback to file storage
+                            self._save_discovery_to_file(discovery)
+                            print(f"💾 Stored to file (score: {score:.3f})")
+                    except Exception as storage_error:
+                        print(f"❌ Storage error: {storage_error}")
+                        logger.error(f"Failed to store discovery: {storage_error}")
+                        # Always fallback to file if Neo4j fails
                         self._save_discovery_to_file(discovery)
                     
                     valid_discoveries.append(discovery)
