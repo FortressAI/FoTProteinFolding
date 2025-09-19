@@ -41,7 +41,7 @@
     "avg_validation_score": 0.8834055365537592
   },
   "export_metadata": {
-    "export_date": "2025-09-18T08:47:28.829671",
+    "export_date": "2025-09-19T06:50:32.734280",
     "source": "Complete Neo4j FoT Dataset - Chunked for GitHub",
     "total_records": 251941,
     "chunk_strategy": "10000 proteins per chunk",
