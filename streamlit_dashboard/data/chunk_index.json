@@ -25,32 +25,33 @@
     "protein_chunk_022.json.gz",
     "protein_chunk_023.json.gz",
     "protein_chunk_024.json.gz",
-    "protein_chunk_025.json.gz"
+    "protein_chunk_025.json.gz",
+    "protein_chunk_026.json.gz"
   ],
   "chunk_size": 10000,
-  "total_chunks": 26,
+  "total_chunks": 27,
   "summary_stats": {
-    "total_proteins": 251941,
-    "druggable_proteins": 251939,
-    "high_priority": 218806,
-    "excellent_quality": 99493,
+    "total_proteins": 262792,
+    "druggable_proteins": 262790,
+    "high_priority": 228034,
+    "excellent_quality": 110344,
     "very_good_quality": 81053,
     "good_quality": 71395,
-    "avg_druglikeness": 0.8197603804092303,
-    "avg_quantum_coherence": 0.2411612071125942,
-    "avg_validation_score": 0.8834055365537592
+    "avg_druglikeness": 0.8195812657947616,
+    "avg_quantum_coherence": 0.2652498847208549,
+    "avg_validation_score": 0.8882198631810883
   },
   "export_metadata": {
-    "export_date": "2025-09-19T06:50:32.734280",
+    "export_date": "2025-09-19T07:47:40.829946",
     "source": "Complete Neo4j FoT Dataset - Chunked for GitHub",
-    "total_records": 251941,
+    "total_records": 262792,
     "chunk_strategy": "10000 proteins per chunk",
     "quality_distribution": {
-      "excellent": 99493,
+      "excellent": 110344,
       "very_good": 81053,
       "good": 71395,
-      "druggable": 251939,
-      "high_priority": 218806
+      "druggable": 262790,
+      "high_priority": 228034
     }
   },
   "high_priority_chunks": [
@@ -97,6 +98,8 @@
     "high_priority_chunk_040.json.gz",
     "high_priority_chunk_041.json.gz",
     "high_priority_chunk_042.json.gz",
-    "high_priority_chunk_043.json.gz"
+    "high_priority_chunk_043.json.gz",
+    "high_priority_chunk_044.json.gz",
+    "high_priority_chunk_045.json.gz"
   ]
 }
