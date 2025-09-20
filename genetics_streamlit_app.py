@@ -24,7 +24,7 @@ from typing import Dict, List, Any, Optional
 try:
     from genetics.genetics_ontology import GeneticsOntology, VirtueType
     from genetics.genetics_optimization import GeneticsOptimizer
-    from genetics.genetics_simulation import GeneticsSimulator
+    from genetics.genetics_simulation import GeneticsAnalyzer
 except ImportError:
     st.error("❌ Genetics modules not found. Please ensure genetics package is properly installed.")
     st.stop()

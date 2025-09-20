@@ -25,7 +25,7 @@ from neo4j_discovery_engine import Neo4jDiscoveryEngine, NEO4J_AVAILABLE
 
 # Import new genetics modules
 from genetics.genetics_ontology import GeneticsOntology, GeneticVariant, RegulatoryElement, VirtueType
-from genetics.genetics_simulation import GeneticsSimulator
+from genetics.genetics_simulation import GeneticsAnalyzer
 from genetics.genetics_optimization import GeneticsOptimizer
 
 logging.basicConfig(level=logging.INFO)
@@ -273,7 +273,7 @@ class M4Neo4jDiscoveryEngine:
                 self.use_neo4j = True
                 
                 # Initialize genetics simulator with Neo4j connection
-                self.genetics_simulator = GeneticsSimulator(self.neo4j_engine)
+                self.genetics_analyzer = GeneticsAnalyzer(self.neo4j_engine)
                 
                 logger.info("✅ Neo4j engine with genetics framework initialized")
             except Exception as e:

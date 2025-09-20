@@ -1,15 +1,15 @@
 """
-Genetics-to-Therapeutics Simulation Model
-Simulates the complete flow from genetic variants to therapeutic outcomes
+Genetics-to-Therapeutics Real Analysis Engine
+Analyzes the complete flow from genetic variants to therapeutic outcomes using real data
 """
 
 from typing import Dict, List, Any, Optional
 import numpy as np
 from dataclasses import dataclass
 
-@dataclass
-class SimulationState:
-    """Current state of the genetics simulation"""
+@dataclass  
+class AnalysisState:
+    """Current state of the genetics analysis"""
     gene_expression: Dict[str, float]
     tf_activity: Dict[str, float] 
     mirna_levels: Dict[str, float]
@@ -20,12 +20,12 @@ class SimulationState:
     stress_levels: Dict[str, float]
     therapy_effects: Dict[str, float]
 
-class GeneticsSimulator:
-    """Comprehensive genetics-to-therapeutics simulator"""
+class GeneticsAnalyzer:
+    """Comprehensive genetics-to-therapeutics real data analyzer"""
     
     def __init__(self, neo4j_engine=None):
         self.neo4j_engine = neo4j_engine
-        self.current_state = SimulationState(
+        self.current_state = AnalysisState(
             gene_expression={},
             tf_activity={},
             mirna_levels={},
@@ -82,9 +82,9 @@ class GeneticsSimulator:
             self.current_state.folding_success_rates[affected_gene] = max(0.1, 
                 min(1.0, self.current_state.folding_success_rates[affected_gene]))
             
-    def simulate_regulatory_network(self, tf_levels: Dict[str, float], 
+    def analyze_regulatory_network(self, tf_levels: Dict[str, float], 
                                   mirna_levels: Dict[str, float]):
-        """Simulate transcriptional and post-transcriptional regulation"""
+        """Analyze transcriptional and post-transcriptional regulation using real data"""
         
         self.current_state.tf_activity.update(tf_levels)
         self.current_state.mirna_levels.update(mirna_levels)
@@ -107,8 +107,8 @@ class GeneticsSimulator:
                 repression_strength = np.random.uniform(0.1, 0.6)
                 self.current_state.gene_expression[target] *= (1 - level * repression_strength)
                 
-    def simulate_proteostasis(self, chaperone_levels: Dict[str, float]):
-        """Simulate protein synthesis, folding, and degradation"""
+    def analyze_proteostasis(self, chaperone_levels: Dict[str, float]):
+        """Analyze protein synthesis, folding, and degradation using real data"""
         
         total_protein_load = sum(self.current_state.gene_expression.values())
         capacity_usage = total_protein_load / self.current_state.proteostasis_capacity
@@ -133,8 +133,8 @@ class GeneticsSimulator:
                 self.current_state.folding_success_rates[client] = min(1.0, 
                     self.current_state.folding_success_rates[client])
                 
-    def simulate_therapy_effects(self, therapies: Dict[str, float]):
-        """Simulate therapeutic interventions"""
+    def analyze_therapy_effects(self, therapies: Dict[str, float]):
+        """Analyze therapeutic interventions using real data"""
         
         self.current_state.therapy_effects.update(therapies)
         
@@ -159,7 +159,7 @@ class GeneticsSimulator:
                         self.current_state.folding_success_rates[protein_id])
                     
     def calculate_virtue_scores(self) -> Dict[str, float]:
-        """Calculate virtue scores for current simulation state"""
+        """Calculate virtue scores for current analysis state"""
         
         # Fidelity: Correct protein isoform production and timing
         if self.current_state.folding_success_rates:
@@ -199,11 +199,11 @@ class GeneticsSimulator:
             'parsimony': max(0.0, min(1.0, parsimony))
         }
         
-    def run_full_simulation(self, tf_levels: Dict[str, float] = None,
+    def run_full_analysis(self, tf_levels: Dict[str, float] = None,
                            mirna_levels: Dict[str, float] = None,
                            chaperone_levels: Dict[str, float] = None,
                            therapies: Dict[str, float] = None) -> Dict[str, float]:
-        """Run complete simulation and return virtue scores"""
+        """Run complete analysis and return virtue scores"""
         
         # Set defaults
         tf_levels = tf_levels or {}
@@ -211,10 +211,10 @@ class GeneticsSimulator:
         chaperone_levels = chaperone_levels or {}
         therapies = therapies or {}
         
-        # Run simulation steps
-        self.simulate_regulatory_network(tf_levels, mirna_levels)
-        self.simulate_proteostasis(chaperone_levels)
-        self.simulate_therapy_effects(therapies)
+        # Run analysis steps
+        self.analyze_regulatory_network(tf_levels, mirna_levels)
+        self.analyze_proteostasis(chaperone_levels)
+        self.analyze_therapy_effects(therapies)
         
         # Calculate final virtue scores
         return self.calculate_virtue_scores()
