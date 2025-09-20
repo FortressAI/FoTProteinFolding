@@ -197,7 +197,7 @@ def load_from_chunks(data_dir):
         progress_bar = st.progress(0)
         status_text = st.empty()
         
-        for i, chunk_file in enumerate(high_priority_chunks[:10]):  # Load first 10 chunks for demo
+        for i, chunk_file in enumerate(high_priority_chunks[:10]):  # Load first 10 chunks for display
             chunk_path = data_dir / chunk_file
             
             if chunk_path.exists():
@@ -721,8 +721,8 @@ def show_regulatory_network_simulation(genetics_data):
         complexity = len(all_tfs) + len(all_mirnas) + total_tf_interactions + total_mirna_interactions
         st.metric("Network Complexity", complexity)
     
-    # Interactive simulation controls
-    st.subheader("🎮 Interactive Network Simulation")
+    # Interactive analysis controls
+    st.subheader("🎮 Interactive Network Analysis")
     
     col_sim1, col_sim2 = st.columns(2)
     
@@ -730,7 +730,7 @@ def show_regulatory_network_simulation(genetics_data):
         st.markdown("**🔬 Transcription Factor Activities**")
         tf_activities = {}
         
-        # Show top 6 TFs for simulation
+        # Show top 6 TFs for analysis
         top_tfs = sorted(list(all_tfs), key=lambda x: len(tf_protein_map.get(x, [])), reverse=True)[:6]
         
         for tf in top_tfs:
@@ -746,7 +746,7 @@ def show_regulatory_network_simulation(genetics_data):
         st.markdown("**🧬 miRNA Expression Levels**")
         mirna_levels = {}
         
-        # Show top 6 miRNAs for simulation
+        # Show top 6 miRNAs for analysis
         top_mirnas = sorted(list(all_mirnas), key=lambda x: len(mirna_protein_map.get(x, [])), reverse=True)[:6]
         
         for mirna in top_mirnas:
