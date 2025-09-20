@@ -234,7 +234,8 @@ def main():
     print("🍎 M4 MAC PRO BEAST MODE LAUNCHER")
     print("=" * 60)
     print("Designed to maximize M4 Mac Pro utilization")
-    print("128GB RAM + 40-core GPU + Neo4j vQbit Knowledge Graph")
+    print("128GB RAM + 40-core GPU + Neo4j + 🧬 GENETICS FRAMEWORK")
+    print("Complete DNA-to-Therapeutics Discovery System")
     print("=" * 60)
     
     launcher = M4BeastModeLauncher()

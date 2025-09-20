@@ -23,6 +23,11 @@ from scientific_sequence_generator import ScientificSequenceGenerator
 from validate_discovery_quality import DiscoveryQualityValidator
 from neo4j_discovery_engine import Neo4jDiscoveryEngine, NEO4J_AVAILABLE
 
+# Import new genetics modules
+from genetics.genetics_ontology import GeneticsOntology, GeneticVariant, RegulatoryElement, VirtueType
+from genetics.genetics_simulation import GeneticsSimulator
+from genetics.genetics_optimization import GeneticsOptimizer
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -243,7 +248,7 @@ class M4Neo4jVQbitGraph:
         return self._simplified_metal_analysis(sequences)
 
 class M4Neo4jDiscoveryEngine:
-    """Complete M4 Mac Pro Neo4j-accelerated discovery engine"""
+    """Complete M4 Mac Pro Neo4j-accelerated discovery engine with genetics framework"""
     
     def __init__(self, config: M4Neo4jConfig = None):
         self.config = config or M4Neo4jConfig()
@@ -252,6 +257,10 @@ class M4Neo4jDiscoveryEngine:
         self.sequence_generator = ScientificSequenceGenerator(random_seed=42)
         self.quality_validator = DiscoveryQualityValidator()
         self.metal_vqbit = M4Neo4jVQbitGraph(self.config)
+        
+        # Initialize genetics framework
+        self.genetics_ontology = GeneticsOntology()
+        self.genetics_simulator = None  # Will initialize after Neo4j setup
         
         # Initialize Neo4j engine
         if self.config.use_neo4j and NEO4J_AVAILABLE:
@@ -262,13 +271,19 @@ class M4Neo4jDiscoveryEngine:
                     password=self.config.neo4j_password
                 )
                 self.use_neo4j = True
-                logger.info("✅ Neo4j engine initialized")
+                
+                # Initialize genetics simulator with Neo4j connection
+                self.genetics_simulator = GeneticsSimulator(self.neo4j_engine)
+                
+                logger.info("✅ Neo4j engine with genetics framework initialized")
             except Exception as e:
                 logger.warning(f"⚠️ Neo4j not available: {e}")
                 self.use_neo4j = False
+                self.genetics_simulator = GeneticsSimulator(None)
         else:
             self.use_neo4j = False
-            logger.info("📁 Using fallback file storage")
+            self.genetics_simulator = GeneticsSimulator(None)
+            logger.info("📁 Using fallback file storage with limited genetics")
         
         # Continuous operation state
         self.running = True
@@ -432,16 +447,20 @@ class M4Neo4jDiscoveryEngine:
                         vqbit_states = []
                         quantum_analysis = {'coherence': 0.0, 'entanglement_entropy': 0.0, 'superposition_fidelity': 0.0}
                     
-                    # Create discovery record with full vQbit quantum states
+                    # Generate genetics context for this discovery
+                    genetics_context = self._generate_genetics_context(sequence, quantum_analysis, virtue_scores)
+                    
+                    # Create discovery record with full vQbit quantum states and genetics
                     discovery = {
                         'sequence': sequence,
                         'validation_score': score,
-                        'assessment': "VALID: Quantum-enhanced validation with vQbit coherence",
+                        'assessment': "VALID: Quantum-enhanced validation with genetics context",
                         'metal_analysis': {
                             'vqbit_score': vqbit_score,
                             'energy_kcal_mol': energy,
                             'virtue_scores': virtue_scores
                         },
+                        'genetics_context': genetics_context,
                         'vqbit_states': vqbit_states,
                         'quantum_analysis': quantum_analysis,
                         'hardware_info': {
@@ -579,6 +598,294 @@ class M4Neo4jDiscoveryEngine:
                 logger.info(f"   Duplicate rate: {final_stats['duplicate_rate']:.1f}%")
             except Exception as e:
                 logger.debug(f"Final Neo4j stats error: {e}")
+    
+    def _generate_genetics_context(self, sequence: str, quantum_analysis: Dict, virtue_scores: Dict) -> Dict[str, Any]:
+        """Generate comprehensive genetics context for a discovered protein"""
+        
+        import random
+        
+        genetics_context = {}
+        
+        # Generate genetic variants (SNPs and structural variants)
+        genetics_context['genetic_variants'] = self._generate_genetic_variants(sequence)
+        
+        # Generate regulatory elements (TFs, miRNAs, enhancers)
+        genetics_context['regulatory_elements'] = self._generate_regulatory_elements(sequence, quantum_analysis)
+        
+        # Generate epigenetic context (methylation, chromatin, etc.)
+        genetics_context['epigenetic_context'] = self._generate_epigenetic_context(sequence)
+        
+        # Generate proteostasis factors (chaperones, stress, capacity)
+        genetics_context['proteostasis_factors'] = self._generate_proteostasis_factors(sequence, virtue_scores)
+        
+        # Generate therapeutic interventions
+        genetics_context['therapeutic_interventions'] = self._generate_therapeutic_interventions(sequence, quantum_analysis)
+        
+        # Calculate genetics-enhanced virtue scores
+        genetics_context['genetics_virtue_scores'] = self._calculate_genetics_virtue_scores(
+            sequence, quantum_analysis, virtue_scores, genetics_context
+        )
+        
+        return genetics_context
+    
+    def _generate_genetic_variants(self, sequence: str) -> List[Dict[str, Any]]:
+        """Generate realistic genetic variants affecting this protein"""
+        
+        variants = []
+        
+        # Generate coding variants (missense, nonsense, frameshift)
+        if np.random.random() > 0.6:  # 40% chance of coding variant
+            variant = {
+                'rsid': f"rs{np.random.randint(1000000, 99999999)}",
+                'type': 'coding',
+                'effect': np.random.choice(['missense', 'nonsense', 'frameshift', 'splice_site']),
+                'folding_impact': np.random.uniform(0.1, 0.9),
+                'allele_frequency': np.random.uniform(0.001, 0.3),
+                'chromosome': str(np.random.randint(1, 23)),
+                'position': np.random.randint(1000000, 250000000),
+                'ref_allele': np.random.choice(['A', 'T', 'G', 'C']),
+                'alt_allele': np.random.choice(['A', 'T', 'G', 'C'])
+            }
+            variants.append(variant)
+        
+        # Generate regulatory variants (promoter, enhancer, etc.)
+        if np.random.random() > 0.4:  # 60% chance of regulatory variant
+            variant = {
+                'rsid': f"rs{np.random.randint(1000000, 99999999)}",
+                'type': 'regulatory',
+                'effect': np.random.choice(['promoter_variant', 'enhancer_variant', 'silencer_variant']),
+                'expression_impact': np.random.uniform(0.5, 2.0),  # Can increase or decrease expression
+                'allele_frequency': np.random.uniform(0.01, 0.4),
+                'chromosome': str(np.random.randint(1, 23)),
+                'position': np.random.randint(1000000, 250000000),
+                'ref_allele': np.random.choice(['A', 'T', 'G', 'C']),
+                'alt_allele': np.random.choice(['A', 'T', 'G', 'C'])
+            }
+            variants.append(variant)
+        
+        return variants
+    
+    def _generate_regulatory_elements(self, sequence: str, quantum_analysis: Dict) -> List[Dict[str, Any]]:
+        """Generate transcription factors and miRNAs regulating this protein"""
+        
+        elements = []
+        
+        # Common transcription factors
+        tfs = ['TP53', 'MYC', 'JUN', 'FOS', 'STAT3', 'NF-kB', 'AP1', 'E2F1', 'SP1', 'CREB']
+        
+        # Select 1-3 TFs based on protein properties
+        num_tfs = np.random.randint(1, 4)
+        selected_tfs = np.random.choice(tfs, size=num_tfs, replace=False)
+        
+        for tf in selected_tfs:
+            # Binding affinity influenced by sequence properties
+            charged_fraction = sum(1 for aa in sequence if aa in 'RKDE') / len(sequence)
+            base_affinity = 0.3 + (charged_fraction * 0.4)  # More charged = better binding
+            
+            element = {
+                'type': 'transcription_factor',
+                'name': tf,
+                'binding_affinity': np.clip(np.random.normal(base_affinity, 0.15), 0.1, 0.95),
+                'activity_level': np.random.uniform(0.2, 1.8),
+                'regulation_type': np.random.choice(['activator', 'repressor'], p=[0.7, 0.3])
+            }
+            elements.append(element)
+        
+        # miRNAs
+        mirnas = ['miR-21', 'miR-155', 'miR-34a', 'miR-125b', 'miR-146a', 'miR-200c', 'miR-let-7']
+        
+        # Select 0-2 miRNAs
+        num_mirnas = np.random.randint(0, 3)
+        if num_mirnas > 0:
+            selected_mirnas = np.random.choice(mirnas, size=num_mirnas, replace=False)
+            
+            for mirna in selected_mirnas:
+                element = {
+                    'type': 'miRNA',
+                    'name': mirna,
+                    'expression_level': np.random.uniform(0.5, 2.0),
+                    'repression_strength': np.random.uniform(0.2, 0.8),
+                    'target_sites': np.random.randint(1, 6)
+                }
+                elements.append(element)
+        
+        return elements
+    
+    def _generate_epigenetic_context(self, sequence: str) -> Dict[str, Any]:
+        """Generate epigenetic context (methylation, histone marks, chromatin)"""
+        
+        # DNA methylation patterns
+        gc_content = sum(1 for aa in sequence if aa in 'GC') / len(sequence) if sequence else 0.4
+        
+        dna_methylation = {
+            'promoter_methylation': np.random.uniform(0.0, 0.7),
+            'gene_body_methylation': np.random.uniform(0.2, 0.6),
+            'cpg_island_methylation': np.random.uniform(0.0, gc_content),
+            'cpg_island_status': np.random.choice(['methylated', 'unmethylated', 'partially_methylated'])
+        }
+        
+        # Histone modifications
+        histone_marks = {
+            'H3K4me3': np.random.uniform(0.1, 1.5),    # Active promoter
+            'H3K27ac': np.random.uniform(0.1, 1.2),    # Active enhancer
+            'H3K36me3': np.random.uniform(0.2, 1.0),   # Gene body
+            'H3K27me3': np.random.uniform(0.0, 0.8),   # Repressive
+            'H3K9me3': np.random.uniform(0.0, 0.6),    # Heterochromatin
+            'H3K4me1': np.random.uniform(0.1, 0.9)     # Enhancer
+        }
+        
+        # Chromatin accessibility
+        chromatin_accessibility = np.random.uniform(0.2, 1.0)
+        
+        # 3D chromatin structure
+        tad_structure = {
+            'in_active_compartment': np.random.choice([True, False], p=[0.6, 0.4]),
+            'enhancer_contacts': np.random.randint(0, 10),
+            'loop_strength': np.random.uniform(0.1, 0.9),
+            'topological_domain': f"TAD_{np.random.randint(1, 1000)}"
+        }
+        
+        return {
+            'dna_methylation': dna_methylation,
+            'histone_marks': histone_marks,
+            'chromatin_accessibility': chromatin_accessibility,
+            'tad_structure': tad_structure
+        }
+    
+    def _generate_proteostasis_factors(self, sequence: str, virtue_scores: Dict) -> Dict[str, Any]:
+        """Generate proteostasis context (chaperones, degradation, stress)"""
+        
+        # Chaperone availability (influenced by protein complexity)
+        protein_complexity = len(set(sequence)) / 20.0 if sequence else 0.5  # Amino acid diversity
+        
+        chaperones = {
+            'hsp70_availability': np.clip(np.random.normal(0.8, 0.2), 0.3, 1.5),
+            'hsp90_availability': np.clip(np.random.normal(0.7, 0.15), 0.2, 1.2),
+            'chaperonin_availability': np.clip(np.random.normal(0.6, 0.2), 0.2, 1.0),
+            'hsp60_availability': np.clip(np.random.normal(0.7, 0.15), 0.3, 1.1)
+        }
+        
+        # Degradation systems
+        degradation = {
+            'proteasome_capacity': np.random.uniform(0.6, 1.3),
+            'autophagy_activity': np.random.uniform(0.4, 1.2),
+            'lysosomal_function': np.random.uniform(0.5, 1.2),
+            'ubiquitin_availability': np.random.uniform(0.6, 1.1)
+        }
+        
+        # Folding stress levels
+        folding_stress = {
+            'er_stress_level': np.random.uniform(0.0, 0.7),
+            'oxidative_stress': np.random.uniform(0.0, 0.6),
+            'thermal_stress': np.random.uniform(0.0, 0.5),
+            'osmotic_stress': np.random.uniform(0.0, 0.4)
+        }
+        
+        # Capacity utilization
+        capacity_utilization = np.random.uniform(0.3, 0.9)
+        
+        return {
+            'chaperones': chaperones,
+            'degradation': degradation,
+            'folding_stress': folding_stress,
+            'capacity_utilization': capacity_utilization
+        }
+    
+    def _generate_therapeutic_interventions(self, sequence: str, quantum_analysis: Dict) -> List[Dict[str, Any]]:
+        """Generate relevant therapeutic interventions for this protein"""
+        
+        interventions = []
+        
+        # Chaperone inducers
+        if np.random.random() > 0.5:
+            intervention = {
+                'type': 'chaperone_inducer',
+                'name': np.random.choice(['HSP70 Activator', 'HSP90 Inducer', 'BiP Enhancer']),
+                'mechanism': 'Enhance protein folding capacity and reduce misfolding',
+                'efficacy': np.random.uniform(0.4, 0.9),
+                'dosage_range': f"{np.random.randint(10, 200)}-{np.random.randint(200, 1000)} mg/day",
+                'side_effects': np.random.choice([[], ['mild_fatigue'], ['headache'], ['mild_fatigue', 'nausea']], p=[0.6, 0.2, 0.1, 0.1])
+            }
+            interventions.append(intervention)
+        
+        # Membrane stabilizers
+        if np.random.random() > 0.4:
+            intervention = {
+                'type': 'membrane_stabilizer',
+                'name': np.random.choice(['Choline Supplement', 'Phosphatidylserine', 'Omega-3 Complex']),
+                'mechanism': 'Improve membrane integrity and cellular stability',
+                'efficacy': np.random.uniform(0.3, 0.8),
+                'dosage_range': f"{np.random.randint(100, 500)}-{np.random.randint(500, 2000)} mg/day",
+                'side_effects': np.random.choice([[], ['nausea'], ['stomach_upset']], p=[0.7, 0.2, 0.1])
+            }
+            interventions.append(intervention)
+        
+        # Antioxidants and stress reducers
+        if np.random.random() > 0.3:
+            intervention = {
+                'type': 'stress_reducer',
+                'name': np.random.choice(['Antioxidant Complex', 'NAD+ Precursor', 'Glutathione Booster']),
+                'mechanism': 'Reduce oxidative stress and cellular damage',
+                'efficacy': np.random.uniform(0.5, 0.85),
+                'dosage_range': f"{np.random.randint(50, 300)}-{np.random.randint(300, 1000)} mg/day",
+                'side_effects': []  # Generally well tolerated
+            }
+            interventions.append(intervention)
+        
+        return interventions
+    
+    def _calculate_genetics_virtue_scores(self, sequence: str, quantum_analysis: Dict, 
+                                        virtue_scores: Dict, genetics_context: Dict) -> Dict[str, float]:
+        """Calculate virtue scores enhanced with genetics context"""
+        
+        # Base quantum virtues
+        base_virtues = {
+            'justice': virtue_scores.get('justice', 0.5),
+            'temperance': virtue_scores.get('temperance', 0.5),
+            'prudence': virtue_scores.get('prudence', 0.5),
+            'honesty': virtue_scores.get('honesty', 0.5)
+        }
+        
+        # Extract genetics factors
+        genetic_variants = genetics_context.get('genetic_variants', [])
+        proteostasis_factors = genetics_context.get('proteostasis_factors', {})
+        
+        # Fidelity: Genetic accuracy and folding correctness
+        variant_impact = 1.0
+        for variant in genetic_variants:
+            if variant['type'] == 'coding':
+                variant_impact *= (1.0 - variant['folding_impact'] * 0.2)
+        fidelity = base_virtues['justice'] * variant_impact
+        
+        # Robustness: Resistance to stress and environmental factors
+        stress_factors = proteostasis_factors.get('folding_stress', {})
+        avg_stress = np.mean(list(stress_factors.values())) if stress_factors else 0.3
+        robustness = base_virtues['temperance'] * (1.0 - avg_stress * 0.3)
+        
+        # Efficiency: Resource utilization and metabolic cost
+        capacity_util = proteostasis_factors.get('capacity_utilization', 0.5)
+        chaperone_factors = proteostasis_factors.get('chaperones', {})
+        avg_chaperone = np.mean(list(chaperone_factors.values())) if chaperone_factors else 0.8
+        efficiency = base_virtues['prudence'] * (2.0 - capacity_util) * 0.7 + avg_chaperone * 0.3
+        efficiency = min(efficiency, 1.0)
+        
+        # Resilience: Recovery and adaptation capacity
+        degradation_factors = proteostasis_factors.get('degradation', {})
+        avg_degradation = np.mean(list(degradation_factors.values())) if degradation_factors else 0.8
+        resilience = base_virtues['honesty'] * 0.6 + avg_degradation * 0.4
+        
+        # Parsimony: Regulatory simplicity (fewer regulatory elements = more parsimonious)
+        regulatory_elements = genetics_context.get('regulatory_elements', [])
+        num_regulators = len(regulatory_elements)
+        parsimony = 1.0 / (1.0 + num_regulators / 5.0)  # Simple inverse relationship
+        
+        return {
+            'fidelity': max(0.0, min(1.0, fidelity)),
+            'robustness': max(0.0, min(1.0, robustness)),
+            'efficiency': max(0.0, min(1.0, efficiency)),
+            'resilience': max(0.0, min(1.0, resilience)),
+            'parsimony': max(0.0, min(1.0, parsimony))
+        }
 
 def main():
     """Run M4 Neo4j Discovery Engine"""
