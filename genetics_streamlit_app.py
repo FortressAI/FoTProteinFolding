@@ -25,9 +25,11 @@ try:
     from genetics.genetics_ontology import GeneticsOntology, VirtueType
     from genetics.genetics_optimization import GeneticsOptimizer
     from genetics.genetics_simulation import GeneticsAnalyzer
-except ImportError:
-    st.error("❌ Genetics modules not found. Please ensure genetics package is properly installed.")
-    st.stop()
+    GENETICS_AVAILABLE = True
+except ImportError as e:
+    st.warning(f"⚠️ Genetics modules not fully available: {e}")
+    st.info("🔄 Running in basic protein mode without genetics enhancement")
+    GENETICS_AVAILABLE = False
 
 # Configure page
 st.set_page_config(
@@ -361,6 +363,10 @@ def main():
     # Route to appropriate page
     if page == "🏠 Platform Overview":
         show_platform_overview(genetics_data)
+    elif not GENETICS_AVAILABLE:
+        st.error("❌ Advanced genetics functionality requires genetics modules")
+        st.info("🔄 Please check Streamlit Cloud logs for import errors")
+        st.code("The genetics modules (genetics_ontology, genetics_optimization, genetics_simulation) could not be imported.")
     elif page == "🧬 Genetic Variants Analysis":
         show_genetic_variants_analysis(genetics_data)
     elif page == "⚙️ Regulatory Network Analysis":
