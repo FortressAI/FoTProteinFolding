@@ -33,6 +33,7 @@
 - **[🎯 Disease-Specific Targets](Disease-Specific-Targets)** - Candidates by medical condition
 - **[⚛️ Quantum Analysis](Quantum-Analysis)** - Understanding quantum coherence and fidelity
 - **[🔬 Validation Methods](Validation-Methods)** - How we ensure quality discoveries
+- **[🧬 Genetics Framework](Genetics-Framework)** - **NEW:** Complete DNA-to-therapeutics optimization
 
 ### 🤝 **Collaboration**
 - **[🌍 Global Collaboration Portal](Global-Collaboration-Portal)** - Join the revolution

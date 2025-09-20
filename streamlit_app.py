@@ -928,6 +928,26 @@ def main():
         st.sidebar.success(f"📊 {len(proteins_df):,} Real Discoveries Loaded")
         st.sidebar.info(f"🎯 {summary_stats.get('druggable_proteins', 0):,} Druggable Proteins")
     
+    # Genetics Platform Link
+    st.sidebar.markdown("---")
+    st.sidebar.markdown("### 🧬 **NEW: Genetics Platform**")
+    st.sidebar.info("**Extended DNA-to-Therapeutics Analysis**")
+    st.sidebar.markdown("""
+    **🚀 Now Available:** Complete genetics framework with:
+    - **Genetic Variants Analysis** 
+    - **Regulatory Network Simulation**
+    - **Proteostasis Modeling**
+    - **Therapy Optimization**
+    - **Multi-Objective Optimization**
+    
+    **Run:** `streamlit run genetics_streamlit_app.py --server.port 8513`
+    """)
+    
+    if st.sidebar.button("🧬 Launch Genetics App", help="Opens genetics platform in new terminal"):
+        st.sidebar.success("🚀 Run: `streamlit run genetics_streamlit_app.py --server.port 8513`")
+    
+    st.sidebar.markdown("---")
+    
     # Navigation options
     page = st.sidebar.selectbox(
         "Choose Analysis View:",
