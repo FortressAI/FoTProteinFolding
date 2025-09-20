@@ -118,23 +118,25 @@ st.markdown("""
 def load_chunked_genetics_data():
     """Load genetics-enhanced protein data from chunked files"""
     
-    # Debug: Show current working directory and available paths
-    current_dir = Path.cwd()
     data_dir = Path("streamlit_dashboard/data")
     
     # First try genetics-enhanced data (priority)
     genetics_dir = data_dir / "genetics_enhanced"
     genetics_index_path = genetics_dir / "genetics_chunk_index.json"
     
-    # Debug information
-    st.info(f"🔍 Debug: Current dir: {current_dir}")
-    st.info(f"🔍 Debug: Data dir exists: {data_dir.exists()}")
-    st.info(f"🔍 Debug: Genetics dir exists: {genetics_dir.exists()}")
-    st.info(f"🔍 Debug: Genetics index exists: {genetics_index_path.exists()}")
-    
-    if genetics_index_path.exists():
-        st.success("🧬 Loading genetics-enhanced protein data with DNA-to-therapeutics context...")
-        return load_from_genetics_chunks(genetics_dir)
+    # Check if genetics-enhanced data is available
+    if genetics_index_path.exists() and genetics_dir.exists():
+        try:
+            # Verify that chunk files actually exist
+            with open(genetics_index_path, 'r') as f:
+                chunk_index = json.load(f)
+            
+            chunk_files = chunk_index.get("chunk_files", [])
+            if chunk_files and (genetics_dir / chunk_files[0]).exists():
+                st.success("🧬 Loading genetics-enhanced protein data with DNA-to-therapeutics context...")
+                return load_from_genetics_chunks(genetics_dir)
+        except Exception as e:
+            st.warning(f"⚠️ Genetics data index found but couldn't load: {e}")
     
     # Fall back to regular chunked data
     chunk_index_path = data_dir / "chunk_index.json"
