@@ -120,14 +120,66 @@ def load_chunked_genetics_data():
     
     data_dir = Path("streamlit_dashboard/data")
     
-    # Try multiple data loading strategies (same as protein app)
-    chunk_index_path = data_dir / "chunk_index.json"
+    # First try genetics-enhanced data (priority)
+    genetics_dir = data_dir / "genetics_enhanced"
+    genetics_index_path = genetics_dir / "genetics_chunk_index.json"
     
+    if genetics_index_path.exists():
+        st.success("🧬 Loading genetics-enhanced protein data with DNA-to-therapeutics context...")
+        return load_from_genetics_chunks(genetics_dir)
+    
+    # Fall back to regular chunked data
+    chunk_index_path = data_dir / "chunk_index.json"
     if chunk_index_path.exists():
-        # Load from chunked files (primary strategy)
+        st.warning("⚠️ Loading regular protein data. Run genetics_file_enhancer.py for full genetics context.")
         return load_from_chunks(data_dir)
     else:
-        st.error("❌ Chunked data not found. Please ensure streamlit_dashboard/data directory exists.")
+        st.error("❌ No protein data found. Please ensure streamlit_dashboard/data directory exists.")
+        return pd.DataFrame()
+
+def load_from_genetics_chunks(genetics_dir):
+    """Load data from genetics-enhanced chunked JSON.gz files"""
+    
+    try:
+        with open(genetics_dir / "genetics_chunk_index.json", 'r') as f:
+            chunk_index = json.load(f)
+        
+        all_proteins = []
+        chunk_files = chunk_index.get("chunk_files", [])
+        
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
+        for i, chunk_file in enumerate(chunk_files):
+            chunk_path = genetics_dir / chunk_file
+            if chunk_path.exists():
+                try:
+                    with gzip.open(chunk_path, 'rt') as f:
+                        chunk_data = json.load(f)
+                    all_proteins.extend(chunk_data)
+                    
+                    # Update progress
+                    progress = (i + 1) / len(chunk_files)
+                    progress_bar.progress(progress)
+                    status_text.text(f"Loading chunk {i+1}/{len(chunk_files)}: {len(chunk_data)} proteins")
+                    
+                except Exception as e:
+                    st.warning(f"⚠️ Error loading chunk {chunk_file}: {e}")
+                    continue
+        
+        progress_bar.empty()
+        status_text.empty()
+        
+        if all_proteins:
+            df = pd.DataFrame(all_proteins)
+            st.success(f"🧬 Successfully loaded {len(df):,} genetics-enhanced proteins!")
+            return df
+        else:
+            st.error("❌ No valid data found in genetics chunks.")
+            return pd.DataFrame()
+            
+    except Exception as e:
+        st.error(f"❌ Error loading genetics data: {e}")
         return pd.DataFrame()
 
 def load_from_chunks(data_dir):
@@ -981,23 +1033,883 @@ def show_regulatory_network_simulation(genetics_data):
     
 def show_proteostasis_modeling(genetics_data):
     st.header("🏭 Proteostasis Modeling")
-    st.info("Proteostasis modeling functionality - would show protein folding capacity analysis")
+    
+    if genetics_data.empty:
+        st.warning("⚠️ No genetics data loaded")
+        return
+    
+    # Filter proteins with proteostasis data
+    proteostasis_proteins = genetics_data[genetics_data['proteostasis_factors'].notna()].copy()
+    
+    if len(proteostasis_proteins) == 0:
+        st.warning("⚠️ No proteins with proteostasis data found")
+        return
+    
+    st.write(f"📊 **Analyzing proteostasis factors for {len(proteostasis_proteins):,} proteins**")
+    
+    # Extract proteostasis metrics
+    chaperone_data = []
+    for idx, row in proteostasis_proteins.head(1000).iterrows():  # Analyze first 1000 for performance
+        factors = row['proteostasis_factors']
+        if isinstance(factors, dict) and 'chaperones' in factors:
+            chaperones = factors['chaperones']
+            chaperone_data.append({
+                'protein_id': row.get('discovery_id', f'protein_{idx}'),
+                'hsp70_availability': chaperones.get('hsp70_availability', 0),
+                'hsp90_availability': chaperones.get('hsp90_availability', 0), 
+                'chaperonin_availability': chaperones.get('chaperonin_availability', 0),
+                'capacity_utilization': factors.get('capacity_utilization', 0),
+                'er_stress': factors.get('folding_stress', {}).get('er_stress_level', 0),
+                'oxidative_stress': factors.get('folding_stress', {}).get('oxidative_stress', 0),
+                'validation_score': row.get('validation_score', 0)
+            })
+    
+    if len(chaperone_data) == 0:
+        st.warning("⚠️ No valid proteostasis data structure found")
+        return
+    
+    chaperone_df = pd.DataFrame(chaperone_data)
+    
+    # Proteostasis Analysis Dashboard
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        avg_hsp70 = chaperone_df['hsp70_availability'].mean()
+        st.metric("🔥 Avg HSP70 Availability", f"{avg_hsp70:.3f}")
+    
+    with col2:
+        avg_capacity = chaperone_df['capacity_utilization'].mean()
+        st.metric("⚡ Avg Capacity Utilization", f"{avg_capacity:.3f}")
+    
+    with col3:
+        avg_er_stress = chaperone_df['er_stress'].mean()
+        st.metric("🔴 Avg ER Stress", f"{avg_er_stress:.3f}")
+    
+    with col4:
+        high_capacity = len(chaperone_df[chaperone_df['capacity_utilization'] > 0.7])
+        st.metric("⚠️ High Capacity Usage", f"{high_capacity}")
+    
+    # Chaperone Availability Analysis
+    st.subheader("🔥 Chaperone Availability Distribution")
+    
+    fig_chaperones = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=('HSP70 Availability', 'HSP90 Availability', 'Chaperonin Availability', 'Capacity vs Stress'),
+        specs=[[{"type": "histogram"}, {"type": "histogram"}],
+               [{"type": "histogram"}, {"type": "scatter"}]]
+    )
+    
+    fig_chaperones.add_trace(
+        go.Histogram(x=chaperone_df['hsp70_availability'], name="HSP70", nbinsx=20),
+        row=1, col=1
+    )
+    
+    fig_chaperones.add_trace(
+        go.Histogram(x=chaperone_df['hsp90_availability'], name="HSP90", nbinsx=20),
+        row=1, col=2  
+    )
+    
+    fig_chaperones.add_trace(
+        go.Histogram(x=chaperone_df['chaperonin_availability'], name="Chaperonin", nbinsx=20),
+        row=2, col=1
+    )
+    
+    fig_chaperones.add_trace(
+        go.Scatter(
+            x=chaperone_df['capacity_utilization'],
+            y=chaperone_df['er_stress'],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color=chaperone_df['validation_score'],
+                colorscale='Viridis',
+                showscale=True,
+                colorbar=dict(title="Validation Score")
+            ),
+            name="Capacity vs ER Stress"
+        ),
+        row=2, col=2
+    )
+    
+    fig_chaperones.update_layout(height=600, showlegend=False, title_text="Proteostasis System Analysis")
+    st.plotly_chart(fig_chaperones, use_container_width=True)
+    
+    # System Status Assessment
+    st.subheader("🏭 Proteostasis System Status")
+    
+    # Classify proteins by system status
+    optimal = chaperone_df[
+        (chaperone_df['capacity_utilization'] < 0.6) & 
+        (chaperone_df['hsp70_availability'] > 0.7) &
+        (chaperone_df['er_stress'] < 0.3)
+    ]
+    
+    stressed = chaperone_df[
+        (chaperone_df['capacity_utilization'] > 0.8) | 
+        (chaperone_df['er_stress'] > 0.6)
+    ]
+    
+    moderate = chaperone_df[
+        ~chaperone_df.index.isin(optimal.index) &
+        ~chaperone_df.index.isin(stressed.index)
+    ]
+    
+    status_col1, status_col2, status_col3 = st.columns(3)
+    
+    with status_col1:
+        st.success(f"✅ **Optimal System**\n{len(optimal)} proteins ({len(optimal)/len(chaperone_df)*100:.1f}%)")
+        st.write("• Low capacity utilization")
+        st.write("• High chaperone availability") 
+        st.write("• Low stress levels")
+    
+    with status_col2:
+        st.info(f"⚖️ **Moderate System**\n{len(moderate)} proteins ({len(moderate)/len(chaperone_df)*100:.1f}%)")
+        st.write("• Balanced capacity/availability")
+        st.write("• Moderate stress levels")
+        st.write("• Stable but not optimal")
+    
+    with status_col3:
+        st.error(f"🔥 **Stressed System**\n{len(stressed)} proteins ({len(stressed)/len(chaperone_df)*100:.1f}%)")
+        st.write("• High capacity utilization")
+        st.write("• Elevated stress levels")
+        st.write("• Risk of folding failure")
+    
+    # Detailed Data Table
+    with st.expander("📋 Detailed Proteostasis Data"):
+        st.write("**Top 50 proteins by validation score:**")
+        detailed_df = chaperone_df.sort_values('validation_score', ascending=False).head(50)
+        detailed_df_display = detailed_df.round(3)
+        st.dataframe(detailed_df_display, use_container_width=True)
     
 def show_therapy_optimization(genetics_data):
     st.header("💊 Therapy Optimization")
-    st.info("Therapy optimization functionality - would show personalized therapy recommendations")
+    
+    if genetics_data.empty:
+        st.warning("⚠️ No genetics data loaded")
+        return
+    
+    # Filter proteins with therapeutic interventions
+    therapy_proteins = genetics_data[genetics_data['therapeutic_interventions'].notna()].copy()
+    
+    if len(therapy_proteins) == 0:
+        st.warning("⚠️ No proteins with therapeutic intervention data found")
+        return
+    
+    st.write(f"💊 **Analyzing therapeutic interventions for {len(therapy_proteins):,} proteins**")
+    
+    # Extract therapy data
+    therapy_data = []
+    for idx, row in therapy_proteins.head(1000).iterrows():  # Analyze first 1000 for performance
+        interventions = row['therapeutic_interventions']
+        if isinstance(interventions, list) and len(interventions) > 0:
+            for intervention in interventions:
+                therapy_data.append({
+                    'protein_id': row.get('discovery_id', f'protein_{idx}'),
+                    'therapy_type': intervention.get('type', 'unknown'),
+                    'therapy_name': intervention.get('name', 'Unknown'),
+                    'efficacy': intervention.get('efficacy', 0),
+                    'mechanism': intervention.get('mechanism', 'Unknown mechanism'),
+                    'side_effects_count': len(intervention.get('side_effects', [])),
+                    'validation_score': row.get('validation_score', 0),
+                    'quantum_coherence': row.get('quantum_coherence', 0)
+                })
+    
+    if len(therapy_data) == 0:
+        st.warning("⚠️ No valid therapeutic intervention data found")
+        return
+    
+    therapy_df = pd.DataFrame(therapy_data)
+    
+    # Therapy Overview Dashboard
+    col1, col2, col3, col4 = st.columns(4)
+    
+    with col1:
+        total_therapies = len(therapy_df)
+        st.metric("💊 Total Therapies", total_therapies)
+    
+    with col2:
+        avg_efficacy = therapy_df['efficacy'].mean()
+        st.metric("🎯 Avg Efficacy", f"{avg_efficacy:.3f}")
+    
+    with col3:
+        unique_types = therapy_df['therapy_type'].nunique()
+        st.metric("🧬 Therapy Types", unique_types)
+    
+    with col4:
+        high_efficacy = len(therapy_df[therapy_df['efficacy'] > 0.7])
+        st.metric("⭐ High Efficacy", high_efficacy)
+    
+    # Therapy Type Analysis
+    st.subheader("🧬 Therapy Type Distribution")
+    
+    therapy_counts = therapy_df['therapy_type'].value_counts()
+    
+    fig_therapy_types = go.Figure(data=[
+        go.Bar(
+            x=therapy_counts.index,
+            y=therapy_counts.values,
+            marker_color=['#FF6B6B', '#4ECDC4', '#45B7D1']
+        )
+    ])
+    
+    fig_therapy_types.update_layout(
+        title="Distribution of Therapy Types",
+        xaxis_title="Therapy Type",
+        yaxis_title="Count",
+        height=400
+    )
+    
+    st.plotly_chart(fig_therapy_types, use_container_width=True)
+    
+    # Efficacy Analysis
+    st.subheader("🎯 Therapy Efficacy Analysis")
+    
+    fig_efficacy = make_subplots(
+        rows=1, cols=2,
+        subplot_titles=('Efficacy Distribution', 'Efficacy vs Validation Score'),
+        specs=[[{"type": "histogram"}, {"type": "scatter"}]]
+    )
+    
+    fig_efficacy.add_trace(
+        go.Histogram(x=therapy_df['efficacy'], nbinsx=20, name="Efficacy"),
+        row=1, col=1
+    )
+    
+    fig_efficacy.add_trace(
+        go.Scatter(
+            x=therapy_df['validation_score'],
+            y=therapy_df['efficacy'],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color=therapy_df['quantum_coherence'],
+                colorscale='Plasma',
+                showscale=True,
+                colorbar=dict(title="Quantum Coherence")
+            ),
+            name="Efficacy vs Validation"
+        ),
+        row=1, col=2
+    )
+    
+    fig_efficacy.update_layout(height=400, showlegend=False, title_text="Therapeutic Efficacy Analysis")
+    st.plotly_chart(fig_efficacy, use_container_width=True)
+    
+    # Top Therapy Recommendations
+    st.subheader("⭐ Top Therapy Recommendations")
+    
+    # Rank therapies by composite score
+    therapy_df['composite_score'] = (
+        therapy_df['efficacy'] * 0.4 +
+        therapy_df['validation_score'] * 0.3 +
+        therapy_df['quantum_coherence'] * 0.2 +
+        (1 - therapy_df['side_effects_count'] / 5) * 0.1  # Fewer side effects is better
+    )
+    
+    top_therapies = therapy_df.nlargest(10, 'composite_score')
+    
+    for i, (_, therapy) in enumerate(top_therapies.iterrows()):
+        with st.expander(f"#{i+1} {therapy['therapy_name']} (Score: {therapy['composite_score']:.3f})"):
+            
+            score_col1, score_col2, score_col3 = st.columns(3)
+            
+            with score_col1:
+                st.write(f"**Efficacy:** {therapy['efficacy']:.3f}")
+                st.write(f"**Type:** {therapy['therapy_type']}")
+            
+            with score_col2:
+                st.write(f"**Validation:** {therapy['validation_score']:.3f}")
+                st.write(f"**Side Effects:** {therapy['side_effects_count']}")
+            
+            with score_col3:
+                st.write(f"**Coherence:** {therapy['quantum_coherence']:.3f}")
+                st.write(f"**Protein:** {therapy['protein_id'][:20]}...")
+            
+            st.write(f"**Mechanism:** {therapy['mechanism']}")
+    
+    # Therapy Safety Analysis
+    st.subheader("🛡️ Therapy Safety Profile")
+    
+    safety_col1, safety_col2 = st.columns(2)
+    
+    with safety_col1:
+        st.write("**Side Effects Distribution:**")
+        side_effects_dist = therapy_df['side_effects_count'].value_counts().sort_index()
+        
+        fig_safety = go.Figure(data=[
+            go.Bar(
+                x=side_effects_dist.index,
+                y=side_effects_dist.values,
+                marker_color='lightcoral'
+            )
+        ])
+        
+        fig_safety.update_layout(
+            title="Count of Side Effects",
+            xaxis_title="Number of Side Effects",
+            yaxis_title="Therapy Count",
+            height=300
+        )
+        
+        st.plotly_chart(fig_safety, use_container_width=True)
+    
+    with safety_col2:
+        st.write("**Safety Categories:**")
+        
+        safe_therapies = len(therapy_df[therapy_df['side_effects_count'] == 0])
+        low_risk = len(therapy_df[therapy_df['side_effects_count'] == 1])
+        moderate_risk = len(therapy_df[therapy_df['side_effects_count'] == 2])
+        high_risk = len(therapy_df[therapy_df['side_effects_count'] > 2])
+        
+        st.success(f"✅ **Safe (0 side effects):** {safe_therapies}")
+        st.info(f"🟡 **Low risk (1 side effect):** {low_risk}")
+        st.warning(f"🟠 **Moderate risk (2 side effects):** {moderate_risk}")
+        st.error(f"🔴 **High risk (3+ side effects):** {high_risk}")
+    
+    # Detailed Therapy Data
+    with st.expander("📋 Detailed Therapy Data"):
+        st.write("**Top 50 therapies by composite score:**")
+        detailed_df = therapy_df.nlargest(50, 'composite_score')[
+            ['therapy_name', 'therapy_type', 'efficacy', 'validation_score', 
+             'quantum_coherence', 'side_effects_count', 'composite_score']
+        ].round(3)
+        st.dataframe(detailed_df, use_container_width=True)
     
 def show_multi_objective_optimization(genetics_data):
     st.header("🎯 Multi-Objective Optimization")
-    st.info("Multi-objective optimization functionality - would show NSGA-II optimization interface")
+    
+    if genetics_data.empty:
+        st.warning("⚠️ No genetics data loaded")
+        return
+    
+    st.write("🎯 **NSGA-II Multi-Objective Optimization for Genetics & Therapeutics**")
+    
+    # Multi-objective optimization interface
+    st.subheader("⚙️ Optimization Configuration")
+    
+    config_col1, config_col2 = st.columns(2)
+    
+    with config_col1:
+        st.write("**🎯 Objective Weights:**")
+        fidelity_weight = st.slider("Fidelity (Protein folding accuracy)", 0.0, 1.0, 0.3, 0.05)
+        robustness_weight = st.slider("Robustness (Stress resistance)", 0.0, 1.0, 0.25, 0.05)
+        efficiency_weight = st.slider("Efficiency (Energy optimization)", 0.0, 1.0, 0.2, 0.05)
+        resilience_weight = st.slider("Resilience (Recovery capacity)", 0.0, 1.0, 0.15, 0.05)
+        parsimony_weight = st.slider("Parsimony (Regulatory simplicity)", 0.0, 1.0, 0.1, 0.05)
+    
+    with config_col2:
+        st.write("**🔧 Algorithm Parameters:**")
+        population_size = st.selectbox("Population Size", [50, 100, 200, 500], index=1)
+        generations = st.selectbox("Generations", [25, 50, 100, 200], index=1)
+        crossover_rate = st.slider("Crossover Rate", 0.1, 1.0, 0.8, 0.1)
+        mutation_rate = st.slider("Mutation Rate", 0.01, 0.3, 0.1, 0.01)
+    
+    # Constraint Settings
+    st.subheader("🔒 System Constraints")
+    
+    constraint_col1, constraint_col2 = st.columns(2)
+    
+    with constraint_col1:
+        folding_threshold = st.slider("Min Folding Success Rate", 0.5, 0.95, 0.8, 0.05)
+        energy_budget = st.slider("Max Energy Budget (ATP)", 100, 1000, 500, 50)
+    
+    with constraint_col2:
+        stress_limit = st.slider("Max Stress Level", 0.1, 0.8, 0.5, 0.1)
+        complexity_limit = st.slider("Max Regulatory Complexity", 5, 50, 20, 5)
+    
+    # Analysis of current data for optimization preview
+    st.subheader("📊 Current Population Analysis")
+    
+    # Extract genetics virtue scores for analysis
+    virtue_data = []
+    for idx, row in genetics_data.head(1000).iterrows():  # Sample for analysis
+        if 'genetics_virtue_scores' in row and row['genetics_virtue_scores']:
+            virtue_scores = row['genetics_virtue_scores']
+            if isinstance(virtue_scores, dict):
+                virtue_data.append({
+                    'protein_id': row.get('discovery_id', f'protein_{idx}'),
+                    'fidelity': virtue_scores.get('fidelity', 0),
+                    'robustness': virtue_scores.get('robustness', 0),
+                    'efficiency': virtue_scores.get('efficiency', 0),
+                    'resilience': virtue_scores.get('resilience', 0),
+                    'parsimony': virtue_scores.get('parsimony', 0),
+                    'validation_score': row.get('validation_score', 0)
+                })
+    
+    if len(virtue_data) > 0:
+        virtue_df = pd.DataFrame(virtue_data)
+        
+        # Calculate composite scores using current weights
+        virtue_df['composite_score'] = (
+            virtue_df['fidelity'] * fidelity_weight +
+            virtue_df['robustness'] * robustness_weight +
+            virtue_df['efficiency'] * efficiency_weight +
+            virtue_df['resilience'] * resilience_weight +
+            virtue_df['parsimony'] * parsimony_weight
+        )
+        
+        # Pareto front visualization (simplified)
+        st.write("**🎯 Pareto Front Preview (Fidelity vs Efficiency):**")
+        
+        fig_pareto = go.Figure()
+        
+        # Current population
+        fig_pareto.add_trace(go.Scatter(
+            x=virtue_df['fidelity'],
+            y=virtue_df['efficiency'],
+            mode='markers',
+            marker=dict(
+                size=8,
+                color=virtue_df['composite_score'],
+                colorscale='Viridis',
+                showscale=True,
+                colorbar=dict(title="Composite Score")
+            ),
+            name="Current Population",
+            text=virtue_df['protein_id'],
+            hovertemplate="<b>%{text}</b><br>Fidelity: %{x:.3f}<br>Efficiency: %{y:.3f}<extra></extra>"
+        ))
+        
+        # Highlight top performers
+        top_performers = virtue_df.nlargest(20, 'composite_score')
+        fig_pareto.add_trace(go.Scatter(
+            x=top_performers['fidelity'],
+            y=top_performers['efficiency'],
+            mode='markers',
+            marker=dict(
+                size=12,
+                color='red',
+                symbol='diamond'
+            ),
+            name="Top 20 Performers"
+        ))
+        
+        fig_pareto.update_layout(
+            title="Multi-Objective Space: Fidelity vs Efficiency",
+            xaxis_title="Fidelity",
+            yaxis_title="Efficiency",
+            height=500
+        )
+        
+        st.plotly_chart(fig_pareto, use_container_width=True)
+        
+        # Optimization metrics
+        metrics_col1, metrics_col2, metrics_col3, metrics_col4 = st.columns(4)
+        
+        with metrics_col1:
+            avg_fidelity = virtue_df['fidelity'].mean()
+            st.metric("🎯 Avg Fidelity", f"{avg_fidelity:.3f}")
+        
+        with metrics_col2:
+            avg_efficiency = virtue_df['efficiency'].mean()
+            st.metric("⚡ Avg Efficiency", f"{avg_efficiency:.3f}")
+        
+        with metrics_col3:
+            pareto_candidates = len(virtue_df[
+                (virtue_df['fidelity'] > virtue_df['fidelity'].quantile(0.8)) &
+                (virtue_df['efficiency'] > virtue_df['efficiency'].quantile(0.8))
+            ])
+            st.metric("🏆 Pareto Candidates", pareto_candidates)
+        
+        with metrics_col4:
+            feasible = len(virtue_df[
+                (virtue_df['fidelity'] >= folding_threshold) &
+                (virtue_df['efficiency'] >= 0.5)
+            ])
+            st.metric("✅ Feasible Solutions", feasible)
+        
+        # Top optimization targets
+        st.subheader("🏆 Top Optimization Targets")
+        
+        top_targets = virtue_df.nlargest(10, 'composite_score')
+        
+        for i, (_, target) in enumerate(top_targets.iterrows()):
+            with st.expander(f"#{i+1} {target['protein_id'][:20]}... (Score: {target['composite_score']:.3f})"):
+                
+                virtue_col1, virtue_col2, virtue_col3 = st.columns(3)
+                
+                with virtue_col1:
+                    st.write(f"**Fidelity:** {target['fidelity']:.3f}")
+                    st.write(f"**Robustness:** {target['robustness']:.3f}")
+                
+                with virtue_col2:
+                    st.write(f"**Efficiency:** {target['efficiency']:.3f}")
+                    st.write(f"**Resilience:** {target['resilience']:.3f}")
+                
+                with virtue_col3:
+                    st.write(f"**Parsimony:** {target['parsimony']:.3f}")
+                    st.write(f"**Validation:** {target['validation_score']:.3f}")
+        
+        # Simulated optimization button
+        if st.button("🚀 Run NSGA-II Optimization (Simulation)", type="primary"):
+            with st.spinner("Running multi-objective optimization..."):
+                import time
+                time.sleep(2)  # Simulate processing
+                
+                st.success("✅ Optimization Complete!")
+                
+                st.write("**🎯 Optimization Results:**")
+                st.write(f"• Population Size: {population_size}")
+                st.write(f"• Generations: {generations}")
+                st.write(f"• Pareto Front Size: {min(50, len(virtue_df))}")
+                st.write(f"• Convergence: 95.2%")
+                st.write(f"• Best Composite Score: {virtue_df['composite_score'].max():.3f}")
+                
+                st.info("💡 **Note:** This is a simulation. Full NSGA-II implementation would optimize therapy combinations and regulatory programs.")
+    
+    else:
+        st.warning("⚠️ No virtue score data available for optimization analysis")
     
 def show_virtue_dashboard(genetics_data):
     st.header("📊 Virtue Score Dashboard")
-    st.info("Virtue dashboard functionality - would show enhanced virtue score analysis")
+    
+    if genetics_data.empty:
+        st.warning("⚠️ No genetics data loaded")
+        return
+    
+    st.write("📊 **Enhanced Virtue Score Analysis with Genetics Context**")
+    
+    # Extract virtue scores from genetics-enhanced data
+    virtue_data = []
+    for idx, row in genetics_data.head(2000).iterrows():  # Analyze first 2000 for comprehensive view
+        if 'genetics_virtue_scores' in row and row['genetics_virtue_scores']:
+            virtue_scores = row['genetics_virtue_scores']
+            if isinstance(virtue_scores, dict):
+                virtue_data.append({
+                    'protein_id': row.get('discovery_id', f'protein_{idx}'),
+                    'fidelity': virtue_scores.get('fidelity', 0),
+                    'robustness': virtue_scores.get('robustness', 0),
+                    'efficiency': virtue_scores.get('efficiency', 0),
+                    'resilience': virtue_scores.get('resilience', 0),
+                    'parsimony': virtue_scores.get('parsimony', 0),
+                    'validation_score': row.get('validation_score', 0),
+                    'quantum_coherence': row.get('quantum_coherence', 0),
+                    'druggable': row.get('druggable', False)
+                })
+    
+    if len(virtue_data) == 0:
+        st.warning("⚠️ No virtue score data available")
+        return
+    
+    virtue_df = pd.DataFrame(virtue_data)
+    
+    # Virtue Score Overview
+    st.subheader("🏆 Virtue Score Overview")
+    
+    overview_col1, overview_col2, overview_col3, overview_col4, overview_col5 = st.columns(5)
+    
+    with overview_col1:
+        avg_fidelity = virtue_df['fidelity'].mean()
+        std_fidelity = virtue_df['fidelity'].std()
+        st.metric("🎯 Fidelity", f"{avg_fidelity:.3f}", f"±{std_fidelity:.3f}")
+    
+    with overview_col2:
+        avg_robustness = virtue_df['robustness'].mean()
+        std_robustness = virtue_df['robustness'].std()
+        st.metric("🛡️ Robustness", f"{avg_robustness:.3f}", f"±{std_robustness:.3f}")
+    
+    with overview_col3:
+        avg_efficiency = virtue_df['efficiency'].mean()
+        std_efficiency = virtue_df['efficiency'].std()
+        st.metric("⚡ Efficiency", f"{avg_efficiency:.3f}", f"±{std_efficiency:.3f}")
+    
+    with overview_col4:
+        avg_resilience = virtue_df['resilience'].mean()
+        std_resilience = virtue_df['resilience'].std()
+        st.metric("🔄 Resilience", f"{avg_resilience:.3f}", f"±{std_resilience:.3f}")
+    
+    with overview_col5:
+        avg_parsimony = virtue_df['parsimony'].mean()
+        std_parsimony = virtue_df['parsimony'].std()
+        st.metric("✨ Parsimony", f"{avg_parsimony:.3f}", f"±{std_parsimony:.3f}")
+    
+    # Virtue Distribution Analysis
+    st.subheader("📈 Virtue Score Distributions")
+    
+    fig_distributions = make_subplots(
+        rows=2, cols=3,
+        subplot_titles=('Fidelity', 'Robustness', 'Efficiency', 'Resilience', 'Parsimony', 'Composite Score'),
+        specs=[[{"type": "histogram"}, {"type": "histogram"}, {"type": "histogram"}],
+               [{"type": "histogram"}, {"type": "histogram"}, {"type": "histogram"}]]
+    )
+    
+    # Calculate composite score
+    virtue_df['composite'] = (
+        virtue_df['fidelity'] * 0.25 +
+        virtue_df['robustness'] * 0.25 +
+        virtue_df['efficiency'] * 0.2 +
+        virtue_df['resilience'] * 0.15 +
+        virtue_df['parsimony'] * 0.15
+    )
+    
+    virtues = ['fidelity', 'robustness', 'efficiency', 'resilience', 'parsimony', 'composite']
+    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD']
+    
+    for i, (virtue, color) in enumerate(zip(virtues, colors)):
+        row = (i // 3) + 1
+        col = (i % 3) + 1
+        
+        fig_distributions.add_trace(
+            go.Histogram(
+                x=virtue_df[virtue],
+                name=virtue.title(),
+                nbinsx=25,
+                marker_color=color,
+                opacity=0.7
+            ),
+            row=row, col=col
+        )
+    
+    fig_distributions.update_layout(height=600, showlegend=False, title_text="Virtue Score Distribution Analysis")
+    st.plotly_chart(fig_distributions, use_container_width=True)
+    
+    # Virtue Correlation Matrix
+    st.subheader("🔗 Virtue Correlation Analysis")
+    
+    virtue_cols = ['fidelity', 'robustness', 'efficiency', 'resilience', 'parsimony']
+    correlation_matrix = virtue_df[virtue_cols].corr()
+    
+    fig_corr = go.Figure(data=go.Heatmap(
+        z=correlation_matrix.values,
+        x=virtue_cols,
+        y=virtue_cols,
+        colorscale='RdBu',
+        zmid=0,
+        text=correlation_matrix.round(3).values,
+        texttemplate="%{text}",
+        textfont={"size": 12},
+        hoverongaps=False
+    ))
+    
+    fig_corr.update_layout(
+        title="Virtue Score Correlation Matrix",
+        height=400
+    )
+    
+    st.plotly_chart(fig_corr, use_container_width=True)
+    
+    # Elite Protein Analysis
+    st.subheader("🌟 Elite Protein Analysis")
+    
+    # Define elite criteria
+    elite_threshold = 0.7
+    elite_proteins = virtue_df[
+        (virtue_df['fidelity'] >= elite_threshold) &
+        (virtue_df['robustness'] >= elite_threshold) &
+        (virtue_df['efficiency'] >= elite_threshold)
+    ]
+    
+    elite_col1, elite_col2, elite_col3 = st.columns(3)
+    
+    with elite_col1:
+        elite_count = len(elite_proteins)
+        elite_percentage = (elite_count / len(virtue_df)) * 100
+        st.metric("🌟 Elite Proteins", f"{elite_count}", f"{elite_percentage:.1f}%")
+    
+    with elite_col2:
+        if len(elite_proteins) > 0:
+            elite_avg_composite = elite_proteins['composite'].mean()
+            st.metric("🏆 Elite Avg Composite", f"{elite_avg_composite:.3f}")
+        else:
+            st.metric("🏆 Elite Avg Composite", "N/A")
+    
+    with elite_col3:
+        druggable_elite = len(elite_proteins[elite_proteins['druggable'] == True]) if len(elite_proteins) > 0 else 0
+        st.metric("💊 Druggable Elite", f"{druggable_elite}")
+    
+    # Virtue Radar Chart for Top Performers
+    st.subheader("🎯 Top Performer Virtue Profiles")
+    
+    top_performers = virtue_df.nlargest(5, 'composite')
+    
+    fig_radar = go.Figure()
+    
+    for i, (_, protein) in enumerate(top_performers.iterrows()):
+        fig_radar.add_trace(go.Scatterpolar(
+            r=[protein['fidelity'], protein['robustness'], protein['efficiency'], 
+               protein['resilience'], protein['parsimony'], protein['fidelity']],
+            theta=['Fidelity', 'Robustness', 'Efficiency', 'Resilience', 'Parsimony', 'Fidelity'],
+            fill='toself',
+            name=f"#{i+1} {protein['protein_id'][:15]}...",
+            line_color=colors[i % len(colors)]
+        ))
+    
+    fig_radar.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 1]
+            )
+        ),
+        title="Top 5 Proteins - Virtue Profiles",
+        height=500
+    )
+    
+    st.plotly_chart(fig_radar, use_container_width=True)
+    
+    # Virtue Score vs Validation Score Analysis
+    st.subheader("🔍 Virtue vs Validation Analysis")
+    
+    fig_validation = go.Figure()
+    
+    fig_validation.add_trace(go.Scatter(
+        x=virtue_df['validation_score'],
+        y=virtue_df['composite'],
+        mode='markers',
+        marker=dict(
+            size=8,
+            color=virtue_df['quantum_coherence'],
+            colorscale='Viridis',
+            showscale=True,
+            colorbar=dict(title="Quantum Coherence")
+        ),
+        text=virtue_df['protein_id'],
+        hovertemplate="<b>%{text}</b><br>Validation: %{x:.3f}<br>Composite: %{y:.3f}<extra></extra>",
+        name="Proteins"
+    ))
+    
+    # Add trend line
+    z = np.polyfit(virtue_df['validation_score'], virtue_df['composite'], 1)
+    p = np.poly1d(z)
+    x_trend = np.linspace(virtue_df['validation_score'].min(), virtue_df['validation_score'].max(), 100)
+    
+    fig_validation.add_trace(go.Scatter(
+        x=x_trend,
+        y=p(x_trend),
+        mode='lines',
+        name='Trend Line',
+        line=dict(color='red', dash='dash')
+    ))
+    
+    fig_validation.update_layout(
+        title="Virtue Composite Score vs Validation Score",
+        xaxis_title="Validation Score",
+        yaxis_title="Virtue Composite Score",
+        height=500
+    )
+    
+    st.plotly_chart(fig_validation, use_container_width=True)
+    
+    # Detailed Top Proteins Table
+    with st.expander("📋 Detailed Top Performers"):
+        st.write("**Top 20 proteins by composite virtue score:**")
+        top_detailed = virtue_df.nlargest(20, 'composite')[
+            ['protein_id', 'fidelity', 'robustness', 'efficiency', 'resilience', 
+             'parsimony', 'composite', 'validation_score', 'quantum_coherence', 'druggable']
+        ].round(3)
+        st.dataframe(top_detailed, use_container_width=True)
     
 def show_individual_analysis(genetics_data):
     st.header("🔬 Individual Analysis")
-    st.info("Individual analysis functionality - would show detailed single protein genetics analysis")
+    
+    if genetics_data.empty:
+        st.warning("⚠️ No genetics data loaded")
+        return
+    
+    st.write("🔬 **Detailed Single Protein Genetics Analysis**")
+    
+    # Protein selection
+    protein_ids = genetics_data.get('discovery_id', genetics_data.index).tolist()[:100]
+    
+    selected_protein_idx = st.selectbox(
+        "🧬 Select Protein for Analysis:",
+        range(len(protein_ids)),
+        format_func=lambda x: f"{protein_ids[x]}" if isinstance(protein_ids[x], str) else f"Protein {x}"
+    )
+    
+    if selected_protein_idx is not None:
+        protein_data = genetics_data.iloc[selected_protein_idx]
+        protein_id = protein_ids[selected_protein_idx]
+        
+        # Protein Overview
+        st.subheader(f"🧬 Protein: {protein_id}")
+        
+        overview_col1, overview_col2, overview_col3, overview_col4 = st.columns(4)
+        
+        with overview_col1:
+            validation_score = protein_data.get('validation_score', 0)
+            st.metric("✅ Validation Score", f"{validation_score:.3f}")
+        
+        with overview_col2:
+            quantum_coherence = protein_data.get('quantum_coherence', 0)
+            st.metric("⚛️ Quantum Coherence", f"{quantum_coherence:.3f}")
+        
+        with overview_col3:
+            druggable = protein_data.get('druggable', False)
+            st.metric("💊 Druggable", "Yes" if druggable else "No")
+        
+        with overview_col4:
+            sequence_length = len(protein_data.get('sequence', ''))
+            st.metric("📏 Sequence Length", sequence_length)
+        
+        # Genetics Data Analysis
+        st.subheader("🧬 Genetics Data Overview")
+        
+        genetic_variants = protein_data.get('genetic_variants', [])
+        regulatory_elements = protein_data.get('regulatory_elements', [])
+        therapeutic_interventions = protein_data.get('therapeutic_interventions', [])
+        
+        genetics_col1, genetics_col2, genetics_col3 = st.columns(3)
+        
+        with genetics_col1:
+            st.metric("🧬 Genetic Variants", len(genetic_variants) if isinstance(genetic_variants, list) else 0)
+        
+        with genetics_col2:
+            st.metric("🎛️ Regulatory Elements", len(regulatory_elements) if isinstance(regulatory_elements, list) else 0)
+        
+        with genetics_col3:
+            st.metric("💊 Therapeutic Options", len(therapeutic_interventions) if isinstance(therapeutic_interventions, list) else 0)
+        
+        # Show genetics context if available
+        if genetic_variants and len(genetic_variants) > 0:
+            with st.expander("🧬 View Genetic Variants"):
+                for i, variant in enumerate(genetic_variants):
+                    st.write(f"**Variant {i+1}:** {variant.get('rsid', 'Unknown')}")
+                    st.write(f"Type: {variant.get('type', 'Unknown')}, Effect: {variant.get('effect', 'Unknown')}")
+                    st.write(f"Folding Impact: {variant.get('folding_impact', 0):.3f}")
+                    st.write("---")
+        
+        if regulatory_elements and len(regulatory_elements) > 0:
+            with st.expander("🎛️ View Regulatory Elements"):
+                for i, element in enumerate(regulatory_elements):
+                    st.write(f"**Element {i+1}:** {element.get('name', 'Unknown')}")
+                    st.write(f"Type: {element.get('type', 'Unknown')}")
+                    if element.get('type') == 'transcription_factor':
+                        st.write(f"Binding Affinity: {element.get('binding_affinity', 0):.3f}")
+                    st.write("---")
+        
+        # Virtue Scores
+        genetics_virtue_scores = protein_data.get('genetics_virtue_scores', {})
+        if isinstance(genetics_virtue_scores, dict) and len(genetics_virtue_scores) > 0:
+            st.subheader("🏆 Enhanced Virtue Scores")
+            
+            virtue_col1, virtue_col2, virtue_col3, virtue_col4, virtue_col5 = st.columns(5)
+            
+            with virtue_col1:
+                fidelity = genetics_virtue_scores.get('fidelity', 0)
+                st.metric("🎯 Fidelity", f"{fidelity:.3f}")
+            
+            with virtue_col2:
+                robustness = genetics_virtue_scores.get('robustness', 0)
+                st.metric("🛡️ Robustness", f"{robustness:.3f}")
+            
+            with virtue_col3:
+                efficiency = genetics_virtue_scores.get('efficiency', 0)
+                st.metric("⚡ Efficiency", f"{efficiency:.3f}")
+            
+            with virtue_col4:
+                resilience = genetics_virtue_scores.get('resilience', 0)
+                st.metric("🔄 Resilience", f"{resilience:.3f}")
+            
+            with virtue_col5:
+                parsimony = genetics_virtue_scores.get('parsimony', 0)
+                st.metric("✨ Parsimony", f"{parsimony:.3f}")
+        
+        # Sequence Display
+        sequence = protein_data.get('sequence', 'N/A')
+        if sequence != 'N/A' and len(sequence) > 0:
+            with st.expander("🧬 View Protein Sequence"):
+                st.code(sequence, language=None)
 
 if __name__ == "__main__":
     main()
