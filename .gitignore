@@ -58,6 +58,7 @@ discovery_*.log
 *.json
 !requirements.json
 !package.json
+!streamlit_dashboard/data/genetics_enhanced/genetics_chunk_index.json
 
 # Generated plots and figures
 *.png
