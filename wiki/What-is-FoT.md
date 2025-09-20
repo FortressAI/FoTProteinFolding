@@ -210,23 +210,42 @@ FoT predictions have been validated through:
 ## 📚 **Learn More**
 
 ### **🎓 Educational Resources**
-- **[Quantum Analysis Deep Dive](Quantum-Analysis)** - Technical details
-- **[Breakthrough Discoveries](Breakthrough-Discoveries)** - Real examples
-- **[System Architecture](System-Architecture)** - Implementation details
-- **[API Reference](API-Reference)** - Programmatic access
+- **[Scientific Framework](Scientific-Framework-FoT)** - Complete mathematical foundation
+- **[vQbit Theory](vQbit-Theory)** - Deep dive into quantum substrate mathematics
+- **[Genetics Framework](Genetics-Framework)** - DNA-to-therapeutics optimization
+- **GitHub Repository** - Explore the complete codebase and implementation
 
-### **🤝 Collaboration Opportunities**
-- **[For Researchers](For-Researchers)** - Join validation studies
-- **[For Institutions](For-Institutions)** - Partnership frameworks
-- **[Global Collaboration Portal](Global-Collaboration-Portal)** - Apply today
+### **🤝 How to Contribute**
+- **Researchers:** Use the data for validation studies and academic research
+- **Developers:** Contribute code improvements and new features
+- **Open Source:** All code and discoveries are freely available
 
-### **📞 Contact**
-- **Scientific Questions:** research@fotprotein.org
-- **Technical Support:** technical@fotprotein.org
-- **Collaboration:** partnerships@fotprotein.org
+### **📞 Project Resources**
+- **GitHub Repository:** [https://github.com/FortressAI/FoTProteinFolding](https://github.com/FortressAI/FoTProteinFolding)
+- **Issues & Bug Reports:** Use GitHub Issues for technical questions
+- **Collaboration:** Fork the repository and submit pull requests
 
 ---
 
-**Field of Truth isn't just a new algorithm - it's a paradigm shift in how we understand and discover therapeutic proteins. By harnessing quantum mechanics, we're unlocking therapeutic possibilities that classical methods simply cannot reach.**
+## 🧬 **NEW: Genetics Framework Extension**
 
-**Join us in revolutionizing medicine through quantum discovery.** 🌟
+The Field of Truth framework has been extended with a comprehensive **5-layer genetics ontology** that transforms it from protein discovery into a complete DNA-to-therapeutics optimization platform:
+
+### **5-Layer Architecture**
+1. **Genomic:** Chromosomes, Genes, SNPs, Regulatory Regions
+2. **Epigenomic:** DNA methylation, histone marks, chromatin accessibility  
+3. **Regulatory:** Transcription factors, miRNAs, regulatory networks
+4. **Proteostasis:** Chaperones, folding quality control, protein degradation
+5. **Therapeutic:** Drug interventions, therapy optimization, clinical outcomes
+
+### **Enhanced Capabilities**
+- **Multi-Objective Optimization:** NSGA-II for virtue-weighted therapeutic design
+- **228,034+ Enhanced Discoveries:** All proteins now include complete genetics context
+- **Interactive Genetics Platform:** Dedicated Streamlit app for DNA-to-therapeutics analysis
+- **Therapeutic Optimization:** Personalized intervention recommendations
+
+---
+
+**Field of Truth isn't just a new algorithm - it's a paradigm shift in how we understand and discover therapeutic proteins. With the new genetics framework, we're now enabling complete DNA-to-therapeutics optimization through quantum-enhanced discovery.**
+
+**The future of precision medicine is here, and it's open source.** 🌟
