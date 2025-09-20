@@ -20,15 +20,37 @@ from pathlib import Path
 import networkx as nx
 from typing import Dict, List, Any, Optional
 
-# Import genetics modules
+# Import genetics modules with fallback
+GENETICS_AVAILABLE = False
 try:
+    import sys
+    import os
+    
+    # Add current directory to Python path for Streamlit Cloud
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    if current_dir not in sys.path:
+        sys.path.insert(0, current_dir)
+    
     from genetics.genetics_ontology import GeneticsOntology, VirtueType
     from genetics.genetics_optimization import GeneticsOptimizer
     from genetics.genetics_simulation import GeneticsAnalyzer
     GENETICS_AVAILABLE = True
+    
 except ImportError as e:
-    st.warning(f"⚠️ Genetics modules not fully available: {e}")
-    st.info("🔄 Running in basic protein mode without genetics enhancement")
+    # Create minimal fallback classes to prevent crashes
+    class GeneticsOntology:
+        def __init__(self): pass
+    
+    class VirtueType:
+        pass
+    
+    class GeneticsOptimizer:
+        def __init__(self): pass
+    
+    class GeneticsAnalyzer:
+        def __init__(self, neo4j_engine=None): pass
+    
+    print(f"🔄 Genetics modules not available, using fallback mode: {e}")
     GENETICS_AVAILABLE = False
 
 # Configure page
@@ -363,10 +385,24 @@ def main():
     # Route to appropriate page
     if page == "🏠 Platform Overview":
         show_platform_overview(genetics_data)
-    elif not GENETICS_AVAILABLE:
-        st.error("❌ Advanced genetics functionality requires genetics modules")
-        st.info("🔄 Please check Streamlit Cloud logs for import errors")
-        st.code("The genetics modules (genetics_ontology, genetics_optimization, genetics_simulation) could not be imported.")
+    elif not GENETICS_AVAILABLE and page != "🏠 Platform Overview":
+        st.warning("⚠️ Advanced genetics functionality not available")
+        st.info("🔄 Running in compatibility mode for Streamlit Cloud")
+        
+        st.markdown("### 🔄 **Fallback Mode Active**")
+        st.markdown("""
+        The genetics modules couldn't be loaded, but you can still:
+        - View the **Platform Overview** 
+        - Access basic protein data
+        - Understand the genetics framework architecture
+        
+        **For full functionality:**
+        - Run locally: `streamlit run genetics_streamlit_app.py --server.port 8513`
+        - All genetics analysis features available locally
+        """)
+        
+        if st.button("🏠 Return to Platform Overview"):
+            st.experimental_rerun()
     elif page == "🧬 Genetic Variants Analysis":
         show_genetic_variants_analysis(genetics_data)
     elif page == "⚙️ Regulatory Network Analysis":
@@ -386,6 +422,12 @@ def show_platform_overview(genetics_data):
     """Platform overview with genetics capabilities"""
     
     st.header("🎯 Genetics Platform Overview")
+    
+    # Show genetics availability status
+    if GENETICS_AVAILABLE:
+        st.success("✅ **Full Genetics Framework Active** - All advanced features available")
+    else:
+        st.warning("⚠️ **Compatibility Mode** - Basic functionality only (Streamlit Cloud)")
     
     col1, col2 = st.columns(2)
     
